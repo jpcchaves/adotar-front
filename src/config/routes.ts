@@ -1,6 +1,7 @@
 export const routes = {
   pets: {
     pets: '/pets',
+<<<<<<< HEAD
   },
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11,7 +12,10 @@ export const routes = {
 >>>>>>> d975492 (refactor: cleaning up template and add pets route)
   pets: {
     pets: '/',
+=======
+>>>>>>> 1c5f995 (refactor: cleaning up template and add pets route)
   },
+<<<<<<< HEAD
   pets: {
     pets: '/',
   },
@@ -73,13 +77,19 @@ export const routes = {
   },
   multiStep: '/multi-step',
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
 =======
+=======
+>>>>>>> 1c5f995 (refactor: cleaning up template and add pets route)
 =======
   blank: '/blank',
   profile: '/profile',
 >>>>>>> 9035385 (refactor: cleaning up template and add pets route)
+<<<<<<< HEAD
 >>>>>>> d975492 (refactor: cleaning up template and add pets route)
+=======
+>>>>>>> 1c5f995 (refactor: cleaning up template and add pets route)
   forms: {
     profileSettings: '/forms/profile-settings',
   },
