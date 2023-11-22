@@ -3,10 +3,21 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import PageBlankIcon from '@/components/icons/page-blank';
+import { routes } from '@/config/routes';
+=======
+>>>>>>> 9035385 (refactor: cleaning up template and add pets route)
+=======
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
+=======
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
 =======
 import PageBlankIcon from '@/components/icons/page-blank';
 import { routes } from '@/config/routes';
 >>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 89b732a (refactor: removing unused pages and adding pets page and blank page example)
@@ -33,6 +44,18 @@ import { routes } from '@/config/routes';
 =======
 >>>>>>> 62e9da3 (refactor: removing unused pages and adding pets page and blank page example)
 >>>>>>> 89b732a (refactor: removing unused pages and adding pets page and blank page example)
+=======
+<<<<<<< HEAD
+>>>>>>> 62e9da3 (refactor: removing unused pages and adding pets page and blank page example)
+=======
+=======
+import PageBlankIcon from '@/components/icons/page-blank';
+import { routes } from '@/config/routes';
+=======
+>>>>>>> 9035385 (refactor: cleaning up template and add pets route)
+>>>>>>> d975492 (refactor: cleaning up template and add pets route)
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
 import { MdPets } from 'react-icons/md';
 
 // Note: do not add href in the label object, it is rendering as label
@@ -61,8 +84,15 @@ export const menuItems = [
 =======
 =======
 =======
+<<<<<<< HEAD
 >>>>>>> 62e9da3 (refactor: removing unused pages and adding pets page and blank page example)
+<<<<<<< HEAD
 >>>>>>> 89b732a (refactor: removing unused pages and adding pets page and blank page example)
+=======
+=======
+>>>>>>> d975492 (refactor: cleaning up template and add pets route)
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
     dropdownItems: [
       {
         name: 'Pets Disponiveis',
@@ -74,6 +104,7 @@ export const menuItems = [
     name: 'blank',
     href: '/blank',
     icon: <PageBlankIcon />,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -91,10 +122,22 @@ export const menuItems = [
 >>>>>>> 1c5f995 (refactor: cleaning up template and add pets route)
 =======
 =======
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
+=======
 >>>>>>> 9035385 (refactor: cleaning up template and add pets route)
 =======
 >>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
 >>>>>>> 62e9da3 (refactor: removing unused pages and adding pets page and blank page example)
+<<<<<<< HEAD
 >>>>>>> 89b732a (refactor: removing unused pages and adding pets page and blank page example)
+=======
+=======
+>>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
+=======
+=======
+>>>>>>> 9035385 (refactor: cleaning up template and add pets route)
+>>>>>>> d975492 (refactor: cleaning up template and add pets route)
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
   },
 ];

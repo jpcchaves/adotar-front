@@ -17,6 +17,7 @@ export const routes = {
   },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   pets: {
     pets: '/',
   },
@@ -94,9 +95,13 @@ export const routes = {
 >>>>>>> 1c5f995 (refactor: cleaning up template and add pets route)
 =======
 =======
+=======
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
   blank: '/blank',
   profile: '/profile',
 =======
+=======
+>>>>>>> d975492 (refactor: cleaning up template and add pets route)
   pets: {
     pets: '/',
   },
@@ -157,9 +162,22 @@ export const routes = {
     stickyHeader: '/tables/sticky-header',
   },
   multiStep: '/multi-step',
+<<<<<<< HEAD
 >>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
+<<<<<<< HEAD
 >>>>>>> 62e9da3 (refactor: removing unused pages and adding pets page and blank page example)
+<<<<<<< HEAD
 >>>>>>> 89b732a (refactor: removing unused pages and adding pets page and blank page example)
+=======
+=======
+=======
+=======
+  blank: '/blank',
+  profile: '/profile',
+>>>>>>> 9035385 (refactor: cleaning up template and add pets route)
+>>>>>>> d975492 (refactor: cleaning up template and add pets route)
+>>>>>>> 1d0f598 (refactor: cleaning up template and add pets route)
+>>>>>>> 39065fc (refactor: cleaning up template and add pets route)
   forms: {
     profileSettings: '/forms/profile-settings',
   },
