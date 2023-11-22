@@ -1,6 +1,4 @@
-export default function NftIcon({
-  ...props
-}: React.SVGProps<SVGSVGElement>) {
+export default function NftIcon({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

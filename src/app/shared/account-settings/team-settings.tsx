@@ -34,7 +34,7 @@ const currentActiveTeams = [
 export default function TeamSettingsView() {
   const { openModal } = useModal();
   return (
-    <div className='@container'>
+    <div className="@container">
       <HorizontalFormBlockWrapper
         childrenWrapperClassName="gap-0 @lg:gap-0"
         title="Teams"

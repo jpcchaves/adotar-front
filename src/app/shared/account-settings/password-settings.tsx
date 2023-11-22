@@ -42,7 +42,7 @@ export default function PasswordSettingsView({
         validationSchema={passwordFormSchema}
         resetValues={reset}
         onSubmit={onSubmit}
-        className='@container'
+        className="@container"
         useFormProps={{
           mode: 'onChange',
           defaultValues: {

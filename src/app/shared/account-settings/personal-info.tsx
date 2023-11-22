@@ -44,7 +44,7 @@ export default function PersonalInfoView() {
       validationSchema={personalInfoFormSchema}
       // resetValues={reset}
       onSubmit={onSubmit}
-      className='@container'
+      className="@container"
       useFormProps={{
         mode: 'onChange',
         defaultValues,

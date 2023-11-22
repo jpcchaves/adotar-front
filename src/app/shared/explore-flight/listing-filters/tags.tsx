@@ -1,5 +1,8 @@
 import cn from '@/utils/class-names';
-import { initialState, tags } from '@/app/shared/explore-flight/listing-filters/filter-utils';
+import {
+  initialState,
+  tags,
+} from '@/app/shared/explore-flight/listing-filters/filter-utils';
 import { useFilterControls } from '@/hooks/use-filter-control';
 import Filter from '@/app/shared/explore-flight/listing-filters/filter';
 

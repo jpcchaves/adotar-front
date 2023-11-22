@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unknown-property */
-export default function RealEstateIcon({ ...props }: React.SVGProps<SVGSVGElement>) {
+export default function RealEstateIcon({
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       version="1.1"

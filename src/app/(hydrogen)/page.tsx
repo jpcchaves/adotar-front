@@ -1,10 +1,10 @@
-import FileDashboard from '@/app/shared/file/dashboard';
 import { metaObject } from '@/config/site.config';
+import PetsPage from './pets/page';
 
 export const metadata = {
-  ...metaObject(),
+  ...metaObject('Pets'),
 };
 
-export default function FileDashboardPage() {
-  return <FileDashboard />;
+export default function PetsListPage() {
+  return <PetsPage />;
 }

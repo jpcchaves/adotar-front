@@ -27,7 +27,7 @@ export default function ProductFeed() {
     : modernProductsGrid;
 
   return (
-    <div className='@container'>
+    <div className="@container">
       <div className="grid grid-cols-1 gap-x-5 gap-y-6 @md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] @xl:gap-x-7 @xl:gap-y-9 @4xl:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] @6xl:grid-cols-[repeat(auto-fill,minmax(364px,1fr))]">
         {filteredData
           ?.slice(0, nextPage)
