@@ -4,7 +4,7 @@ import logoImg from '@public/logo.svg';
 import { Metadata } from 'next';
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
 
-enum MODE {
+export enum MODE {
   DARK = 'dark',
   LIGHT = 'light',
 }

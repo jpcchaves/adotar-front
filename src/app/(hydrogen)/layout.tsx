@@ -1,5 +1,4 @@
 'use client';
-import { useLayout } from '@/hooks/use-layout';
 import HydrogenLayout from '@/layouts/hydrogen/layout';
 
 import { useIsMounted } from '@/hooks/use-is-mounted';
