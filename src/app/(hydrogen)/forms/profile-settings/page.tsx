@@ -12,10 +12,6 @@ const pageHeader = {
   title: 'Account Settings',
   breadcrumb: [
     {
-      href: routes.eCommerce.dashboard,
-      name: 'E-Commerce',
-    },
-    {
       href: routes.forms.profileSettings,
       name: 'Form',
     },
