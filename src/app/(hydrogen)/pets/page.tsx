@@ -10,10 +10,17 @@ const pageHeader = {
   breadcrumb: [
     {
       href: '/',
+<<<<<<< HEAD
       name: 'Pets',
     },
     {
       name: 'Pets Disponíveis',
+=======
+      name: 'Home',
+    },
+    {
+      name: 'Pets Disponiveis',
+>>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
     },
   ],
 };
