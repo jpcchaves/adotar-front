@@ -18,6 +18,9 @@ export const routes = {
     checkout: '/ecommerce/checkout',
     trackingId: (id: string) => `/ecommerce/tracking/${id}`,
   },
+  pets: {
+    pets: '/',
+  },
   support: {
     dashboard: '/support',
     inbox: '/support/inbox',

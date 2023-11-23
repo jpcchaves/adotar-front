@@ -1,28 +1,24 @@
-import { routes } from '@/config/routes';
 import PageHeader from '@/app/shared/page-header';
 import { metaObject } from '@/config/site.config';
 
 export const metadata = {
-  ...metaObject('Tracking'),
+  ...metaObject('Pets'),
 };
 
 const pageHeader = {
-  title: 'Tracking',
+  title: 'Pets',
   breadcrumb: [
     {
+      href: '/',
       name: 'Home',
     },
     {
-      href: routes.eCommerce.dashboard,
-      name: 'E-Commerce',
-    },
-    {
-      name: 'Tracking',
+      name: 'Pets Disponiveis',
     },
   ],
 };
 
-export default function TrackingPage() {
+export default function PetsPage() {
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
