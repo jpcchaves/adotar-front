@@ -24,6 +24,9 @@ export const routes = {
   pets: {
     pets: '/',
   },
+  pets: {
+    pets: '/',
+  },
   support: {
     dashboard: '/support',
     inbox: '/support/inbox',
