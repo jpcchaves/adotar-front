@@ -2,9 +2,9 @@ import { metaObject } from '@/config/site.config';
 import PetsPage from './pets/page';
 
 export const metadata = {
-  ...metaObject(),
+  ...metaObject('Pets'),
 };
 
-export default function FileDashboardPage() {
+export default function PetsListPage() {
   return <PetsPage />;
 }

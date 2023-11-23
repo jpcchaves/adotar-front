@@ -102,7 +102,7 @@ export default function OrderView() {
   const billingAddress = useAtomValue(billingAddressAtom);
   const shippingAddress = useAtomValue(shippingAddressAtom);
   return (
-    <div className='@container'>
+    <div className="@container">
       <div className="flex flex-wrap justify-center border-b border-t border-gray-300 py-4 font-medium text-gray-700 @5xl:justify-start">
         <span className="my-2 border-r border-gray-200 px-5 py-0.5 first:ps-0 last:border-r-0">
           {/* October 22, 2022 at 10:30 pm */}

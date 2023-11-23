@@ -1,6 +1,22 @@
 'use client';
 
+import { ActionIcon } from '@/components/ui/action-icon';
+import { AdvancedRadio } from '@/components/ui/advanced-radio';
+import { Button } from '@/components/ui/button';
+import { RadioGroup } from '@/components/ui/radio-group';
+import SimpleBar from '@/components/ui/simplebar';
+import { Title } from '@/components/ui/text';
+import { presetDark, presetLight, usePresets } from '@/config/color-presets';
+import { LAYOUT_OPTIONS } from '@/config/enums';
+import { siteConfig } from '@/config/site.config';
+import { useDirection } from '@/hooks/use-direction';
+import { useLayout } from '@/hooks/use-layout';
+import { useColorPresetName, useColorPresets } from '@/hooks/use-theme-color';
+import HydrogenIcon from '@/layouts/hydrogen-icon';
+import cn from '@/utils/class-names';
+import { updateThemeColor } from '@/utils/update-theme-color';
 import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 import {
   PiAlignLeft,
   PiAlignRight,
@@ -8,25 +24,6 @@ import {
   PiSun,
   PiXBold,
 } from 'react-icons/pi';
-import cn from '@/utils/class-names';
-import { Title } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
-import { siteConfig } from '@/config/site.config';
-import { ActionIcon } from '@/components/ui/action-icon';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { updateThemeColor } from '@/utils/update-theme-color';
-import { AdvancedRadio } from '@/components/ui/advanced-radio';
-import { presetDark, presetLight, usePresets } from '@/config/color-presets';
-import { useEffect } from 'react';
-import SimpleBar from '@/components/ui/simplebar';
-import { useLayout } from '@/hooks/use-layout';
-import { useDirection } from '@/hooks/use-direction';
-import { LAYOUT_OPTIONS } from '@/config/enums';
-import { useColorPresetName, useColorPresets } from '@/hooks/use-theme-color';
-import HydrogenIcon from '@/layouts/hydrogen-icon';
-import HeliumIcon from '@/layouts/helium-icon';
-import LithiumIcon from '@/layouts/lithium-icon';
-import BerylliumIcon from '@/layouts/beryllium-icon';
 
 function RadioBox({
   value,
@@ -128,30 +125,6 @@ function LayoutSwitcher() {
         >
           <HydrogenIcon aria-label="Hydrogen Layout" className="h-auto w-16" />
           Hydrogen
-        </RadioBox>
-        <RadioBox
-          value={LAYOUT_OPTIONS.HELIUM}
-          className="flex h-[unset] flex-col justify-center gap-1.5 py-4"
-        >
-          <HeliumIcon aria-label="Helium Layout" className="h-auto w-16" />
-          Helium
-        </RadioBox>
-        <RadioBox
-          value={LAYOUT_OPTIONS.LITHIUM}
-          className="flex h-[unset] flex-col justify-center gap-1.5 py-4"
-        >
-          <LithiumIcon aria-label="Lithium Layout" className="h-auto w-16" />
-          Lithium
-        </RadioBox>
-        <RadioBox
-          value={LAYOUT_OPTIONS.BERYLLIUM}
-          className="flex h-[unset] flex-col justify-center gap-1.5 py-4"
-        >
-          <BerylliumIcon
-            aria-label="Beryllium Layout"
-            className="h-auto w-16"
-          />
-          Beryllium
         </RadioBox>
       </RadioGroup>
     </DrawerBlock>

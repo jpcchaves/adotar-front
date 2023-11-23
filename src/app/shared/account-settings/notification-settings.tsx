@@ -177,7 +177,7 @@ export default function NotificationSettingsView() {
             setValue={setValue}
             className="justify-center space-x-4 space-y-4"
           >
-            <div className="divide-slate-300 flex w-full flex-col md:w-[500px]">
+            <div className="flex w-full flex-col divide-slate-300 md:w-[500px]">
               <Radio
                 name="reminders"
                 label="Do not notify me"
@@ -218,7 +218,7 @@ export default function NotificationSettingsView() {
             setValue={setValue}
             className="justify-center space-x-4 space-y-4"
           >
-            <div className="divide-slate-300 flex w-full flex-col md:w-[500px]">
+            <div className="flex w-full flex-col divide-slate-300 md:w-[500px]">
               <Radio
                 name="activity"
                 label="Do not notify me"

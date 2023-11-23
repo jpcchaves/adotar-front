@@ -1,17 +1,18 @@
-import { Metadata } from 'next';
-import logoImg from '@public/logo.svg';
 import { LAYOUT_OPTIONS } from '@/config/enums';
 import logoIconImg from '@public/logo-short.svg';
+import logoImg from '@public/logo.svg';
+import { Metadata } from 'next';
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
 
-enum MODE {
+export enum MODE {
   DARK = 'dark',
   LIGHT = 'light',
 }
 
 export const siteConfig = {
-  title: 'Isomorphic - React Typescript Admin Dashboard Template',
-  description: `Isomorphic the ultimate React TypeScript Admin Template. Streamline your admin dashboard development with our feature-rich, responsive, and highly customizable solution. Boost productivity and create stunning admin interfaces effortlessly.`,
+  title: 'Adotar',
+  description:
+    'Facilitating animal adoption through an simple and interactive web app.',
   logo: logoImg,
   icon: logoIconImg,
   mode: MODE.LIGHT,
@@ -25,7 +26,7 @@ export const metaObject = (
   description: string = siteConfig.description
 ): Metadata => {
   return {
-    title: title ? `${title} - Isomorphic Furyroad` : siteConfig.title,
+    title: title ? `Adotar | ${title}` : siteConfig.title,
     description,
     openGraph: openGraph ?? {
       title: title ? `${title} - Isomorphic Furyroad` : title,

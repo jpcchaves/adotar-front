@@ -10,10 +10,10 @@ const pageHeader = {
   breadcrumb: [
     {
       href: '/',
-      name: 'Home',
+      name: 'Pets',
     },
     {
-      name: 'Pets Disponiveis',
+      name: 'Pets Disponíveis',
     },
   ],
 };

@@ -10,7 +10,7 @@ export default function NFTDrawer() {
   return (
     <Button
       rounded="pill"
-      className="mt-6 flex w-full cursor-pointer @lg:mt-0 @lg:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 @[60rem]:hidden"
+      className="mt-6 flex w-full cursor-pointer @lg:mt-0 @lg:w-auto @[60rem]:hidden dark:bg-gray-100 dark:text-white dark:active:bg-gray-100"
       onClick={() =>
         openDrawer({
           view: <NFTDrawerView />,
