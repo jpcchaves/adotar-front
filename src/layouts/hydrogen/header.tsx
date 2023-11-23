@@ -1,22 +1,15 @@
 'use client';
 
-import Link from 'next/link';
-import RingBellSolidIcon from '@/components/icons/ring-bell-solid';
-import NotificationDropdown from '@/layouts/notification-dropdown';
-import MessagesDropdown from '@/layouts/messages-dropdown';
-import ChatSolidIcon from '@/components/icons/chat-solid';
-import HamburgerButton from '@/layouts/hamburger-button';
-import { ActionIcon } from '@/components/ui/action-icon';
-import SearchWidget from '@/components/search/search';
-import ProfileMenu from '@/layouts/profile-menu';
-import Sidebar from '@/layouts/hydrogen/sidebar';
-import { Badge } from '@/components/ui/badge';
-import cn from '@/utils/class-names';
 import Logo from '@/components/logo';
+import SearchWidget from '@/components/search/search';
+import ThemeToggle from '@/components/themeToggle/theme-toggle';
 import { useIsMounted } from '@/hooks/use-is-mounted';
 import { useWindowScroll } from '@/hooks/use-window-scroll';
-import SettingsButton from '@/components/settings/settings-button';
-import ThemeToggle from '@/components/themeToggle/theme-toggle';
+import HamburgerButton from '@/layouts/hamburger-button';
+import Sidebar from '@/layouts/hydrogen/sidebar';
+import ProfileMenu from '@/layouts/profile-menu';
+import cn from '@/utils/class-names';
+import Link from 'next/link';
 
 function HeaderMenuRight() {
   return (
