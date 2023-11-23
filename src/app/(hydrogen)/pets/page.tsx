@@ -12,6 +12,7 @@ const pageHeader = {
       href: '/',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       name: 'Pets',
     },
     {
@@ -19,10 +20,13 @@ const pageHeader = {
 =======
 =======
 >>>>>>> d975492 (refactor: cleaning up template and add pets route)
+=======
+>>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
       name: 'Home',
     },
     {
       name: 'Pets Disponiveis',
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
 =======
@@ -33,6 +37,8 @@ const pageHeader = {
       name: 'Pets Disponíveis',
 >>>>>>> 9035385 (refactor: cleaning up template and add pets route)
 >>>>>>> d975492 (refactor: cleaning up template and add pets route)
+=======
+>>>>>>> bf96835 (refactor: removing unused pages and adding pets page and blank page example)
     },
   ],
 };
