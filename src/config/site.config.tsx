@@ -29,15 +29,10 @@ export const metaObject = (
     title: title ? `Adotar | ${title}` : siteConfig.title,
     description,
     openGraph: openGraph ?? {
-      title: title ? `${title} - Isomorphic Furyroad` : title,
+      title: title ? `${title} - Adotar` : title,
       description,
-      url: 'https://isomorphic-furyroad.vercel.app',
-      siteName: 'Isomorphic Furyroad', // https://developers.google.com/search/docs/appearance/site-names
-      images: {
-        url: 'https://s3.amazonaws.com/redqteam.com/isomorphic-furyroad/itemdep/isobanner.png',
-        width: 1200,
-        height: 630,
-      },
+      url: 'http://localhost:3000',
+      siteName: 'Adotar', // https://developers.google.com/search/docs/appearance/site-names
       locale: 'en_US',
       type: 'website',
     },
