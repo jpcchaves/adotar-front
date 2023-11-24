@@ -1,6 +1,8 @@
 import { Photo } from '@/types/test/Photo';
 import cn from '@/utils/class-names';
 import Image from 'next/image';
+import { CountDown } from '../ui/count-down';
+import { BsGenderFemale, BsHeartFill } from 'react-icons/bs';
 
 interface IProps {
   pet: Photo;
@@ -20,47 +22,52 @@ export function PetCard({ pet, className }: IProps) {
           alt={'title'}
           src={pet.url}
           fill
-          priority
-          quality={90}
-          sizes="(max-width: 768px) 100vw"
           className="object-cover"
           placeholder="blur"
-          blurDataURL={
-            pet.thumbnailUrl ?? `/_next/image?url=${pet.thumbnailUrl}&w=10&q=1`
-          }
+          blurDataURL={pet.url ?? `/_next/image?url=${pet.url}&w=10&q=1`}
         />
         <div className="absolute left-0 top-0 flex h-full w-full flex-col justify-between bg-gray-900/30 p-5 opacity-0 duration-200 group-hover:opacity-100 dark:bg-gray-100/50">
           <div className="flex items-center gap-2">
             <div className="relative flex aspect-square w-8 items-center gap-2">
               <Image
-                alt={pet.title}
-                src={pet.thumbnailUrl}
+                alt={pet.url}
+                src={pet.url}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw"
                 className="h-full w-full object-cover"
               />
             </div>
-            <span className="font-semibold text-white ">{pet.title}</span>
+            <span className="font-semibold text-white ">Pet Name</span>
           </div>
-          <p className="text-2xl font-semibold text-white">{pet.title}</p>
+          <p className="text-2xl font-semibold text-white">Pet name</p>
         </div>
       </div>
       <div className="bg-gray-900 p-5 dark:bg-gray-200">
-        <div className="mb-4 flex gap-2">
-          <div className="relative flex aspect-square w-5 items-center gap-2">
-            <Image
-              alt={pet.thumbnailUrl}
-              src={pet.thumbnailUrl}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw"
-              className="h-full w-full object-cover"
-            />
-          </div>
+        <div className="mb-4 flex justify-between gap-2">
           <span className="font-semibold text-gray-300/70 dark:text-gray-600">
-            {pet.title}
+            Pet Name
           </span>
+          <div className=" flex">
+            <span className="me-2">
+              <BsHeartFill />
+            </span>
+            <span>
+              <BsGenderFemale />
+            </span>
+          </div>
+        </div>
+        <div className="mb-4 flex gap-2">
+          <span className="font-semibold text-gray-300/70 dark:text-gray-600">
+            Pet info here in this card and some icons
+          </span>
+        </div>
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-1">
+            <span className="text-gray-300/70 dark:text-gray-600">
+              some kind of card footer
+            </span>
+          </div>
         </div>
       </div>
     </div>
