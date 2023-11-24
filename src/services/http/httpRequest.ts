@@ -32,6 +32,7 @@ export function httpRequest<TRequest, TResponse>(
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    cache: 'no-cache',
   };
 
   return new Promise<ApiResponse<TResponse>>((resolve, reject) => {
