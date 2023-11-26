@@ -1,3 +1,10 @@
+import {
+  NEXT_PUBLIC_AUTH_API_V2,
+  NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT,
+} from '@/data/constants/env';
+import { LoginRequestDTO, LoginResponseDTO } from '@/domain';
+import { httpRequest } from '@/services/http/httpRequest';
+import { HttpMethod, setAuthToken } from '@/utils/http';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { pagesOptions } from './pages-options';
@@ -9,6 +16,7 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
+      type: 'credentials',
       id: 'credentials',
       name: 'credentials',
       credentials: {
@@ -21,29 +29,26 @@ export const authOptions: NextAuthOptions = {
           type: 'password',
         },
       },
-      // @ts-ignore
-      async authorize(credentials: any) {
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password || !credentials) {
+          return null;
+        }
+
         const { email, password } = credentials;
 
-        if (!email || !password) {
+        const res = await httpRequest<LoginRequestDTO, LoginResponseDTO>(
+          `/${NEXT_PUBLIC_AUTH_API_V2}/${NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT}`,
+          HttpMethod.POST,
+          { email, password }
+        );
+
+        if (!res) {
           return null;
         }
 
-        const res = await fetch('http://localhost:8086/api/v2/auth/login', {
-          method: 'POST',
-          body: JSON.stringify({ email, password }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        setAuthToken(res.data.accessToken);
 
-        if (res.status == 401 || res.status == 403) {
-          return null;
-        }
-
-        const loginResponse = await res.json();
-
-        return loginResponse;
+        return res.data as any;
       },
     }),
   ],
