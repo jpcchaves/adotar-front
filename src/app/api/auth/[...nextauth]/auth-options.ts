@@ -3,8 +3,7 @@ import {
   NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT,
 } from '@/data/constants/env';
 import { LoginRequestDTO, LoginResponseDTO } from '@/domain';
-import { httpRequest } from '@/services/http/httpRequest';
-import { HttpMethod, setAuthToken } from '@/utils/http';
+import { HttpMethod, httpRequest, setAuthToken } from '@/utils/http';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { pagesOptions } from './pages-options';
@@ -37,8 +36,8 @@ export const authOptions: NextAuthOptions = {
         const { email, password } = credentials;
 
         const res = await httpRequest<LoginRequestDTO, LoginResponseDTO>(
-          `/${NEXT_PUBLIC_AUTH_API_V2}/${NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT}`,
           HttpMethod.POST,
+          `/${NEXT_PUBLIC_AUTH_API_V2}/${NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT}`,
           { email, password }
         );
 
@@ -46,9 +45,9 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        setAuthToken(res.data.accessToken);
+        setAuthToken(res.accessToken);
 
-        return res.data as any;
+        return res as any;
       },
     }),
   ],

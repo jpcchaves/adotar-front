@@ -2,7 +2,7 @@
 
 import PageHeader from '@/app/shared/page-header';
 import { PetCard } from '@/components/cards/pet-card';
-import { httpRequest } from '@/services/http/httpRequest';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const pageHeader = {
@@ -30,9 +30,14 @@ export default function BlankPage() {
   const [photosList, setPhotosList] = useState<Photo[] | null>(null);
 
   useEffect(() => {
-    httpRequest<void, Photo[]>('/photos?_start=0&_limit=15?', 'GET')
-      .then((res) => setPhotosList(res.data))
-      .catch((err) => console.log(err));
+    const listPhotos = async () => {
+      await axios
+        .get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=15?')
+        .then((res) => setPhotosList(res.data))
+        .catch((err) => console.log(err));
+    };
+
+    listPhotos();
   }, []);
 
   return (
