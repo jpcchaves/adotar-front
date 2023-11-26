@@ -51,7 +51,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
       variant="outline"
       value={theme ?? siteConfig.mode}
       className={cn(
-        'relative h-[34px] w-[34px] rounded-full shadow backdrop-blur-md dark:bg-gray-100 md:h-9 md:w-9',
+        'relative !h-9  w-9 rounded-full p-0 shadow backdrop-blur-md dark:bg-gray-100 sm:!h-10 sm:w-10',
         className
       )}
       onClick={() => setTheme(isThemeLight(theme) ? MODE.DARK : MODE.LIGHT)}
@@ -63,8 +63,8 @@ export default function ThemeToggle({ className }: { className?: string }) {
 
 function ThemeIcon({ theme }: { theme: string | undefined }) {
   return isThemeLight(theme) ? (
-    <PiMoonFill className="h-[18px] w-[18px] text-blue-300" />
+    <PiMoonFill className="h-[20px] w-[20px] text-blue-300" />
   ) : (
-    <PiSunFill className="h-[18px] w-[18px] text-orange-300" />
+    <PiSunFill className="h-[20px] w-[20px] text-orange-300" />
   );
 }
