@@ -1,8 +1,5 @@
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import { env } from '@/env.mjs';
-import isEqual from 'lodash/isEqual';
 import { pagesOptions } from './pages-options';
 
 export const authOptions: NextAuthOptions = {
@@ -10,26 +7,58 @@ export const authOptions: NextAuthOptions = {
   pages: {
     ...pagesOptions,
   },
-  session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
-  callbacks: {
-    async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.idToken as string,
+  providers: [
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'credentials',
+      credentials: {
+        email: {
+          label: 'email',
+          type: 'text',
         },
-      };
-    },
+        password: {
+          label: 'password',
+          type: 'password',
+        },
+      },
+      // @ts-ignore
+      async authorize(credentials: any) {
+        const { email, password } = credentials;
+
+        if (!email || !password) {
+          return null;
+        }
+
+        const res = await fetch('http://localhost:8086/api/v2/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (res.status == 401 || res.status == 403) {
+          return null;
+        }
+
+        const loginResponse = await res.json();
+
+        return loginResponse;
+      },
+    }),
+  ],
+  callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // return user as JWT
-        token.user = user;
+        return { ...token, ...user };
       }
       return token;
+    },
+    async session({ token, session }) {
+      session.user = token.user;
+      session.accessToken = token.accessToken;
+
+      return session;
     },
     async redirect({ url, baseUrl }) {
       const parsedUrl = new URL(url, baseUrl);
@@ -42,35 +71,4 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
   },
-  providers: [
-    CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      credentials: {},
-      async authorize(credentials: any) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid
-        const user = {
-          email: 'admin@admin.com',
-          password: 'admin',
-        };
-
-        if (
-          isEqual(user, {
-            email: credentials?.email,
-            password: credentials?.password,
-          })
-        ) {
-          return user as any;
-        }
-        return null;
-      },
-    }),
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID || '',
-      clientSecret: env.GOOGLE_CLIENT_SECRET || '',
-      allowDangerousEmailAccountLinking: true,
-    }),
-  ],
 };

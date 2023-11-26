@@ -5,7 +5,7 @@ import UnderlineShape from '@/components/shape/underline';
 import { metaObject } from '@/config/site.config';
 
 export const metadata = {
-  ...metaObject('Sign In'),
+  ...metaObject('Login'),
 };
 
 export default function SignIn() {
