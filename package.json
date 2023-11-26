@@ -1,6 +1,6 @@
 {
-  "name": "isomorphic",
-  "version": "5.6.0",
+  "name": "adotar",
+  "version": "1.0.0",
   "description": "",
   "private": true,
   "scripts": {
@@ -96,6 +96,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@tailwindcss/forms": "^0.5.6",
     "@total-typescript/ts-reset": "^0.5.1",
+    "@types/cookie": "^0.5.4",
     "@types/date-arithmetic": "^4.1.4",
     "@types/google.maps": "^3.54.7",
     "@types/lodash": "^4.14.201",
@@ -118,5 +119,5 @@
     "node": ">=18.15.0"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "isomorphic-furyroad@0.0.1"
+  "_id": "adotar@0.0.1"
 }
