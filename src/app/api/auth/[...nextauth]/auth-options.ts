@@ -27,6 +27,10 @@ export const authOptions: NextAuthOptions = {
           label: 'password',
           type: 'password',
         },
+        remember: {
+          label: 'remember',
+          type: 'checkbox',
+        },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password || !credentials) {
@@ -51,6 +55,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

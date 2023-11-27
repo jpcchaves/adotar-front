@@ -1,7 +1,6 @@
 import { Photo } from '@/types/test/Photo';
 import cn from '@/utils/class-names';
 import Image from 'next/image';
-import { CountDown } from '../ui/count-down';
 import { BsGenderFemale, BsHeartFill } from 'react-icons/bs';
 
 interface IProps {
