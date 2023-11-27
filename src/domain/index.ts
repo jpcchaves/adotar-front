@@ -4,13 +4,13 @@ import {
   RegisterRequestDTO,
 } from './DTO/auth';
 
-import { ApiError, ApiMessageResponse, UserModel } from './models';
+import { ApiMessageResponse, PromiseError, UserModel } from './models';
 
 export type {
-  ApiError,
   ApiMessageResponse,
   LoginRequestDTO,
   LoginResponseDTO,
+  PromiseError,
   RegisterRequestDTO,
   UserModel,
 };

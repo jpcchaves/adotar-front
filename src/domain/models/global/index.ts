@@ -1,4 +1,4 @@
-import { ApiError } from 'next/dist/server/api-utils';
 import { ApiMessageResponse } from './ApiMessageResponse';
+import { PromiseError } from './AxiosError';
 
-export type { ApiError, ApiMessageResponse };
+export type { ApiMessageResponse, PromiseError };

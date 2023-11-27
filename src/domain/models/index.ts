@@ -1,4 +1,4 @@
-import { ApiError, ApiMessageResponse } from './global';
+import { ApiMessageResponse, PromiseError } from './global';
 import { UserModel } from './user';
 
-export type { ApiError, ApiMessageResponse, UserModel };
+export type { ApiMessageResponse, PromiseError, UserModel };
