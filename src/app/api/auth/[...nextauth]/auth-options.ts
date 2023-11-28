@@ -74,18 +74,17 @@ export const makeAuthOptions = (): NextAuthOptions => {
         session.user = token.user;
         session.accessToken = token.accessToken;
 
+        if (token.accessToken) {
+          setAuthToken(token.accessToken);
+        }
+
         return session;
       },
-      //@ts-ignore
       async redirect({ url, baseUrl }) {
-        const parsedUrl = new URL(url, baseUrl);
-        if (parsedUrl.searchParams.has('callbackUrl')) {
-          return `${baseUrl}${parsedUrl.searchParams.get('callbackUrl')}`;
-        }
-        if (parsedUrl.origin === baseUrl) {
-          return url;
-        }
         return baseUrl;
+      },
+      async signIn() {
+        return true;
       },
     },
     session: {

@@ -20,7 +20,7 @@ export default function SignInForm() {
       remember: false,
     },
     onSubmit: async (values) => {
-      signIn('credentials', values);
+      await signIn('credentials', values);
     },
   });
 
@@ -31,7 +31,6 @@ export default function SignInForm() {
           e.preventDefault();
           validation.handleSubmit(e);
           return false;
-          ``;
         }}
       >
         <div className="space-y-5">
