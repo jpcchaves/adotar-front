@@ -8,76 +8,89 @@ import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { pagesOptions } from './pages-options';
 
-export const authOptions: NextAuthOptions = {
-  // debug: true,
-  pages: {
-    ...pagesOptions,
-  },
-  providers: [
-    CredentialsProvider({
-      type: 'credentials',
-      id: 'credentials',
-      name: 'credentials',
-      credentials: {
-        email: {
-          label: 'email',
-          type: 'text',
+const FIFTEEN_DAYS_IN_SECONDS = 1296000;
+const TEN_MINUTES_IN_SECONDS = 600;
+
+export const makeAuthOptions = (): NextAuthOptions => {
+  let rememberUser = false;
+
+  return {
+    // debug: true,
+    pages: {
+      ...pagesOptions,
+    },
+    providers: [
+      CredentialsProvider({
+        type: 'credentials',
+        id: 'credentials',
+        name: 'credentials',
+        credentials: {
+          email: {
+            label: 'email',
+            type: 'text',
+          },
+          password: {
+            label: 'password',
+            type: 'password',
+          },
+          remember: {
+            label: 'remember',
+            type: 'checkbox',
+          },
         },
-        password: {
-          label: 'password',
-          type: 'password',
+        async authorize(credentials) {
+          if (!credentials?.email || !credentials.password || !credentials) {
+            return null;
+          }
+
+          const { email, password, remember } = credentials;
+
+          const res = await httpRequest<LoginRequestDTO, LoginResponseDTO>(
+            HttpMethod.POST,
+            `/${NEXT_PUBLIC_AUTH_API_V2}/${NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT}`,
+            { email, password }
+          );
+
+          if (!res) {
+            return null;
+          }
+
+          setAuthToken(res.accessToken);
+          rememberUser = remember === 'true';
+
+          return res as any;
         },
-        remember: {
-          label: 'remember',
-          type: 'checkbox',
-        },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials.password || !credentials) {
-          return null;
+      }),
+    ],
+
+    callbacks: {
+      async jwt({ token, user }) {
+        if (user) {
+          return { ...token, ...user };
         }
-
-        const { email, password } = credentials;
-
-        const res = await httpRequest<LoginRequestDTO, LoginResponseDTO>(
-          HttpMethod.POST,
-          `/${NEXT_PUBLIC_AUTH_API_V2}/${NEXT_PUBLIC_AUTH_LOGIN_ENDPOINT}`,
-          { email, password }
-        );
-
-        if (!res) {
-          return null;
-        }
-
-        setAuthToken(res.accessToken);
-
-        return res as any;
+        return token;
       },
-    }),
-  ],
+      async session({ token, session }) {
+        session.user = token.user;
+        session.accessToken = token.accessToken;
 
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        return { ...token, ...user };
-      }
-      return token;
+        return session;
+      },
+      //@ts-ignore
+      async redirect({ url, baseUrl }) {
+        const parsedUrl = new URL(url, baseUrl);
+        if (parsedUrl.searchParams.has('callbackUrl')) {
+          return `${baseUrl}${parsedUrl.searchParams.get('callbackUrl')}`;
+        }
+        if (parsedUrl.origin === baseUrl) {
+          return url;
+        }
+        return baseUrl;
+      },
     },
-    async session({ token, session }) {
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-
-      return session;
+    session: {
+      strategy: 'jwt',
+      maxAge: rememberUser ? FIFTEEN_DAYS_IN_SECONDS : TEN_MINUTES_IN_SECONDS,
     },
-    async redirect({ url, baseUrl }) {
-      const parsedUrl = new URL(url, baseUrl);
-      if (parsedUrl.searchParams.has('callbackUrl')) {
-        return `${baseUrl}${parsedUrl.searchParams.get('callbackUrl')}`;
-      }
-      if (parsedUrl.origin === baseUrl) {
-        return url;
-      }
-      return baseUrl;
-    },
-  },
+  };
 };

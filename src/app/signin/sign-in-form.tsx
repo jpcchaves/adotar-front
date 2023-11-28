@@ -7,7 +7,7 @@ import { Password } from '@/components/ui/password';
 import { Text } from '@/components/ui/text';
 import { routes } from '@/config/routes';
 import { useFormik } from 'formik';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { PiArrowRightBold } from 'react-icons/pi';
 
@@ -17,6 +17,7 @@ export default function SignInForm() {
     initialValues: {
       email: 'jpcchaves@outlook.com',
       password: '123456',
+      remember: false,
     },
     onSubmit: async (values) => {
       signIn('credentials', values);
@@ -63,6 +64,9 @@ export default function SignInForm() {
               color="info"
               variant="flat"
               className="[&>label>span]:font-medium"
+              name="remember"
+              onChange={validation.handleChange}
+              checked={validation.values.remember}
             />
             <Link
               href={routes.auth.forgotPassword1}
