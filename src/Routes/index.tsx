@@ -1,46 +1,50 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 //Layouts
 import NonAuthLayout from "../Layouts/NonAuthLayout";
 import VerticalLayout from "../Layouts/index";
 
 //routes
-import { authProtectedRoutes, publicRoutes } from "./allRoutes";
+import Error500 from "pages/AuthenticationInner/Errors/Error500";
+import { ErrorBoundary } from "react-error-boundary";
 import AuthProtected from "./AuthProtected";
+import { authProtectedRoutes, publicRoutes } from "./allRoutes";
 
 const Index = () => {
   return (
     <React.Fragment>
-      <Routes>
-        <Route>
-          {publicRoutes.map(
-            (route: { path: string | undefined; component: any }, idx: React.Key | null | undefined) => (
+      <ErrorBoundary fallback={<Error500 />}>
+        <Routes>
+          <Route>
+            {publicRoutes.map(
+              (route: { path: string | undefined; component: any }, idx: React.Key | null | undefined) => (
+                <Route
+                  path={route.path}
+                  element={<NonAuthLayout>{route.component}</NonAuthLayout>}
+                  key={idx}
+                  // exact={true}
+                />
+              ),
+            )}
+          </Route>
+
+          <Route>
+            {authProtectedRoutes.map((route, idx) => (
               <Route
                 path={route.path}
-                element={<NonAuthLayout>{route.component}</NonAuthLayout>}
+                element={
+                  <AuthProtected>
+                    <VerticalLayout>{route.component}</VerticalLayout>
+                  </AuthProtected>
+                }
                 key={idx}
                 // exact={true}
               />
-            ),
-          )}
-        </Route>
-
-        <Route>
-          {authProtectedRoutes.map((route, idx) => (
-            <Route
-              path={route.path}
-              element={
-                <AuthProtected>
-                  <VerticalLayout>{route.component}</VerticalLayout>
-                </AuthProtected>
-              }
-              key={idx}
-              // exact={true}
-            />
-          ))}
-        </Route>
-      </Routes>
+            ))}
+          </Route>
+        </Routes>
+      </ErrorBoundary>
     </React.Fragment>
   );
 };

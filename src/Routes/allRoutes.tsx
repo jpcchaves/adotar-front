@@ -5,7 +5,6 @@ import DashboardEcommerce from "../pages/DashboardEcommerce";
 
 // Auth Inner
 import Cover404 from "../pages/AuthenticationInner/Errors/Cover404";
-import Error500 from "../pages/AuthenticationInner/Errors/Error500";
 
 //login
 import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
@@ -25,8 +24,6 @@ const authProtectedRoutes = [
   },
 
   { path: "*", exact: true, component: <Cover404 /> },
-  { path: "/500", component: <Error500 /> },
-  // { path: "*", component: <Navigate to="/dashboard" /> },
 ];
 
 const publicRoutes = [
