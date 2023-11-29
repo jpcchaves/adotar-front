@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 import { logoutUser } from "../../slices/thunks";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import withRouter from "../../Components/Common/withRouter";
 import { createSelector } from "reselect";
+import withRouter from "../../Components/Common/withRouter";
 
 const Logout = (props: any) => {
   const dispatch: any = useDispatch();
@@ -24,7 +24,7 @@ const Logout = (props: any) => {
   }, [dispatch]);
 
   if (isUserLogout) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/entrar" />;
   }
 
   return <></>;
