@@ -1,38 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
-  Row,
-  Col,
-  CardBody,
-  Card,
   Alert,
+  Button,
+  Card,
+  CardBody,
+  Col,
   Container,
-  Input,
-  Label,
   Form,
   FormFeedback,
+  Input,
+  Label,
+  Row,
   Spinner,
-  Button,
 } from "reactstrap";
 
 // Formik Validation
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 
-import { ToastContainer, toast } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // action
-import { registerUser, resetRegisterFlag } from "../../slices/thunks";
+import {registerUser, resetRegisterFlag} from "../../slices/thunks";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 //import images
 import logoLight from "../../assets/images/logo-light.png";
-import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
-import { createSelector } from "reselect";
+import {createSelector} from "reselect";
 
 const Register = () => {
   const history = useNavigate();
@@ -87,7 +86,6 @@ const Register = () => {
 
   return (
     <React.Fragment>
-      <ParticlesAuth>
         <div className="auth-page-content mt-lg-5">
           <Container>
             <Row>
@@ -334,16 +332,14 @@ const Register = () => {
                       to="/login"
                       className="fw-semibold text-primary text-decoration-underline"
                     >
-                      {" "}
-                      Signin{" "}
-                    </Link>{" "}
+                      Signin
+                    </Link>
                   </p>
                 </div>
               </Col>
             </Row>
           </Container>
         </div>
-      </ParticlesAuth>
     </React.Fragment>
   );
 };
