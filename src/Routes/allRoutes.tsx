@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
 
 //Dashboard
@@ -9,8 +8,8 @@ import Cover404 from "../pages/AuthenticationInner/Errors/Cover404";
 import Error500 from "../pages/AuthenticationInner/Errors/Error500";
 
 //login
-import Login from "../pages/Authentication/Login";
 import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
+import Login from "../pages/Authentication/Login";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 
