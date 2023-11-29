@@ -13,7 +13,6 @@ import {
   Alert,
   Spinner,
 } from "reactstrap";
-import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -107,7 +106,6 @@ const Login = (props: any) => {
   document.title = "Basic SignIn | adotar - React Admin & Dashboard Template";
   return (
     <React.Fragment>
-      <ParticlesAuth>
         <div className="auth-page-content mt-lg-5">
           <Container>
             <Row>
@@ -305,7 +303,6 @@ const Login = (props: any) => {
             </Row>
           </Container>
         </div>
-      </ParticlesAuth>
     </React.Fragment>
   );
 };

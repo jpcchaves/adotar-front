@@ -1,36 +1,24 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  Row,
-  Col,
-  Alert,
-  Card,
-  CardBody,
-  Container,
-  FormFeedback,
-  Input,
-  Label,
-  Form,
-} from "reactstrap";
+import {Alert, Card, CardBody, Col, Container, Form, FormFeedback, Input, Label, Row,} from "reactstrap";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import withRouter from "../../Components/Common/withRouter";
 
 // Formik Validation
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 
 // action
-import { userForgetPassword } from "../../slices/thunks";
+import {userForgetPassword} from "../../slices/thunks";
 
 // import images
 // import profile from "../../assets/images/bg.png";
 import logoLight from "../../assets/images/logo-light.png";
-import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
-import { createSelector } from "reselect";
+import {createSelector} from "reselect";
 
 const ForgetPasswordPage = (props: any) => {
   document.title = "Reset Password | adotar - React Admin & Dashboard Template";
@@ -60,7 +48,6 @@ const ForgetPasswordPage = (props: any) => {
   const { forgetError, forgetSuccessMsg } = useSelector(selectLayoutProperties);
 
   return (
-    <ParticlesAuth>
       <div className="auth-page-content">
         <Container>
           <Row>
@@ -162,7 +149,6 @@ const ForgetPasswordPage = (props: any) => {
           </Row>
         </Container>
       </div>
-    </ParticlesAuth>
   );
 };
 
