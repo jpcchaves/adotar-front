@@ -30,15 +30,10 @@ const AuthWrapper = ({ children }: any) => {
                 <div className="text-center">
                   <p className="mb-0 text-muted">
                     &copy; {new Date().getFullYear()} Adotar. Desenvolvido por
-                    <Button
-                      className="text-secondary active-secondary"
-                      href="https://github.com/jpcchaves"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <a href="https://github.com/jpcchaves" target="_blank" rel="noreferrer">
                       {" "}
                       jpcchaves
-                    </Button>
+                    </a>
                   </p>
                 </div>
               </div>
