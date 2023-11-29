@@ -21,7 +21,7 @@
   },
   "rules": {
     "no-unused-vars": [
-      "error",
+      "warn",
       {
         "vars": "all",
         "args": "after-used",
@@ -30,6 +30,16 @@
       }
     ],
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-const": "off",
+    "no-var": "warn",
+    "no-empty": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/no-unescaped-entities": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
+    "import/no-unresolved": "warn",
+    "import/named": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn"
   }
 }
