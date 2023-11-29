@@ -7,14 +7,13 @@ import { getRevenueChartsData } from "../../slices/thunks";
 import { createSelector } from "reselect";
 
 const Revenue = () => {
-
-  const dispatch :any= useDispatch();
+  const dispatch: any = useDispatch();
 
   const [chartData, setchartData] = useState<any>([]);
 
   const selectDashboardData = createSelector(
-    (state:any) => state.DashboardEcommerce.revenueData,
-    (revenueData) => revenueData
+    (state: any) => state.DashboardEcommerce.revenueData,
+    (revenueData) => revenueData,
   );
   // Inside your component
   const revenueData = useSelector(selectDashboardData);
@@ -23,7 +22,7 @@ const Revenue = () => {
     setchartData(revenueData);
   }, [revenueData]);
 
-  const onChangeChartPeriod = (pType:any) => {
+  const onChangeChartPeriod = (pType: any) => {
     dispatch(getRevenueChartsData(pType));
   };
 
@@ -31,23 +30,46 @@ const Revenue = () => {
     dispatch(getRevenueChartsData("all"));
   }, [dispatch]);
 
-
   return (
     <React.Fragment>
       <Card>
         <CardHeader className="border-0 align-items-center d-flex">
           <h4 className="card-title mb-0 flex-grow-1">Revenue</h4>
           <div className="d-flex gap-1">
-            <button type="button" className="btn btn-soft-secondary btn-sm" onClick={() => { onChangeChartPeriod("all"); }}>
+            <button
+              type="button"
+              className="btn btn-soft-secondary btn-sm"
+              onClick={() => {
+                onChangeChartPeriod("all");
+              }}
+            >
               ALL
             </button>
-            <button type="button" className="btn btn-soft-secondary btn-sm" onClick={() => { onChangeChartPeriod("month"); }}>
+            <button
+              type="button"
+              className="btn btn-soft-secondary btn-sm"
+              onClick={() => {
+                onChangeChartPeriod("month");
+              }}
+            >
               1M
             </button>
-            <button type="button" className="btn btn-soft-secondary btn-sm" onClick={() => { onChangeChartPeriod("halfyear"); }}>
+            <button
+              type="button"
+              className="btn btn-soft-secondary btn-sm"
+              onClick={() => {
+                onChangeChartPeriod("halfyear");
+              }}
+            >
               6M
             </button>
-            <button type="button" className="btn btn-soft-primary btn-sm" onClick={() => { onChangeChartPeriod("year"); }}>
+            <button
+              type="button"
+              className="btn btn-soft-primary btn-sm"
+              onClick={() => {
+                onChangeChartPeriod("year");
+              }}
+            >
               1Y
             </button>
           </div>
@@ -66,12 +88,7 @@ const Revenue = () => {
             <Col xs={6} sm={3}>
               <div className="p-3 border border-dashed border-start-0">
                 <h5 className="mb-1">
-                  <CountUp
-                    start={0}
-                    decimals={2}
-                    end={22.89}
-                    duration={3}
-                  />
+                  <CountUp start={0} decimals={2} end={22.89} duration={3} />
                 </h5>
                 <p className="text-muted mb-0">Earnings</p>
               </div>
@@ -87,13 +104,7 @@ const Revenue = () => {
             <Col xs={6} sm={3}>
               <div className="p-3 border border-dashed border-start-0 border-end-0">
                 <h5 className="mb-1 text-success">
-                  <CountUp
-                    start={0}
-                    end={18.92}
-                    decimals={2}
-                    duration={3}
-                    suffix="%"
-                  />
+                  <CountUp start={0} end={18.92} decimals={2} duration={3} suffix="%" />
                 </h5>
                 <p className="text-muted mb-0">Conversation Ratio</p>
               </div>

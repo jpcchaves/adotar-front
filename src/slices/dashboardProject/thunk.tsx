@@ -8,10 +8,10 @@ import {
   getAllProjectStatusData as getAllProjectStatusDataApi,
   getWeekProjectStatusData as getWeekProjectStatusDataApi,
   getMonthProjectStatusData as getMonthProjectStatusDataApi,
-  getQuarterProjectStatusData as getQuarterProjectStatusDataApi
+  getQuarterProjectStatusData as getQuarterProjectStatusDataApi,
 } from "../../helpers/fakebackend_helper";
 
-export const getProjectChartsData = createAsyncThunk("dashboardProject/getProjectChartsData", async (data:any) => {
+export const getProjectChartsData = createAsyncThunk("dashboardProject/getProjectChartsData", async (data: any) => {
   try {
     var response;
     if (data === "all") {
@@ -32,23 +32,26 @@ export const getProjectChartsData = createAsyncThunk("dashboardProject/getProjec
   }
 });
 
-export const getProjectStatusChartsData = createAsyncThunk("dashboardProject/getProjectStatusChartsData", async (data:any) => {
-  try {
-    var response;
-    if (data === "all") {
-      response = getAllProjectStatusDataApi();
+export const getProjectStatusChartsData = createAsyncThunk(
+  "dashboardProject/getProjectStatusChartsData",
+  async (data: any) => {
+    try {
+      var response;
+      if (data === "all") {
+        response = getAllProjectStatusDataApi();
+      }
+      if (data === "week") {
+        response = getWeekProjectStatusDataApi();
+      }
+      if (data === "month") {
+        response = getMonthProjectStatusDataApi();
+      }
+      if (data === "quarter") {
+        response = getQuarterProjectStatusDataApi();
+      }
+      return response;
+    } catch (error) {
+      return error;
     }
-    if (data === "week") {
-      response = getWeekProjectStatusDataApi();
-    }
-    if (data === "month") {
-      response = getMonthProjectStatusDataApi();
-    }
-    if (data === "quarter") {
-      response = getQuarterProjectStatusDataApi();
-    }
-    return response;
-  } catch (error) {
-    return error;
-  }
-});
+  },
+);

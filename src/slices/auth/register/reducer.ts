@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const initialState :any= {
+export const initialState: any = {
   registrationError: null,
   message: null,
   loading: false,
   user: null,
   success: false,
-  error: false
+  error: false,
 };
 
 const registerSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    registerUserSuccessful(state:any, action:any) {
+    registerUserSuccessful(state: any, action: any) {
       state.user = action.payload;
       state.loading = false;
       state.success = true;
@@ -29,19 +29,15 @@ const registerSlice = createSlice({
       state.success = false;
       state.error = false;
     },
-    apiErrorChange(state:any, action:any){
+    apiErrorChange(state: any, action: any) {
       state.error = action.payload;
       state.loading = false;
       state.isUserLogout = false;
-    }
-  }
+    },
+  },
 });
 
-export const {
-  registerUserSuccessful,
-  registerUserFailed,
-  resetRegisterFlagChange,
-  apiErrorChange
-} = registerSlice.actions;
+export const { registerUserSuccessful, registerUserFailed, resetRegisterFlagChange, apiErrorChange } =
+  registerSlice.actions;
 
 export default registerSlice.reducer;

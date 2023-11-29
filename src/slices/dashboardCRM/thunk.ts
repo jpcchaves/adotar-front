@@ -12,11 +12,10 @@ import {
   getOctSalesData as getOctSalesDataApi,
   getNovSalesData as getNovSalesDataApi,
   getDecSalesData as getDecSalesDataApi,
-  getJanSalesData as getJanSalesDataApi
-}
-  from "../../helpers/fakebackend_helper";
+  getJanSalesData as getJanSalesDataApi,
+} from "../../helpers/fakebackend_helper";
 
-export const getBalanceChartsData = createAsyncThunk("dashboardCrm/getBalanceChartsData", async (data:any) => {
+export const getBalanceChartsData = createAsyncThunk("dashboardCrm/getBalanceChartsData", async (data: any) => {
   try {
     var response;
     if (data === "today") {
@@ -37,7 +36,7 @@ export const getBalanceChartsData = createAsyncThunk("dashboardCrm/getBalanceCha
   }
 });
 
-export const getDialChartsData = createAsyncThunk("dashboardCrm/getDialChartsData", async (data:any) => {
+export const getDialChartsData = createAsyncThunk("dashboardCrm/getDialChartsData", async (data: any) => {
   try {
     var response;
     if (data === "today") {
@@ -53,13 +52,12 @@ export const getDialChartsData = createAsyncThunk("dashboardCrm/getDialChartsDat
       response = getYearlyDealDataApi();
     }
     return response;
-  }
-  catch (error) {
+  } catch (error) {
     return error;
   }
 });
 
-export const getSalesChartsData = createAsyncThunk("dashboardCrm/getSalesChartsData", async (data:any) => {
+export const getSalesChartsData = createAsyncThunk("dashboardCrm/getSalesChartsData", async (data: any) => {
   try {
     var response;
     if (data === "oct") {
@@ -75,8 +73,7 @@ export const getSalesChartsData = createAsyncThunk("dashboardCrm/getSalesChartsD
       response = getJanSalesDataApi();
     }
     return response;
-  }
-  catch (error) {
+  } catch (error) {
     return response;
   }
 });

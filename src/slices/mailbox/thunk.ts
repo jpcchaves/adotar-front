@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //Include Both Helper File with needed methods
 import {
@@ -9,7 +9,7 @@ import {
   trashMail as trashMailApi,
   staredMail as staredMailApi,
   unreadMail as unreadMailApi,
-  labelMail as labelMailApi
+  labelMail as labelMailApi,
 } from "../../helpers/fakebackend_helper";
 
 export const getMailDetails = createAsyncThunk("mailbox/getMailDetails", async () => {

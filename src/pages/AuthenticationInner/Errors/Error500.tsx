@@ -16,18 +16,13 @@ const Error500 = () => {
             <Row className="justify-content-center">
               <Col xl={4} className="text-center">
                 <div className="error-500 position-relative">
-                  <img
-                    src={error500}
-                    alt=""
-                    className="img-fluid error-500-img error-img"
-                  />
+                  <img src={error500} alt="" className="img-fluid error-500-img error-img" />
                   <h1 className="title text-muted">500</h1>
                 </div>
                 <div>
                   <h3>Internal Server Error!</h3>
                   <p className="text-muted w-75 mx-auto">
-                    Server Error 500. We're not exactly sure what happened, but
-                    our servers say something is wrong.
+                    Server Error 500. We're not exactly sure what happened, but our servers say something is wrong.
                   </p>
                   <Link to="/dashboard" className="btn btn-success">
                     <i className="mdi mdi-home me-1"></i>Back to home

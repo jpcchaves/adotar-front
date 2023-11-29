@@ -8,10 +8,10 @@ import {
   getYearMarketData as getYearMarketDataApi,
   getMonthMarketData as getMonthMarketDataApi,
   getWeekMarketData as getWeekMarketDataApi,
-  getHourMarketData as getHourMarketDataApi
+  getHourMarketData as getHourMarketDataApi,
 } from "../../helpers/fakebackend_helper";
 
-export const getPortfolioChartsData = createAsyncThunk("dashboardCrypto/getPortfolioChartsData", async (data:any) => {
+export const getPortfolioChartsData = createAsyncThunk("dashboardCrypto/getPortfolioChartsData", async (data: any) => {
   try {
     var response;
     if (data === "btc") {
@@ -29,7 +29,7 @@ export const getPortfolioChartsData = createAsyncThunk("dashboardCrypto/getPortf
   }
 });
 
-export const getMarketChartsData = createAsyncThunk("dashboardCrypto/getMarketChartsData", async (data:any) => {
+export const getMarketChartsData = createAsyncThunk("dashboardCrypto/getMarketChartsData", async (data: any) => {
   try {
     var response;
 

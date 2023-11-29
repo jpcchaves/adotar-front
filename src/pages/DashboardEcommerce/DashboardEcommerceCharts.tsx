@@ -2,9 +2,9 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import getChartColorsArray from "../../Components/Common/ChartsDynamicColor";
 
-const RevenueCharts = ({dataColors, series}:any) => {
+const RevenueCharts = ({ dataColors, series }: any) => {
   var linechartcustomerColors = getChartColorsArray(dataColors);
-  
+
   var options = {
     chart: {
       height: 370,
@@ -29,20 +29,7 @@ const RevenueCharts = ({dataColors, series}:any) => {
       },
     },
     xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       axisTicks: {
         show: false,
       },
@@ -95,7 +82,7 @@ const RevenueCharts = ({dataColors, series}:any) => {
       shared: true,
       y: [
         {
-          formatter: function (y:any) {
+          formatter: function (y: any) {
             if (typeof y !== "undefined") {
               return y.toFixed(0);
             }
@@ -103,7 +90,7 @@ const RevenueCharts = ({dataColors, series}:any) => {
           },
         },
         {
-          formatter: function (y:any) {
+          formatter: function (y: any) {
             if (typeof y !== "undefined") {
               return "$" + y.toFixed(2) + "k";
             }
@@ -111,7 +98,7 @@ const RevenueCharts = ({dataColors, series}:any) => {
           },
         },
         {
-          formatter: function (y:any) {
+          formatter: function (y: any) {
             if (typeof y !== "undefined") {
               return y.toFixed(0) + " Sales";
             }
@@ -123,18 +110,12 @@ const RevenueCharts = ({dataColors, series}:any) => {
   };
   return (
     <React.Fragment>
-      <ReactApexChart dir="ltr"
-        options={options}
-        series={series}
-        type="line"
-        height="370"
-        className="apex-charts"
-      />
+      <ReactApexChart dir="ltr" options={options} series={series} type="line" height="370" className="apex-charts" />
     </React.Fragment>
   );
 };
 
-const StoreVisitsCharts = ({dataColors}:any) => {
+const StoreVisitsCharts = ({ dataColors }: any) => {
   var chartDonutBasicColors = getChartColorsArray(dataColors);
 
   const series = [44, 55, 41, 17, 15];
@@ -159,13 +140,7 @@ const StoreVisitsCharts = ({dataColors}:any) => {
   };
   return (
     <React.Fragment>
-      <ReactApexChart dir="ltr"
-        options={options}
-        series={series}
-        type="donut"
-        height="333"
-        className="apex-charts"
-      />
+      <ReactApexChart dir="ltr" options={options} series={series} type="donut" height="333" className="apex-charts" />
     </React.Fragment>
   );
 };

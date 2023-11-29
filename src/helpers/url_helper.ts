@@ -243,7 +243,7 @@ export const GET_API_KEY = "/api-key";
 export const GET_CANDIDATE = "/candidates";
 export const ADD_NEW_CANDIDATE = "add/candidates";
 export const UPDATE_CANDIDATE = "update/candidates";
-export const DELETE_CANDIDATE = "delete/candidates"
+export const DELETE_CANDIDATE = "delete/candidates";
 
 export const GET_CANDIDATE_GRID = "/category-grid";
 export const ADD_CANDIDATE_GRID = "/add/category-grid";

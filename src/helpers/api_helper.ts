@@ -9,10 +9,9 @@ axios.defaults.baseURL = api.API_URL;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 // content type
-const authUser: any = sessionStorage.getItem("authUser")
+const authUser: any = sessionStorage.getItem("authUser");
 const token = JSON.parse(authUser) ? JSON.parse(authUser).token : null;
-if (token)
-  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+if (token) axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
 // intercepting to capture errors
 axios.interceptors.response.use(
@@ -36,13 +35,13 @@ axios.interceptors.response.use(
         message = error.message || error;
     }
     return Promise.reject(message);
-  }
+  },
 );
 /**
  * Sets the default authorization
  * @param {*} token
  */
-const setAuthorization = (token:string) => {
+const setAuthorization = (token: string) => {
   axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 };
 
@@ -60,12 +59,12 @@ class APIClient {
     let paramKeys: string[] = [];
 
     if (params) {
-      Object.keys(params).map(key => {
-        paramKeys.push(key + '=' + params[key]);
+      Object.keys(params).map((key) => {
+        paramKeys.push(key + "=" + params[key]);
         return paramKeys;
       });
 
-      const queryString = paramKeys && paramKeys.length ? paramKeys.join('&') : "";
+      const queryString = paramKeys && paramKeys.length ? paramKeys.join("&") : "";
       response = axios.get(`${url}?${queryString}`, params);
     } else {
       response = axios.get(`${url}`, params);
@@ -76,17 +75,17 @@ class APIClient {
   /**
    * post given data to url
    */
-  create = (url:string, data:any) => {
+  create = (url: string, data: any) => {
     return axios.post(url, data);
   };
   /**
    * Updates data
    */
-  update = (url:string, data:any) => {
+  update = (url: string, data: any) => {
     return axios.patch(url, data);
   };
 
-  put = (url:string, data:any) => {
+  put = (url: string, data: any) => {
     return axios.put(url, data);
   };
   /**

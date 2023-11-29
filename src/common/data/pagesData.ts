@@ -170,8 +170,7 @@ const pricing1 = [
     id: 2,
     type: "Professional",
     rate: 29,
-    description:
-      "Excellent for scalling teams to build culture. Special plan for professional business.",
+    description: "Excellent for scalling teams to build culture. Special plan for professional business.",
     projects: 8,
     Customers: 499,
     FTP: 7,
@@ -193,8 +192,7 @@ const pricing1 = [
     id: 3,
     type: "Enterprise",
     rate: 39,
-    description:
-      "This plan is for those who have a team alredy and running a large business.",
+    description: "This plan is for those who have a team alredy and running a large business.",
     projects: 15,
     Customers: "Unlimited",
     FTP: 12,
@@ -873,8 +871,7 @@ const video = [
   },
   {
     id: 3,
-    title:
-      "Adotar - The Most Popular Bootstrap 5 HTML, Angular & React Js Admin",
+    title: "Adotar - The Most Popular Bootstrap 5 HTML, Angular & React Js Admin",
     siteLink: "https://themesbrand.com/velzon/index.html",
     videoLink: "https://www.youtube.com/embed/1y_kfWUCFDQ",
     description:
@@ -1059,16 +1056,4 @@ const team = [
   },
 ];
 
-export {
-  gallery,
-  pricing1,
-  pricing2,
-  pricing3,
-  projects,
-  documents,
-  SearchGallery,
-  news,
-  video,
-  swiper,
-  team,
-};
+export { gallery, pricing1, pricing2, pricing3, projects, documents, SearchGallery, news, video, swiper, team };

@@ -1,19 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { isEmpty } from "lodash";
 
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Alert,
-  CardBody,
-  Button,
-  Label,
-  Input,
-  FormFeedback,
-  Form,
-} from "reactstrap";
+import { Container, Row, Col, Card, Alert, CardBody, Button, Label, Input, FormFeedback, Form } from "reactstrap";
 
 // Formik Validation
 import * as Yup from "yup";
@@ -91,19 +79,13 @@ const UserProfile = () => {
           <Row>
             <Col lg="12">
               {error && error ? <Alert color="danger">{error}</Alert> : null}
-              {success ? (
-                <Alert color="success">Username Updated To {userName}</Alert>
-              ) : null}
+              {success ? <Alert color="success">Username Updated To {userName}</Alert> : null}
 
               <Card>
                 <CardBody>
                   <div className="d-flex">
                     <div className="mx-3">
-                      <img
-                        src={avatar}
-                        alt=""
-                        className="avatar-md rounded-circle img-thumbnail"
-                      />
+                      <img src={avatar} alt="" className="avatar-md rounded-circle img-thumbnail" />
                     </div>
                     <div className="flex-grow-1 align-self-center">
                       <div className="text-muted">
@@ -141,18 +123,10 @@ const UserProfile = () => {
                     onChange={validation.handleChange}
                     onBlur={validation.handleBlur}
                     value={validation.values.first_name || ""}
-                    invalid={
-                      validation.touched.first_name &&
-                      validation.errors.first_name
-                        ? true
-                        : false
-                    }
+                    invalid={validation.touched.first_name && validation.errors.first_name ? true : false}
                   />
-                  {validation.touched.first_name &&
-                  validation.errors.first_name ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.first_name}
-                    </FormFeedback>
+                  {validation.touched.first_name && validation.errors.first_name ? (
+                    <FormFeedback type="invalid">{validation.errors.first_name}</FormFeedback>
                   ) : null}
                   <Input name="idx" value={idx} type="hidden" />
                 </div>

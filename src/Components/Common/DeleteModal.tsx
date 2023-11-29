@@ -8,10 +8,10 @@ import { Modal, ModalBody } from "reactstrap";
 // import '@lordicon/lord-icon-element/lord-icon-element.js';
 
 interface DeleteModalProps {
-  show ?: boolean;
-  onDeleteClick ?: () => void;
-  onCloseClick ?: () => void;
-  recordId ?: string;
+  show?: boolean;
+  onDeleteClick?: () => void;
+  onCloseClick?: () => void;
+  recordId?: string;
 }
 
 const DeleteModal: React.FC<DeleteModalProps> = ({ show, onDeleteClick, onCloseClick, recordId }) => {
@@ -28,20 +28,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ show, onDeleteClick, onCloseC
           </div>
         </div>
         <div className="d-flex gap-2 justify-content-center mt-4 mb-2">
-          <button
-            type="button"
-            className="btn w-sm btn-light"
-            data-bs-dismiss="modal"
-            onClick={onCloseClick}
-          >
+          <button type="button" className="btn w-sm btn-light" data-bs-dismiss="modal" onClick={onCloseClick}>
             Close
           </button>
-          <button
-            type="button"
-            className="btn w-sm btn-danger "
-            id="delete-record"
-            onClick={onDeleteClick}
-          >
+          <button type="button" className="btn w-sm btn-danger " id="delete-record" onClick={onDeleteClick}>
             Yes, Delete It!
           </button>
         </div>

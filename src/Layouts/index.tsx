@@ -28,22 +28,19 @@ import { createSelector } from "reselect";
 const Layout = (props: any) => {
   const dispatch: any = useDispatch();
   const selectLayoutState = (state: any) => state.Layout;
-  const selectLayoutProperties = createSelector(
-    selectLayoutState,
-    (layout) => ({
-      layoutType: layout.layoutType,
-      leftSidebarType: layout.leftSidebarType,
-      layoutModeType: layout.layoutModeType,
-      layoutWidthType: layout.layoutWidthType,
-      layoutPositionType: layout.layoutPositionType,
-      topbarThemeType: layout.topbarThemeType,
-      leftsidbarSizeType: layout.leftsidbarSizeType,
-      leftSidebarViewType: layout.leftSidebarViewType,
-      leftSidebarImageType: layout.leftSidebarImageType,
-      preloader: layout.preloader,
-      sidebarVisibilitytype: layout.sidebarVisibilitytype,
-    })
-  );
+  const selectLayoutProperties = createSelector(selectLayoutState, (layout) => ({
+    layoutType: layout.layoutType,
+    leftSidebarType: layout.leftSidebarType,
+    layoutModeType: layout.layoutModeType,
+    layoutWidthType: layout.layoutWidthType,
+    layoutPositionType: layout.layoutPositionType,
+    topbarThemeType: layout.topbarThemeType,
+    leftsidbarSizeType: layout.leftsidbarSizeType,
+    leftSidebarViewType: layout.leftSidebarViewType,
+    leftSidebarImageType: layout.leftSidebarImageType,
+    preloader: layout.preloader,
+    sidebarVisibilitytype: layout.sidebarVisibilitytype,
+  }));
   // Inside your component
   const {
     layoutType,
@@ -124,11 +121,7 @@ const Layout = (props: any) => {
 
   useEffect(() => {
     const humberIcon = document.querySelector(".hamburger-icon") as HTMLElement;
-    if (
-      sidebarVisibilitytype === "show" ||
-      layoutType === "vertical" ||
-      layoutType === "twocolumn"
-    ) {
+    if (sidebarVisibilitytype === "show" || layoutType === "vertical" || layoutType === "twocolumn") {
       humberIcon.classList.remove("open");
     } else {
       humberIcon && humberIcon.classList.add("open");
@@ -137,11 +130,7 @@ const Layout = (props: any) => {
   return (
     <React.Fragment>
       <div id="layout-wrapper">
-        <Header
-          headerClass={headerClass}
-          layoutModeType={layoutModeType}
-          onChangeLayoutMode={onChangeLayoutMode}
-        />
+        <Header headerClass={headerClass} layoutModeType={layoutModeType} onChangeLayoutMode={onChangeLayoutMode} />
         <Sidebar layoutType={layoutType} />
         <div className="main-content">
           {props.children}

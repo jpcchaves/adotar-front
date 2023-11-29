@@ -1083,9 +1083,7 @@ const chatContactData = [
   {
     id: 1,
     title: "A",
-    contacts: [
-      { id: 1, name: "Alice Cruickshank", status: "Online", roomId: 15 },
-    ],
+    contacts: [{ id: 1, name: "Alice Cruickshank", status: "Online", roomId: 15 }],
   },
   {
     id: 2,

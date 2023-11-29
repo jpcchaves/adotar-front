@@ -17,32 +17,36 @@ The Adotar API was developed using TypeScript and React JS, leveraging the robus
 
 1. Clone the project
 
-    ```bash
-    git clone https://github.com/jpcchaves/adotar-front.git
-    ```
+   ```bash
+   git clone https://github.com/jpcchaves/adotar-front.git
+   ```
 
 2. Navigate to the project directory
 
-    ```bash
-    cd adotar-front
-    ```
+   ```bash
+   cd adotar-front
+   ```
 
 3. Install dependencies
 
-    ```bash
-    npm install
-    ```
-    or
+   ```bash
+   npm install
+   ```
+
+   or
+
    ```
    yarn
    ```
 
-5. Run the project
+4. Run the project
 
-    ```bash
-    npm run dev
-    ```
-    or
+   ```bash
+   npm run dev
+   ```
+
+   or
+
    ```
    yarn dev
    ```

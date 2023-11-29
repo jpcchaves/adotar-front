@@ -8,7 +8,7 @@ import {
   useFilters,
   useExpanded,
   usePagination,
-  useRowSelect
+  useRowSelect,
 } from "react-table";
 import { Table, Row, Col, Button, CardBody } from "reactstrap";
 import { DefaultColumnFilter } from "./filters";
@@ -61,7 +61,7 @@ function GlobalFilter({
   isTaskListFilter,
   isProductsFilter,
   isLeadsFilter,
-  SearchPlaceholder
+  SearchPlaceholder,
 }: GlobaFilerPropes) {
   const [value, setValue] = React.useState(globalFilter);
   const onChange = useAsyncDebounce((value: any) => {
@@ -74,7 +74,13 @@ function GlobalFilter({
         <form>
           <Row>
             <Col sm={5}>
-              <div className={(isProductsFilter || isContactsFilter || isTicketsListFilter || isNFTRankingFilter ||isTaskListFilter) ? "search-box me-2 mb-2 d-inline-block" : "search-box me-2 mb-2 d-inline-block col-12"}>
+              <div
+                className={
+                  isProductsFilter || isContactsFilter || isTicketsListFilter || isNFTRankingFilter || isTaskListFilter
+                    ? "search-box me-2 mb-2 d-inline-block"
+                    : "search-box me-2 mb-2 d-inline-block col-12"
+                }
+              >
                 <input
                   onChange={(e) => {
                     setValue(e.target.value);
@@ -89,43 +95,20 @@ function GlobalFilter({
                 <i className="bx bx-search-alt search-icon"></i>
               </div>
             </Col>
-            {isProductsFilter && (
-              <ProductsGlobalFilter />
-            )}
-            {isCustomerFilter && (
-              <CustomersGlobalFilter />
-            )}
-            {isOrderFilter && (
-              <OrderGlobalFilter />
-            )}
-            {isContactsFilter && (
-              <ContactsGlobalFilter />
-            )}
-            {isCompaniesFilter && (
-              <CompaniesGlobalFilter />
-            )}
-            {isLeadsFilter && (
-              <LeadsGlobalFilter />
-            )}
-            {isCryptoOrdersFilter && (
-              <CryptoOrdersGlobalFilter />
-            )}
-            {isInvoiceListFilter && (
-              <InvoiceListGlobalSearch />
-            )}
-            {isTicketsListFilter && (
-              <TicketsListGlobalFilter />
-            )}
-            {isNFTRankingFilter && (
-              <NFTRankingGlobalFilter />
-            )}
-            {isTaskListFilter && (
-              <TaskListGlobalFilter />
-            )}
+            {isProductsFilter && <ProductsGlobalFilter />}
+            {isCustomerFilter && <CustomersGlobalFilter />}
+            {isOrderFilter && <OrderGlobalFilter />}
+            {isContactsFilter && <ContactsGlobalFilter />}
+            {isCompaniesFilter && <CompaniesGlobalFilter />}
+            {isLeadsFilter && <LeadsGlobalFilter />}
+            {isCryptoOrdersFilter && <CryptoOrdersGlobalFilter />}
+            {isInvoiceListFilter && <InvoiceListGlobalSearch />}
+            {isTicketsListFilter && <TicketsListGlobalFilter />}
+            {isNFTRankingFilter && <NFTRankingGlobalFilter />}
+            {isTaskListFilter && <TaskListGlobalFilter />}
           </Row>
         </form>
       </CardBody>
-
     </React.Fragment>
   );
 }
@@ -170,7 +153,6 @@ interface TableContainerProps {
 }
 
 const TableContainer = ({
-
   className,
   columns,
   data,
@@ -202,7 +184,6 @@ const TableContainer = ({
   SearchPlaceholder,
   isAddProduct,
   handleProductClicks,
-
 }: TableContainerProps) => {
   const {
     getTableProps,
@@ -227,7 +208,10 @@ const TableContainer = ({
       data,
       defaultColumn: { Filter: DefaultColumnFilter },
       initialState: {
-        pageIndex: 0, pageSize: customPageSize, selectedRowIds: 0, sortBy: [
+        pageIndex: 0,
+        pageSize: customPageSize,
+        selectedRowIds: 0,
+        sortBy: [
           {
             desc: true,
           },
@@ -239,7 +223,7 @@ const TableContainer = ({
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
   );
 
   const generateSortingIndicator = (column: any) => {
@@ -259,11 +243,7 @@ const TableContainer = ({
       {/* <Row className="mb-3"> */}
       {isGlobalSearch && (
         <Col md={1}>
-          <select
-            className="form-select"
-            value={pageSize}
-            onChange={onChangeInSelect}
-          >
+          <select className="form-select" value={pageSize} onChange={onChangeInSelect}>
             {[10, 20, 30, 40, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize}
@@ -294,12 +274,7 @@ const TableContainer = ({
       {isAddProduct && (
         // <Col sm="7">
         <div className="text-sm-end">
-          <Button
-            type="button"
-            color="primary"
-            className="mb-2 me-2"
-            onClick={handleProductClicks}
-          >
+          <Button type="button" color="primary" className="mb-2 me-2" onClick={handleProductClicks}>
             <i className="ri-add-line align-bottom me-1" />
             Add Product
           </Button>
@@ -309,12 +284,7 @@ const TableContainer = ({
       {isAddOptions && (
         <Col sm="7">
           <div className="text-sm-end">
-            <Button
-              type="button"
-              color="success"
-              className="rounded-pill  mb-2 me-2"
-              onClick={handleOrderClicks}
-            >
+            <Button type="button" color="success" className="rounded-pill  mb-2 me-2" onClick={handleOrderClicks}>
               <i className="mdi mdi-plus me-1" />
               Add New Order
             </Button>
@@ -324,12 +294,7 @@ const TableContainer = ({
       {isAddUserList && (
         <Col sm="7">
           <div className="text-sm-end">
-            <Button
-              type="button"
-              color="primary"
-              className="btn mb-2 me-2"
-              onClick={handleUserClick}
-            >
+            <Button type="button" color="primary" className="btn mb-2 me-2" onClick={handleUserClick}>
               <i className="mdi mdi-plus-circle-outline me-1" />
               Create New User
             </Button>
@@ -339,12 +304,7 @@ const TableContainer = ({
       {isAddCustList && (
         <Col sm="7">
           <div className="text-sm-end">
-            <Button
-              type="button"
-              color="success"
-              className="rounded-pill mb-2 me-2"
-              onClick={handleCustomerClick}
-            >
+            <Button type="button" color="success" className="rounded-pill mb-2 me-2" onClick={handleCustomerClick}>
               <i className="mdi mdi-plus me-1" />
               New Customers
             </Button>
@@ -353,12 +313,11 @@ const TableContainer = ({
       )}
       {/* </Row> */}
 
-
       <div className={divClass}>
         <Table hover {...getTableProps()} className={tableClass}>
           <thead className={theadClass}>
             {headerGroups.map((headerGroup: any) => (
-              <tr className={trClass} key={headerGroup.id}  {...headerGroup.getHeaderGroupProps()}>
+              <tr className={trClass} key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column: any) => (
                   <th key={column.id} className={thClass} {...column.getSortByToggleProps()}>
                     {column.render("Header")}
@@ -393,23 +352,35 @@ const TableContainer = ({
 
       <Row className="align-items-center mt-2 g-3 text-center text-sm-start">
         <div className="col-sm">
-          <div className="text-muted">Showing<span className="fw-semibold ms-1">{page.length}</span> of <span className="fw-semibold">{data.length}</span> Results
+          <div className="text-muted">
+            Showing<span className="fw-semibold ms-1">{page.length}</span> of{" "}
+            <span className="fw-semibold">{data.length}</span> Results
           </div>
         </div>
         <div className="col-sm-auto">
           <ul className="pagination pagination-separated pagination-md justify-content-center justify-content-sm-start mb-0">
             <li className={!canPreviousPage ? "page-item disabled" : "page-item"}>
-              <Link to="#" className="page-link" onClick={previousPage}>Previous</Link>
+              <Link to="#" className="page-link" onClick={previousPage}>
+                Previous
+              </Link>
             </li>
             {pageOptions.map((item: any, key: number) => (
               <React.Fragment key={key}>
                 <li className="page-item">
-                  <Link to="#" className={pageIndex === item ? "page-link active" : "page-link"} onClick={() => gotoPage(item)}>{item + 1}</Link>
+                  <Link
+                    to="#"
+                    className={pageIndex === item ? "page-link active" : "page-link"}
+                    onClick={() => gotoPage(item)}
+                  >
+                    {item + 1}
+                  </Link>
                 </li>
               </React.Fragment>
             ))}
             <li className={!canNextPage ? "page-item disabled" : "page-item"}>
-              <Link to="#" className="page-link" onClick={nextPage}>Next</Link>
+              <Link to="#" className="page-link" onClick={nextPage}>
+                Next
+              </Link>
             </li>
           </ul>
         </div>

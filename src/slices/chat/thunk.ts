@@ -18,41 +18,41 @@ export const getDirectContact = createAsyncThunk("chat/getDirectContact", async 
   }
 });
 
-export const getChannels = createAsyncThunk("chat/getChannels" , async () => {
-  try{
+export const getChannels = createAsyncThunk("chat/getChannels", async () => {
+  try {
     const response = getChannelsApi();
     return response;
-  }catch (error) {
+  } catch (error) {
     return error;
   }
 });
 
-export const getMessages = createAsyncThunk("chat/getMessages" , async (roomId :any) => {
-  try{
+export const getMessages = createAsyncThunk("chat/getMessages", async (roomId: any) => {
+  try {
     const response = getMessagesApi(roomId);
     const data = await response;
     return data;
-  }catch (error) {
+  } catch (error) {
     return error;
   }
 });
 
-export const addMessage = createAsyncThunk("chat/addMessage" , async (message:any) => {
-  try{
+export const addMessage = createAsyncThunk("chat/addMessage", async (message: any) => {
+  try {
     const response = addMessageApi(message);
     const data = await response;
     return data;
-  }catch (error) {
+  } catch (error) {
     return error;
   }
 });
 
-export const deleteMessage = createAsyncThunk("chat/deleteMessage" , async (message:any) => {
-  try{
+export const deleteMessage = createAsyncThunk("chat/deleteMessage", async (message: any) => {
+  try {
     const response = deleteMessageApi(message);
     const data = await response;
     return data;
-  }catch (error) {
+  } catch (error) {
     return error;
   }
 });

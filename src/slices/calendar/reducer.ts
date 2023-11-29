@@ -1,14 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getEvents, addNewEvent, updateEvent, deleteEvent, getCategories, getUpCommingEvent, resetCalendar } from './thunk';
+import {
+  getEvents,
+  addNewEvent,
+  updateEvent,
+  deleteEvent,
+  getCategories,
+  getUpCommingEvent,
+  resetCalendar,
+} from "./thunk";
 
 export const initialState: any = {
   events: [],
   categories: [],
   upcommingevents: [],
-  error: {}
+  error: {},
 };
-
 
 const calendarSlice = createSlice({
   name: "calendar",
@@ -31,9 +38,7 @@ const calendarSlice = createSlice({
 
     builder.addCase(updateEvent.fulfilled, (state: any, action: any) => {
       state.events = (state.events || []).map((event: any) =>
-        event.id.toString() === action.payload.id.toString()
-          ? { ...event, ...action.payload }
-          : event
+        event.id.toString() === action.payload.id.toString() ? { ...event, ...action.payload } : event,
       );
     });
 
@@ -42,9 +47,7 @@ const calendarSlice = createSlice({
     });
 
     builder.addCase(deleteEvent.fulfilled, (state: any, action: any) => {
-      state.events = state.events.filter(
-        (event: any) => event.id.toString() !== action.payload.toString()
-      );
+      state.events = state.events.filter((event: any) => event.id.toString() !== action.payload.toString());
     });
     builder.addCase(deleteEvent.rejected, (state: any, action: any) => {
       state.error = action.payload.error || null;
@@ -77,7 +80,6 @@ const calendarSlice = createSlice({
     builder.addCase(resetCalendar.rejected, (state: any, action: any) => {
       state.error = action.payload.error || null;
     });
-
   },
 });
 

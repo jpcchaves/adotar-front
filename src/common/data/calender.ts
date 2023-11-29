@@ -115,8 +115,7 @@ const events = [
     extendedProps: {
       department: "All Day Event",
     },
-    description:
-      "An all-day event is an event that lasts an entire day or longer",
+    description: "An all-day event is an event that lasts an entire day or longer",
   },
   {
     id: 136,
@@ -129,8 +128,7 @@ const events = [
     extendedProps: {
       department: "Long Event",
     },
-    description:
-      "Long Term Event means an incident that last longer than 12 hours.",
+    description: "Long Term Event means an incident that last longer than 12 hours.",
   },
   {
     id: 999,

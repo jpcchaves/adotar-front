@@ -69,8 +69,7 @@ const ReviewSlider = () => {
               <div className="flex-grow-1 ms-3">
                 <div>
                   <p className="text-muted mb-1 fst-italic text-truncate-two-lines">
-                    " Amazing template, very easy to understand and manipulate.
-                    "
+                    " Amazing template, very easy to understand and manipulate. "
                   </p>
                   <div className="fs-11 align-middle text-warning">
                     <i className="ri-star-fill"></i>

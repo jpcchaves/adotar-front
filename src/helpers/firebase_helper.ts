@@ -1,15 +1,15 @@
-import firebase from 'firebase/compat/app';
+import firebase from "firebase/compat/app";
 
 // Add the Firebase products that you want to use
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 class FirebaseAuthBackend {
-  constructor(firebaseConfig : any) {
+  constructor(firebaseConfig: any) {
     if (firebaseConfig) {
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      firebase.auth().onAuthStateChanged(user => {
+      firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           sessionStorage.setItem("authUser", JSON.stringify(user));
         } else {
@@ -22,18 +22,18 @@ class FirebaseAuthBackend {
   /**
    * Registers the user with given details
    */
-  registerUser = (email : any, password : any) => {
+  registerUser = (email: any, password: any) => {
     return new Promise((resolve, reject) => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(
-          user => {
+          (user) => {
             resolve(firebase.auth().currentUser);
           },
-          error => {
+          (error) => {
             reject(this._handleError(error));
-          }
+          },
         );
     });
   };
@@ -41,18 +41,18 @@ class FirebaseAuthBackend {
   /**
    * Registers the user with given details
    */
-  editProfileAPI = (email : any, password : any) => {
+  editProfileAPI = (email: any, password: any) => {
     return new Promise((resolve, reject) => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(
-          user => {
+          (user) => {
             resolve(firebase.auth().currentUser);
           },
-          error => {
+          (error) => {
             reject(this._handleError(error));
-          }
+          },
         );
     });
   };
@@ -60,18 +60,18 @@ class FirebaseAuthBackend {
   /**
    * Login user with given details
    */
-  loginUser = (email : any, password : any) => {
+  loginUser = (email: any, password: any) => {
     return new Promise((resolve, reject) => {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(
-          user => {
+          (user) => {
             resolve(firebase.auth().currentUser);
           },
-          error => {
+          (error) => {
             reject(this._handleError(error));
-          }
+          },
         );
     });
   };
@@ -79,18 +79,17 @@ class FirebaseAuthBackend {
   /**
    * forget Password user with given details
    */
-  forgetPassword = (email :any) => {
+  forgetPassword = (email: any) => {
     return new Promise((resolve, reject) => {
       firebase
         .auth()
         .sendPasswordResetEmail(email, {
-          url:
-            window.location.protocol + "//" + window.location.host + "/login",
+          url: window.location.protocol + "//" + window.location.host + "/login",
         })
         .then(() => {
           resolve(true);
         })
-        .catch(error => {
+        .catch((error) => {
           reject(this._handleError(error));
         });
     });
@@ -106,7 +105,7 @@ class FirebaseAuthBackend {
       .then(() => {
         return true; // Resolves with a boolean value of true on success
       })
-      .catch(error => {
+      .catch((error) => {
         throw this._handleError(error); // Throws an error object with a message property on failure
       });
   };
@@ -126,14 +125,14 @@ class FirebaseAuthBackend {
         const result = await firebase.auth().signInWithPopup(provider);
         const user = result.user;
         return user;
-      } catch (error : any) {
+      } catch (error: any) {
         throw this._handleError(error);
       }
     }
     throw new Error(`Invalid social login type: ${type}`);
   };
 
-  addNewUserToFirestore = (user : any) => {
+  addNewUserToFirestore = (user: any) => {
     const collection = firebase.firestore().collection("users");
     const { profile } = user.additionalUserInfo;
     const details = {
@@ -143,13 +142,13 @@ class FirebaseAuthBackend {
       email: profile.email,
       picture: profile.picture,
       createdDtm: firebase.firestore.FieldValue.serverTimestamp(),
-      lastLoginTime: firebase.firestore.FieldValue.serverTimestamp()
+      lastLoginTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
     collection.doc(firebase.auth().currentUser!.uid).set(details);
     return { user, details };
   };
 
-  setLoggeedInUser = (user: firebase.User)  => {
+  setLoggeedInUser = (user: firebase.User) => {
     sessionStorage.setItem("authUser", JSON.stringify(user));
   };
 
@@ -170,7 +169,6 @@ class FirebaseAuthBackend {
     return error.message;
   }
 }
-  
 
 let _fireBaseBackend: FirebaseAuthBackend | null = null;
 

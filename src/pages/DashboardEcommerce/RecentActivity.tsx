@@ -15,18 +15,19 @@ import gitbox from "../../assets/images/giftbox.png";
 import SimpleBar from "simplebar-react";
 import { topCategories } from "../../common/data";
 
-const RecentActivity = (props:any) => {
+const RecentActivity = (props: any) => {
   return (
     <React.Fragment>
-      <div className={props.rightColumn ? "col-auto layout-rightside-col d-block" : "col-auto layout-rightside-col d-none"} id="layout-rightside-coll">
+      <div
+        className={props.rightColumn ? "col-auto layout-rightside-col d-block" : "col-auto layout-rightside-col d-none"}
+        id="layout-rightside-coll"
+      >
         <div className="overlay" onClick={props.hideRightColumn}></div>
         <div className="layout-rightside">
           <Card className="h-100 rounded-0">
             <CardBody className="p-0">
               <div className="p-3">
-                <h6 className="text-muted mb-0 text-uppercase fw-bold fs-13">
-                  Recent Activity
-                </h6>
+                <h6 className="text-muted mb-0 text-uppercase fw-bold fs-13">Recent Activity</h6>
               </div>
               <SimpleBar style={{ maxHeight: "410px" }} className="p-3 pt-0">
                 <div className="acitivity-timeline acitivity-main">
@@ -38,9 +39,7 @@ const RecentActivity = (props:any) => {
                     </div>
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">Purchase by James Price</h6>
-                      <p className="text-muted mb-1">
-                        Product noise evolve smartwatch{" "}
-                      </p>
+                      <p className="text-muted mb-1">Product noise evolve smartwatch </p>
                       <small className="mb-0 text-muted">02:14 PM Today</small>
                     </div>
                   </div>
@@ -52,40 +51,18 @@ const RecentActivity = (props:any) => {
                     </div>
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">
-                        Added new{" "}
-                        <span className="fw-semibold">style collection</span>
+                        Added new <span className="fw-semibold">style collection</span>
                       </h6>
                       <p className="text-muted mb-1">By Nesta Technologies</p>
                       <div className="d-inline-flex gap-2 border border-dashed p-2 mb-2">
-                        <Link
-                          to="/apps-ecommerce-product-details"
-                          className="bg-light rounded p-1"
-                        >
-                          <img
-                            src={product8}
-                            alt=""
-                            className="img-fluid d-block"
-                          />
+                        <Link to="/apps-ecommerce-product-details" className="bg-light rounded p-1">
+                          <img src={product8} alt="" className="img-fluid d-block" />
                         </Link>
-                        <Link
-                          to="/apps-ecommerce-product-details"
-                          className="bg-light rounded p-1"
-                        >
-                          <img
-                            src={product2}
-                            alt=""
-                            className="img-fluid d-block"
-                          />
+                        <Link to="/apps-ecommerce-product-details" className="bg-light rounded p-1">
+                          <img src={product2} alt="" className="img-fluid d-block" />
                         </Link>
-                        <Link
-                          to="/apps-ecommerce-product-details"
-                          className="bg-light rounded p-1"
-                        >
-                          <img
-                            src={product10}
-                            alt=""
-                            className="img-fluid d-block"
-                          />
+                        <Link to="/apps-ecommerce-product-details" className="bg-light rounded p-1">
+                          <img src={product10} alt="" className="img-fluid d-block" />
                         </Link>
                       </div>
                       <p className="mb-0 text-muted">
@@ -95,19 +72,11 @@ const RecentActivity = (props:any) => {
                   </div>
                   <div className="acitivity-item py-3 d-flex">
                     <div className="flex-shrink-0">
-                      <img
-                        src={avatar2}
-                        alt=""
-                        className="avatar-xs rounded-circle acitivity-avatar"
-                      />
+                      <img src={avatar2} alt="" className="avatar-xs rounded-circle acitivity-avatar" />
                     </div>
                     <div className="flex-grow-1 ms-3">
-                      <h6 className="mb-1 lh-base">
-                        Natasha Carey have liked the products
-                      </h6>
-                      <p className="text-muted mb-1">
-                        Allow users to like products in your WooCommerce store.
-                      </p>
+                      <h6 className="mb-1 lh-base">Natasha Carey have liked the products</h6>
+                      <p className="text-muted mb-1">Allow users to like products in your WooCommerce store.</p>
                       <small className="mb-0 text-muted">25 Dec, 2021</small>
                     </div>
                   </div>
@@ -122,16 +91,12 @@ const RecentActivity = (props:any) => {
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">
                         Today offers by{" "}
-                        <Link
-                          to="/apps-ecommerce-seller-details"
-                          className="link-secondary"
-                        >
+                        <Link to="/apps-ecommerce-seller-details" className="link-secondary">
                           Digitech Galaxy
                         </Link>
                       </h6>
                       <p className="text-muted mb-2">
-                        Offer is valid on orders of Rs.500 Or above for selected
-                        products only.
+                        Offer is valid on orders of Rs.500 Or above for selected products only.
                       </p>
                       <small className="mb-0 text-muted">12 Dec, 2021</small>
                     </div>
@@ -146,9 +111,7 @@ const RecentActivity = (props:any) => {
                     </div>
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">Favoried Product</h6>
-                      <p className="text-muted mb-2">
-                        Esther James have Favorite product.
-                      </p>
+                      <p className="text-muted mb-2">Esther James have Favorite product.</p>
                       <small className="mb-0 text-muted">25 Nov, 2021</small>
                     </div>
                   </div>
@@ -162,8 +125,7 @@ const RecentActivity = (props:any) => {
                     </div>
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">
-                        Flash sale starting{" "}
-                        <span className="text-primary">Tomorrow.</span>
+                        Flash sale starting <span className="text-primary">Tomorrow.</span>
                       </h6>
                       <p className="text-muted mb-0">
                         Flash sale by{" "}
@@ -185,12 +147,9 @@ const RecentActivity = (props:any) => {
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">Monthly sales report</h6>
                       <p className="text-muted mb-2">
-                        <span className="text-danger">2 days left</span>{" "}
-                        notification to submit the monthly sales report.{" "}
-                        <Link
-                          to="#"
-                          className="link-warning text-decoration-underline"
-                        >
+                        <span className="text-danger">2 days left</span> notification to submit the monthly sales
+                        report.{" "}
+                        <Link to="#" className="link-warning text-decoration-underline">
                           Reports Builder
                         </Link>
                       </p>
@@ -199,17 +158,12 @@ const RecentActivity = (props:any) => {
                   </div>
                   <div className="acitivity-item d-flex">
                     <div className="flex-shrink-0">
-                      <img
-                        src={avatar3}
-                        alt=""
-                        className="avatar-xs rounded-circle acitivity-avatar"
-                      />
+                      <img src={avatar3} alt="" className="avatar-xs rounded-circle acitivity-avatar" />
                     </div>
                     <div className="flex-grow-1 ms-3">
                       <h6 className="mb-1 lh-base">Frank Hook Commented</h6>
                       <p className="text-muted mb-2 fst-italic">
-                        " A product that has reviews is more likable to be sold
-                        than a product. "
+                        " A product that has reviews is more likable to be sold than a product. "
                       </p>
                       <small className="mb-0 text-muted">26 Aug, 2021</small>
                     </div>
@@ -218,16 +172,13 @@ const RecentActivity = (props:any) => {
               </SimpleBar>
 
               <div className="p-3 mt-2">
-                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">
-                  Top 10 Categories
-                </h6>
+                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">Top 10 Categories</h6>
 
                 <ol className="ps-3 text-muted">
                   {(topCategories || []).map((item, key) => (
                     <li className="py-1" key={key}>
                       <Link to="#" className="text-muted">
-                        {item.category}{" "}
-                        <span className="float-end">({item.total})</span>
+                        {item.category} <span className="float-end">({item.total})</span>
                       </Link>
                     </li>
                   ))}
@@ -239,16 +190,12 @@ const RecentActivity = (props:any) => {
                 </div>
               </div>
               <div className="p-3">
-                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">
-                  Products Reviews
-                </h6>
+                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">Products Reviews</h6>
                 <ReviewSlider />
               </div>
 
               <div className="p-3">
-                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">
-                  Customer Reviews
-                </h6>
+                <h6 className="text-muted mb-3 text-uppercase fw-bold fs-13">Customer Reviews</h6>
                 <div className="bg-light px-3 py-2 rounded-2 mb-2">
                   <div className="d-flex align-items-center">
                     <div className="flex-grow-1">
@@ -281,11 +228,7 @@ const RecentActivity = (props:any) => {
                     <div className="col">
                       <div className="p-1">
                         <div className="progress animated-progess progress-sm">
-                          <div
-                            className="progress-bar bg-success"
-                            role="progressbar"
-                            style={{ width: "50.16%" }}
-                          ></div>
+                          <div className="progress-bar bg-success" role="progressbar" style={{ width: "50.16%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -305,11 +248,7 @@ const RecentActivity = (props:any) => {
                     <div className="col">
                       <div className="p-1">
                         <div className="progress animated-progess progress-sm">
-                          <div
-                            className="progress-bar bg-success"
-                            role="progressbar"
-                            style={{ width: "29.32%" }}
-                          ></div>
+                          <div className="progress-bar bg-success" role="progressbar" style={{ width: "29.32%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -329,11 +268,7 @@ const RecentActivity = (props:any) => {
                     <div className="col">
                       <div className="p-1">
                         <div className="progress animated-progess progress-sm">
-                          <div
-                            className="progress-bar bg-warning"
-                            role="progressbar"
-                            style={{ width: "18.12%" }}
-                          ></div>
+                          <div className="progress-bar bg-warning" role="progressbar" style={{ width: "18.12%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -353,11 +288,7 @@ const RecentActivity = (props:any) => {
                     <div className="col">
                       <div className="p-1">
                         <div className="progress animated-progess progress-sm">
-                          <div
-                            className="progress-bar bg-success"
-                            role="progressbar"
-                            style={{ width: "4.98%" }}
-                          ></div>
+                          <div className="progress-bar bg-success" role="progressbar" style={{ width: "4.98%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -378,11 +309,7 @@ const RecentActivity = (props:any) => {
                     <div className="col">
                       <div className="p-1">
                         <div className="progress animated-progess progress-sm">
-                          <div
-                            className="progress-bar bg-danger"
-                            role="progressbar"
-                            style={{ width: "7.42%" }}
-                          ></div>
+                          <div className="progress-bar bg-danger" role="progressbar" style={{ width: "7.42%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -400,15 +327,9 @@ const RecentActivity = (props:any) => {
                   <img src={gitbox} alt="" />
                   <div className="mt-4">
                     <h5>Invite New Seller</h5>
-                    <p className="text-muted lh-base">
-                      Refer a new seller to us and earn $100 per refer.
-                    </p>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-label rounded-pill"
-                    >
-                      <i className="ri-mail-fill label-icon align-middle rounded-pill fs-16 me-2"></i>{" "}
-                      Invite Now
+                    <p className="text-muted lh-base">Refer a new seller to us and earn $100 per refer.</p>
+                    <button type="button" className="btn btn-primary btn-label rounded-pill">
+                      <i className="ri-mail-fill label-icon align-middle rounded-pill fs-16 me-2"></i> Invite Now
                     </button>
                   </div>
                 </CardBody>

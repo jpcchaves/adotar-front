@@ -9,9 +9,7 @@ const Footer = () => {
           <Row>
             <Col sm={6}>{new Date().getFullYear()} © adotar.</Col>
             <Col sm={6}>
-              <div className="text-sm-end d-none d-sm-block">
-                Design & Develop by Themesbrand
-              </div>
+              <div className="text-sm-end d-none d-sm-block">Design & Develop by Themesbrand</div>
             </Col>
           </Row>
         </Container>

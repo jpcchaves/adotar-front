@@ -83,7 +83,7 @@ import {
   jobCategories,
   jobCandidates,
   chatMessage,
-  tasklist
+  tasklist,
 } from "../../common/data";
 
 let users = [
@@ -100,7 +100,7 @@ const fakeBackend = () => {
   // This sets the mock adapter on the default instance
   const mock = new MockAdapter(axios, { onNoMatch: "passthrough" });
 
-  mock.onPost("/post-jwt-register").reply(config => {
+  mock.onPost("/post-jwt-register").reply((config) => {
     const user = JSON.parse(config["data"]);
     users.push(user);
 
@@ -111,11 +111,9 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost("/post-jwt-login").reply(config => {
+  mock.onPost("/post-jwt-login").reply((config) => {
     const user = JSON.parse(config["data"]);
-    const validUser = users.filter(
-      usr => usr.email === user.email && usr.password === user.password
-    );
+    const validUser = users.filter((usr) => usr.email === user.email && usr.password === user.password);
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -129,10 +127,7 @@ const fakeBackend = () => {
 
           resolve([200, validUserObj]);
         } else {
-          reject([
-            400,
-            "Username and password are invalid. Please enter correct username and password",
-          ]);
+          reject([400, "Username and password are invalid. Please enter correct username and password"]);
         }
       });
     });
@@ -145,7 +140,7 @@ const fakeBackend = () => {
 
     let finalToken = one.Authorization;
 
-    const validUser = users.filter(usr => usr.uid === user.idx);
+    const validUser = users.filter((usr) => usr.uid === user.idx);
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -155,7 +150,7 @@ const fakeBackend = () => {
             let objIndex;
 
             //Find index of specific object using findIndex method.
-            objIndex = users.findIndex(obj => obj.uid === user.idx);
+            objIndex = users.findIndex((obj) => obj.uid === user.idx);
 
             //Update object's name property.
             users[objIndex].username = user.username;
@@ -175,10 +170,9 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost("/social-login").reply(config => {
+  mock.onPost("/social-login").reply((config) => {
     const user = JSON.parse(config["data"]);
     return new Promise((resolve, reject) => {
-
       setTimeout(() => {
         if (user && user.token) {
           // You have to generate AccessToken by jwt. but this is fakeBackend so, right now its dummy
@@ -189,13 +183,10 @@ const fakeBackend = () => {
 
           // JWT AccessToken
           const tokenObj = { accessToken: token, first_name: first_name }; // Token Obj
-          const validUserObj = { token: nodeapiToken, "data": { ...tokenObj, ...user } }; // validUser Obj
+          const validUserObj = { token: nodeapiToken, data: { ...tokenObj, ...user } }; // validUser Obj
           resolve([200, validUserObj]);
         } else {
-          reject([
-            400,
-            "Username and password are invalid. Please enter correct username and password",
-          ]);
+          reject([400, "Username and password are invalid. Please enter correct username and password"]);
         }
       });
     });
@@ -256,7 +247,7 @@ const fakeBackend = () => {
     });
   });
 
-      // Ecommerce
+  // Ecommerce
 
   // Product
   mock.onGet(url.GET_PRODUCTS).reply(() => {
@@ -310,7 +301,6 @@ const fakeBackend = () => {
       });
     });
   });
-
 
   mock.onDelete(url.DELETE_PRODUCT).reply((config: any) => {
     return new Promise((resolve, reject) => {
@@ -454,7 +444,7 @@ const fakeBackend = () => {
         }
       });
     });
-  }); 
+  });
 
   // crm companies
 
@@ -497,8 +487,8 @@ const fakeBackend = () => {
     });
   });
 
-   // Crm Contact
-   mock.onGet(url.GET_CONTACTS).reply(() => {
+  // Crm Contact
+  mock.onGet(url.GET_CONTACTS).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (crmcontacts) {
@@ -563,8 +553,8 @@ const fakeBackend = () => {
     });
   });
 
-   // Crm Companies
-   mock.onGet(url.GET_COMPANIES).reply(() => {
+  // Crm Companies
+  mock.onGet(url.GET_COMPANIES).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (companies) {
@@ -629,8 +619,8 @@ const fakeBackend = () => {
     });
   });
 
-   // Crm Leads
-   mock.onGet(url.GET_LEADS).reply(() => {
+  // Crm Leads
+  mock.onGet(url.GET_LEADS).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (leads) {
@@ -694,8 +684,6 @@ const fakeBackend = () => {
       });
     });
   });
-
-  
 
   //  Tasks List
   mock.onGet(url.GET_TASK_LIST).reply(() => {
@@ -761,62 +749,62 @@ const fakeBackend = () => {
         }
       });
     });
-  }); 
+  });
 
-    // Kanban Board
-    mock.onGet(url.GET_TASKS).reply(() => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (tasklist) {
-            // Passing fake JSON data as response
-            resolve([200, tasklist]);
-          } else {
-            reject([400, "Cannot get tasks"]);
-          }
-        });
+  // Kanban Board
+  mock.onGet(url.GET_TASKS).reply(() => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (tasklist) {
+          // Passing fake JSON data as response
+          resolve([200, tasklist]);
+        } else {
+          reject([400, "Cannot get tasks"]);
+        }
       });
     });
-  
-    mock.onPost(url.ADD_TASKS).reply(user => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (user && user.data) {
-            // Passing fake JSON data as response
-            resolve([200, user.data]);
-          } else {
-            reject([400, "Cannot add user"]);
-          }
-        });
+  });
+
+  mock.onPost(url.ADD_TASKS).reply((user) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (user && user.data) {
+          // Passing fake JSON data as response
+          resolve([200, user.data]);
+        } else {
+          reject([400, "Cannot add user"]);
+        }
       });
     });
-  
-    mock.onPut(url.UPDATE_TASKS).reply((user) => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (user && user.data) {
-            // Passing fake JSON data as response
-            resolve([200, user.data]);
-          } else {
-            reject([400, "Cannot update user"]);
-          }
-        });
+  });
+
+  mock.onPut(url.UPDATE_TASKS).reply((user) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (user && user.data) {
+          // Passing fake JSON data as response
+          resolve([200, user.data]);
+        } else {
+          reject([400, "Cannot update user"]);
+        }
       });
     });
-  
-    mock.onDelete(url.DELETE_TASKS).reply(config => {
-      console.log("config", config);
-  
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (config && config.headers) {
-            // Passing fake JSON data as response
-            resolve([200, config.headers.card]);
-          } else {
-            reject([400, "Cannot delete users"]);
-          }
-        });
+  });
+
+  mock.onDelete(url.DELETE_TASKS).reply((config) => {
+    console.log("config", config);
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (config && config.headers) {
+          // Passing fake JSON data as response
+          resolve([200, config.headers.card]);
+        } else {
+          reject([400, "Cannot delete users"]);
+        }
       });
     });
+  });
 
   // Support Ticket
 
@@ -883,10 +871,10 @@ const fakeBackend = () => {
         }
       });
     });
-  }); 
+  });
 
-   // candidate list
-   mock.onGet(url.GET_CANDIDATE).reply(() => {
+  // candidate list
+  mock.onGet(url.GET_CANDIDATE).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (jobCandidates) {
@@ -1007,15 +995,13 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onGet(new RegExp(`${url.GET_MESSAGES}/*`)).reply(config => {
+  mock.onGet(new RegExp(`${url.GET_MESSAGES}/*`)).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (messages) {
           // Passing fake JSON data as response
           const { params } = config;
-          const filteredMessages = messages.filter(
-            msg => msg.roomId === params.roomId
-          );
+          const filteredMessages = messages.filter((msg) => msg.roomId === params.roomId);
 
           resolve([200, filteredMessages]);
         } else {
@@ -1025,7 +1011,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost(url.ADD_MESSAGE).reply(config => {
+  mock.onPost(url.ADD_MESSAGE).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config.data) {
@@ -1038,7 +1024,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.DELETE_MESSAGE).reply(config => {
+  mock.onDelete(url.DELETE_MESSAGE).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -1050,7 +1036,6 @@ const fakeBackend = () => {
       });
     });
   });
-
 
   // Project > List
   mock.onGet(url.GET_PROJECT_LIST).reply(() => {
@@ -1080,7 +1065,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.DELETE_MAIL).reply(config => {
+  mock.onDelete(url.DELETE_MAIL).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -1093,7 +1078,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.UNREAD_MAIL).reply(config => {
+  mock.onDelete(url.UNREAD_MAIL).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -1106,7 +1091,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.STARED_MAIL).reply(config => {
+  mock.onDelete(url.STARED_MAIL).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -1119,7 +1104,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.LABEL_MAIL).reply(config => {
+  mock.onDelete(url.LABEL_MAIL).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -1132,7 +1117,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onDelete(url.TRASH_MAIL).reply(config => {
+  mock.onDelete(url.TRASH_MAIL).reply((config) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config && config.headers) {
@@ -2216,18 +2201,18 @@ const fakeBackend = () => {
     });
   });
 
- // Invoice
- mock.onDelete(url.DELETE_INVOICE).reply((config: any) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (config && config.headers) {
-        resolve([200, config.headers.invoice]);
-      } else {
-        reject([400, "Cannot delete event"]);
-      }
+  // Invoice
+  mock.onDelete(url.DELETE_INVOICE).reply((config: any) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (config && config.headers) {
+          resolve([200, config.headers.invoice]);
+        } else {
+          reject([400, "Cannot delete event"]);
+        }
+      });
     });
   });
-});
   //API Key
   mock.onGet(url.GET_API_KEY).reply(() => {
     return new Promise((resolve, reject) => {
@@ -2241,7 +2226,6 @@ const fakeBackend = () => {
       });
     });
   });
-
 };
 
 export default fakeBackend;

@@ -1,17 +1,8 @@
-import React from 'react';
+import React from "react";
 
 export const Filter = ({ column }: any) => {
-
-  return (
-    <>
-      {column.Filter && (
-        <div style={{ marginTop: 5 }}>
-          {column.render('Filter')}
-        </div>
-      )}
-    </>
-  )
-}
+  return <>{column.Filter && <div style={{ marginTop: 5 }}>{column.render("Filter")}</div>}</>;
+};
 
 interface DefaultColumnProps {
   column?: any;
@@ -29,7 +20,7 @@ export const DefaultColumnFilter = ({
 }: DefaultColumnProps) => {
   return (
     <input
-      value={filterValue || ''}
+      value={filterValue || ""}
       onChange={(e: any) => {
         setFilter(e.target.value || undefined);
       }}
@@ -59,14 +50,14 @@ export const SelectColumnFilter = ({
 
   return (
     <select
-      id='custom-select'
+      id="custom-select"
       className="form-select"
       value={filterValue}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
       }}
     >
-      <option value=''>All</option>
+      <option value="">All</option>
       {options.map((option: any) => (
         <option key={option} value={option}>
           {option}

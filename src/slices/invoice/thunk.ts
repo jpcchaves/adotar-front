@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //Include Both Helper File with needed methods
 import {
   getInvoices as getInvoicesApi,
   addNewInvoice as addNewInvoiceApi,
   updateInvoice as updateInvoiceApi,
-  deleteInvoice as deleteInvoiceApi
+  deleteInvoice as deleteInvoiceApi,
 } from "../../helpers/fakebackend_helper";
 
 export const getInvoices = createAsyncThunk("invoice/getInvoices", async () => {
@@ -19,7 +19,7 @@ export const getInvoices = createAsyncThunk("invoice/getInvoices", async () => {
   }
 });
 
-export const addNewInvoice = createAsyncThunk("invoice/addNewInvoice", async (invoice:any) => {
+export const addNewInvoice = createAsyncThunk("invoice/addNewInvoice", async (invoice: any) => {
   try {
     const response = addNewInvoiceApi(invoice);
     toast.success("Invoice Added Successfully", { autoClose: 3000 });
@@ -30,7 +30,7 @@ export const addNewInvoice = createAsyncThunk("invoice/addNewInvoice", async (in
   }
 });
 
-export const updateInvoice = createAsyncThunk("invoice/updateInvoice", async (invoice:any) => {
+export const updateInvoice = createAsyncThunk("invoice/updateInvoice", async (invoice: any) => {
   try {
     const response = updateInvoiceApi(invoice);
     toast.success("Invoice Updated Successfully", { autoClose: 3000 });
@@ -42,13 +42,12 @@ export const updateInvoice = createAsyncThunk("invoice/updateInvoice", async (in
   }
 });
 
-export const deleteInvoice = createAsyncThunk("invoice/deleteInvoice", async (invoice:any) => {
+export const deleteInvoice = createAsyncThunk("invoice/deleteInvoice", async (invoice: any) => {
   try {
     const response = deleteInvoiceApi(invoice);
     toast.success("Invoice Delete Successfully", { autoClose: 3000 });
     return { invoice, ...response };
-  }
-  catch (error) {
+  } catch (error) {
     toast.error("Invoice Delete Failed", { autoClose: 3000 });
     return error;
   }

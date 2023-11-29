@@ -63,38 +63,22 @@ $vertical-menu-box-shadow-gradient: 0 2px 4px rgba(15, 34, 58, 0.12);
 $vertical-menu-dropdown-box-shadow-gradient: 0 2px 4px rgba(15, 34, 58, 0.12);
 
 //gradient one
-$vertical-menu-bg-gradient: linear-gradient(
-  to right,
-  shade-color($primary, 60%),
-  shade-color($primary, 40%)
-);
+$vertical-menu-bg-gradient: linear-gradient(to right, shade-color($primary, 60%), shade-color($primary, 40%));
 $vertical-menu-border-gradient: shade-color($primary, 40%);
 $twocolumn-menu-iconview-bg-gradient: shade-color($primary, 65%);
 
 //gradient-2
-$vertical-menu-bg-gradient-2: linear-gradient(
-  to right,
-  var(--#{$prefix}info),
-  var(--#{$prefix}secondary)
-);
+$vertical-menu-bg-gradient-2: linear-gradient(to right, var(--#{$prefix}info), var(--#{$prefix}secondary));
 $vertical-menu-border-gradient-2: var(--#{$prefix}secondary);
 $twocolumn-menu-iconview-bg-gradient-2: var(--#{$prefix}info);
 
 //gradient-3
-$vertical-menu-bg-gradient-3: linear-gradient(
-  to right,
-  var(--#{$prefix}info),
-  var(--#{$prefix}success)
-);
+$vertical-menu-bg-gradient-3: linear-gradient(to right, var(--#{$prefix}info), var(--#{$prefix}success));
 $vertical-menu-border-gradient-3: var(--#{$prefix}success);
 $twocolumn-menu-iconview-bg-gradient-3: var(--#{$prefix}info);
 
 //gradient-4
-$vertical-menu-bg-gradient-4: linear-gradient(
-  to right,
-  #1a1d21,
-  var(--#{$prefix}primary)
-);
+$vertical-menu-bg-gradient-4: linear-gradient(to right, #1a1d21, var(--#{$prefix}primary));
 $vertical-menu-border-gradient-4: var(--#{$prefix}primary);
 $twocolumn-menu-iconview-bg-gradient-4: #1a1d21;
 

@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMailDetails, unreadMail, staredMail, labelMail, trashMail, deleteMail } from './thunk';
+import { getMailDetails, unreadMail, staredMail, labelMail, trashMail, deleteMail } from "./thunk";
 
 export const initialState: any = {
   mailDetails: [],
   error: {},
-  isLoader: false
+  isLoader: false,
 };
 
 const MailBoxSlice = createSlice({
-  name: 'MailBoxSlice',
+  name: "MailBoxSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -38,7 +38,6 @@ const MailBoxSlice = createSlice({
     });
 
     builder.addCase(trashMail.fulfilled, (state: any, action: any) => {
-
       state.mailDetails = state.mailDetails.map((mail: any) => {
         if (mail.forId === action.payload) {
           return { ...mail, category: "trash" };
@@ -55,7 +54,6 @@ const MailBoxSlice = createSlice({
     });
 
     builder.addCase(staredMail.fulfilled, (state: any, action: any) => {
-
       state.mailDetails = state.mailDetails.map((mail: any) => {
         if (mail.forId === action.payload) {
           const newCategory = mail.category === "starred" ? "inbox" : "starred";
@@ -89,9 +87,7 @@ const MailBoxSlice = createSlice({
     });
 
     builder.addCase(deleteMail.fulfilled, (state: any, action: any) => {
-      state.mailDetails = state.mailDetails.filter(
-        (mail: any) => mail.forId !== action.payload
-      );
+      state.mailDetails = state.mailDetails.filter((mail: any) => mail.forId !== action.payload);
       state.isMailDetailsDeleted = false;
     });
 
@@ -99,7 +95,7 @@ const MailBoxSlice = createSlice({
       state.error = action.payload.error || null;
       state.isMailDetailsDeleted = false;
     });
-  }
+  },
 });
 
 export default MailBoxSlice.reducer;
