@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 
 // Import Images
 import error500 from "../../../assets/images/error500.png";
 
 const Error500 = () => {
-  document.title = "500 Error | adotar - React Admin & Dashboard Template";
+  document.title = "500 | Adotar";
 
   return (
     <React.Fragment>
@@ -22,11 +21,9 @@ const Error500 = () => {
                 <div>
                   <h3>Internal Server Error!</h3>
                   <p className="text-muted w-75 mx-auto">
-                    Server Error 500. We're not exactly sure what happened, but our servers say something is wrong.
+                    Um erro ocorreu em nossos servidores. Não sabemos exatamente o que aconteceu, porém, nossos
+                    servidores indicam que há algo errado.
                   </p>
-                  <Link to="/dashboard" className="btn btn-success">
-                    <i className="mdi mdi-home me-1"></i>Back to home
-                  </Link>
                 </div>
               </Col>
             </Row>
