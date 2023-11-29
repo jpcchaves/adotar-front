@@ -6,7 +6,6 @@ type PasswordInputOmittedProps = "onChange" | "onBlur" | "value";
 interface IProps extends Omit<InputProps, PasswordInputOmittedProps> {
   inputLabel?: string;
   invalid?: boolean;
-  isRequired: boolean;
   onChange: (e?: FormEvent<HTMLInputElement>) => void;
   onBlur: (e?: FocusEvent<HTMLInputElement>) => void;
   inputValue: string;
@@ -17,7 +16,6 @@ interface IProps extends Omit<InputProps, PasswordInputOmittedProps> {
 const PasswordInput = ({
   inputLabel = "Senha",
   invalid,
-  isRequired,
   onChange,
   onBlur,
   inputValue,
