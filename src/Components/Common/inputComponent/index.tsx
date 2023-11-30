@@ -5,12 +5,13 @@ import PasswordToggle from "./components/passwordToggle";
 import RequiredIndicator from "./components/requiredIndicator";
 
 type InputComponentOmittedProps = "onChange" | "onBlur" | "value" | "type";
+type AllowedInputTypes = "password" | "text";
 
 interface IProps extends Omit<InputProps, InputComponentOmittedProps> {
   inputLabel: string;
   invalid?: boolean;
   isRequired?: boolean;
-  type?: InputType | undefined;
+  type?: AllowedInputTypes;
   onChange: (e?: FormEvent<HTMLInputElement>) => void;
   onBlur: (e?: FocusEvent<HTMLInputElement>) => void;
   inputValue: string;
