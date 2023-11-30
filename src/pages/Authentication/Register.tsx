@@ -18,7 +18,6 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // action
@@ -85,6 +84,8 @@ const Register = () => {
 
   document.title = "Basic SignUp | adotar - React Admin & Dashboard Template";
 
+  let condition = true;
+
   return (
     <React.Fragment>
       <AuthWrapper>
@@ -96,8 +97,8 @@ const Register = () => {
                 <Card className="mt-4">
                   <CardBody className="p-4">
                     <div className="text-center mt-2">
-                      <h5 className="text-primary">Create New Account</h5>
-                      <p className="text-muted">Get your free adotar account now</p>
+                      <h5 className="text-primary">Cadastro</h5>
+                      <p className="text-muted">Preencha os dados abaixo para concluir o seu cadastro</p>
                     </div>
                     <div className="p-2 mt-4">
                       <Form
@@ -109,25 +110,42 @@ const Register = () => {
                         className="needs-validation"
                         action="#"
                       >
-                        {success && success ? (
-                          <>
-                            {toast("Your Redirect To Login Page...", {
-                              position: "top-right",
-                              hideProgressBar: false,
-                              className: "bg-success text-white",
-                              progress: undefined,
-                              toastId: "",
-                            })}
-                            <ToastContainer autoClose={2000} limit={1} />
-                            <Alert color="success">Register User Successfully and Your Redirect To Login Page...</Alert>
-                          </>
-                        ) : null}
-
                         {error && error ? (
                           <Alert color="danger">
                             <div>Email has been Register Before, Please Use Another Email Address... </div>
                           </Alert>
                         ) : null}
+
+                        <Row>
+                          <Col md={6} className="mb-3">
+                            <Label htmlFor="firstName">Nome</Label>
+                            <Input
+                              id="firstName"
+                              name="firstName"
+                              className="form-control"
+                              placeholder="Nome"
+                              type="text"
+                              onChange={validation.handleChange}
+                              onBlur={validation.handleBlur}
+                              value={validation.values.email || ""}
+                              invalid={!!(validation.touched.email && validation.errors.email)}
+                            />
+                          </Col>
+                          <Col md={6} className="mb-3">
+                            <Label htmlFor="lastName">Sobrenome</Label>
+                            <Input
+                              id="lastName"
+                              name="lastName"
+                              className="form-control"
+                              placeholder="Sobrenome"
+                              type="text"
+                              onChange={validation.handleChange}
+                              onBlur={validation.handleBlur}
+                              value={validation.values.email || ""}
+                              invalid={validation.touched.email && validation.errors.email ? true : false}
+                            />
+                          </Col>
+                        </Row>
 
                         <div className="mb-3">
                           <Label htmlFor="useremail" className="form-label">
@@ -137,7 +155,7 @@ const Register = () => {
                             id="email"
                             name="email"
                             className="form-control"
-                            placeholder="Enter email address"
+                            placeholder="Email"
                             type="email"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -172,12 +190,12 @@ const Register = () => {
 
                         <div className="mb-3">
                           <Label htmlFor="userpassword" className="form-label">
-                            Password <span className="text-danger">*</span>
+                            Senha <span className="text-danger">*</span>
                           </Label>
                           <Input
                             name="password"
                             type="password"
-                            placeholder="Enter Password"
+                            placeholder="Senha"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values.password || ""}
@@ -192,12 +210,12 @@ const Register = () => {
 
                         <div className="mb-2">
                           <Label htmlFor="confirmPassword" className="form-label">
-                            Confirm Password <span className="text-danger">*</span>
+                            Confirme sua senha <span className="text-danger">*</span>
                           </Label>
                           <Input
                             name="confirm_password"
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder="Confirme sua senha"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values.confirm_password || ""}
@@ -212,46 +230,15 @@ const Register = () => {
                           ) : null}
                         </div>
 
-                        <div className="mb-4">
-                          <p className="mb-0 fs-12 text-muted fst-italic">
-                            By registering you agree to the adotar
-                            <Link to="#" className="text-primary text-decoration-underline fst-normal fw-medium">
-                              Terms of Use
-                            </Link>
-                          </p>
-                        </div>
-
                         <div className="mt-4">
                           <Button color="success" className="w-100" type="submit" disabled={loader && true}>
                             {loader && (
                               <Spinner size="sm" className="me-2">
-                                {" "}
-                                Loading...{" "}
+                                Carregando...
                               </Spinner>
                             )}
-                            Sign Up
+                            Entrar
                           </Button>
-                        </div>
-
-                        <div className="mt-4 text-center">
-                          <div className="signin-other-title">
-                            <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
-                          </div>
-
-                          <div>
-                            <button type="button" className="btn btn-primary btn-icon waves-effect waves-light">
-                              <i className="ri-facebook-fill fs-16"></i>
-                            </button>{" "}
-                            <button type="button" className="btn btn-danger btn-icon waves-effect waves-light">
-                              <i className="ri-google-fill fs-16"></i>
-                            </button>{" "}
-                            <button type="button" className="btn btn-dark btn-icon waves-effect waves-light">
-                              <i className="ri-github-fill fs-16"></i>
-                            </button>{" "}
-                            <button type="button" className="btn btn-info btn-icon waves-effect waves-light">
-                              <i className="ri-twitter-fill fs-16"></i>
-                            </button>
-                          </div>
                         </div>
                       </Form>
                     </div>
@@ -259,9 +246,9 @@ const Register = () => {
                 </Card>
                 <div className="mt-4 text-center">
                   <p className="mb-0">
-                    Already have an account ?{" "}
+                    Ja possui uma conta?{" "}
                     <Link to="/login" className="fw-semibold text-primary text-decoration-underline">
-                      Signin
+                      Entrar
                     </Link>
                   </p>
                 </div>
