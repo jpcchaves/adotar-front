@@ -12,10 +12,10 @@ const Navdata = () => {
     if (e && e.target && e.target.getAttribute("sub-items")) {
       const ul: any = document.getElementById("two-column-menu");
       const iconItems: any = ul.querySelectorAll(".nav-icon.active");
-      let activeIconItems = [...iconItems];
+      const activeIconItems = [...iconItems];
       activeIconItems.forEach((item) => {
         item.classList.remove("active");
-        let id = item.getAttribute("sub-items");
+        const id = item.getAttribute("sub-items");
         const getID = document.getElementById(id) as HTMLElement;
         if (getID) getID.classList.remove("show");
       });

@@ -86,7 +86,7 @@ import {
   tasklist,
 } from "../../common/data";
 
-let users = [
+const users = [
   {
     uid: 1,
     username: "admin",
@@ -138,7 +138,7 @@ const fakeBackend = () => {
 
     const one = config.headers;
 
-    let finalToken = one.Authorization;
+    const finalToken = one.Authorization;
 
     const validUser = users.filter((usr) => usr.uid === user.idx);
 

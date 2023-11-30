@@ -14,7 +14,7 @@ import HorizontalLayout from "./HorizontalLayout";
 
 const Sidebar = ({ layoutType }: any) => {
   useEffect(() => {
-    var verticalOverlay = document.getElementsByClassName("vertical-overlay");
+    const verticalOverlay = document.getElementsByClassName("vertical-overlay");
     if (verticalOverlay) {
       verticalOverlay[0].addEventListener("click", function () {
         document.body.classList.remove("vertical-sidebar-enable");

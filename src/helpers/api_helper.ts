@@ -56,7 +56,7 @@ class APIClient {
   get = (url: string, params?: any): Promise<AxiosResponse> => {
     let response: Promise<AxiosResponse>;
 
-    let paramKeys: string[] = [];
+    const paramKeys: string[] = [];
 
     if (params) {
       Object.keys(params).map((key) => {

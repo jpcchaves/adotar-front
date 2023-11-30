@@ -19,7 +19,7 @@ const TwoColumnLayout = (props: any) => {
 
   const activateParentDropdown = useCallback((item: any) => {
     item.classList.add("active");
-    let parentCollapseDiv = item.closest(".collapse.menu-dropdown");
+    const parentCollapseDiv = item.closest(".collapse.menu-dropdown");
     if (parentCollapseDiv) {
       // to set aria expand true remaining
       parentCollapseDiv.classList.add("show");
@@ -46,9 +46,9 @@ const TwoColumnLayout = (props: any) => {
     const pathName = process.env.PUBLIC_URL + path;
     const ul: any = document.getElementById("navbar-nav");
     const items = ul.getElementsByTagName("a");
-    let itemsArray = [...items]; // converts NodeList to Array
+    const itemsArray = [...items]; // converts NodeList to Array
     removeActivation(itemsArray);
-    let matchingMenuItem = itemsArray.find((x) => {
+    const matchingMenuItem = itemsArray.find((x) => {
       return x.pathname === pathName;
     });
     if (matchingMenuItem) {
@@ -71,14 +71,16 @@ const TwoColumnLayout = (props: any) => {
   }, [path, initMenu]);
 
   function activateIconSidebarActive(id: any) {
-    var menu = document.querySelector("#two-column-menu .simplebar-content-wrapper a[sub-items='" + id + "'].nav-icon");
+    const menu = document.querySelector(
+      "#two-column-menu .simplebar-content-wrapper a[sub-items='" + id + "'].nav-icon",
+    );
     if (menu !== null) {
       menu.classList.add("active");
     }
   }
 
   const removeActivation = (items: any) => {
-    let activeItems = items.filter((x: any) => x.classList.contains("active"));
+    const activeItems = items.filter((x: any) => x.classList.contains("active"));
     activeItems.forEach((item: any) => {
       if (item.classList.contains("menu-link")) {
         if (!item.classList.contains("active")) {
@@ -97,12 +99,12 @@ const TwoColumnLayout = (props: any) => {
 
     const ul: any = document.getElementById("two-column-menu");
     const iconItems = ul.getElementsByTagName("a");
-    let itemsArray = [...iconItems];
-    let activeIconItems = itemsArray.filter((x) => x.classList.contains("active"));
+    const itemsArray = [...iconItems];
+    const activeIconItems = itemsArray.filter((x) => x.classList.contains("active"));
     activeIconItems.forEach((item: any) => {
       item.classList.remove("active");
-      var id = item.getAttribute("sub-items");
-      var getId = document.getElementById(id) as HTMLElement;
+      const id = item.getAttribute("sub-items");
+      const getId = document.getElementById(id) as HTMLElement;
       if (getId) getId.classList.remove("show");
     });
   };
@@ -111,7 +113,7 @@ const TwoColumnLayout = (props: any) => {
   const [isMenu, setIsMenu] = useState("twocolumn");
   const windowResizeHover = () => {
     initMenu();
-    var windowSize = document.documentElement.clientWidth;
+    const windowSize = document.documentElement.clientWidth;
     if (windowSize < 767) {
       document.documentElement.setAttribute("data-layout", "vertical");
       setIsMenu("vertical");

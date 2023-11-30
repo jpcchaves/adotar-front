@@ -3,9 +3,9 @@ import ReactApexChart from "react-apexcharts";
 import getChartColorsArray from "../../Components/Common/ChartsDynamicColor";
 
 const RevenueCharts = ({ dataColors, series }: any) => {
-  var linechartcustomerColors = getChartColorsArray(dataColors);
+  const linechartcustomerColors = getChartColorsArray(dataColors);
 
-  var options = {
+  const options = {
     chart: {
       height: 370,
       type: "line",
@@ -116,10 +116,10 @@ const RevenueCharts = ({ dataColors, series }: any) => {
 };
 
 const StoreVisitsCharts = ({ dataColors }: any) => {
-  var chartDonutBasicColors = getChartColorsArray(dataColors);
+  const chartDonutBasicColors = getChartColorsArray(dataColors);
 
   const series = [44, 55, 41, 17, 15];
-  var options = {
+  const options = {
     labels: ["Direct", "Social", "Email", "Other", "Referrals"],
     chart: {
       height: 333,

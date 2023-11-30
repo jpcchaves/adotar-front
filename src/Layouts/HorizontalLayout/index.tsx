@@ -12,15 +12,15 @@ import { withTranslation } from "react-i18next";
 const HorizontalLayout = (props: any) => {
   const [isMoreMenu, setIsMoreMenu] = useState<boolean>(false);
   const navData = navdata().props.children;
-  let menuItems = [];
-  let splitMenuItems: any = [];
+  const menuItems = [];
+  const splitMenuItems: any = [];
   let menuSplitContainer = 6;
   navData.forEach(function (value: any, key: number) {
     if (value["isHeader"]) {
       menuSplitContainer++;
     }
     if (key >= menuSplitContainer) {
-      let val = value;
+      const val = value;
       val.childItems = value.subItems;
       val.isChildItem = value.subItems ? true : false;
       delete val.subItems;
@@ -48,9 +48,9 @@ const HorizontalLayout = (props: any) => {
       const pathName = process.env.PUBLIC_URL + path;
       const ul: any = document.getElementById("navbar-nav");
       const items = ul.getElementsByTagName("a");
-      let itemsArray = [...items]; // converts NodeList to Array
+      const itemsArray = [...items]; // converts NodeList to Array
       removeActivation(itemsArray);
-      let matchingMenuItem = itemsArray.find((x) => {
+      const matchingMenuItem = itemsArray.find((x) => {
         return x.pathname === pathName;
       });
       if (matchingMenuItem) {
@@ -62,7 +62,7 @@ const HorizontalLayout = (props: any) => {
 
   function activateParentDropdown(item: any) {
     item.classList.add("active");
-    let parentCollapseDiv = item.closest(".collapse.menu-dropdown");
+    const parentCollapseDiv = item.closest(".collapse.menu-dropdown");
 
     if (parentCollapseDiv) {
       // to set aria expand true remaining
@@ -71,11 +71,11 @@ const HorizontalLayout = (props: any) => {
       parentCollapseDiv.parentElement.children[0].setAttribute("aria-expanded", "true");
       if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
         parentCollapseDiv.parentElement.closest(".collapse").classList.add("show");
-        var parentElementDiv = parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling;
+        const parentElementDiv = parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling;
         if (parentElementDiv)
           if (parentElementDiv.closest(".collapse")) parentElementDiv.closest(".collapse").classList.add("show");
         parentElementDiv.classList.add("active");
-        var parentElementSibling = parentElementDiv.parentElement.parentElement.parentElement.previousElementSibling;
+        const parentElementSibling = parentElementDiv.parentElement.parentElement.parentElement.previousElementSibling;
         if (parentElementSibling) {
           parentElementSibling.classList.add("active");
         }
@@ -86,7 +86,7 @@ const HorizontalLayout = (props: any) => {
   }
 
   const removeActivation = (items: any) => {
-    let actiItems = items.filter((x: any) => x.classList.contains("active"));
+    const actiItems = items.filter((x: any) => x.classList.contains("active"));
 
     actiItems.forEach((item: any) => {
       if (item.classList.contains("menu-link")) {

@@ -12,11 +12,11 @@ const Pagination = ({ data, currentPage, setCurrentPage, perPageData }: any) => 
     pageNumbers.push(i);
   }
   const handleprevPage = () => {
-    let prevPage = currentPage - 1;
+    const prevPage = currentPage - 1;
     setCurrentPage(prevPage);
   };
   const handlenextPage = () => {
-    let nextPage = currentPage + 1;
+    const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
   };
 

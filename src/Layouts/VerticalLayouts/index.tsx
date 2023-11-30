@@ -30,7 +30,7 @@ const VerticalLayout = (props: any) => {
 
   //vertical and semibox resize events
   const resizeSidebarMenu = useCallback(() => {
-    var windowSize = document.documentElement.clientWidth;
+    const windowSize = document.documentElement.clientWidth;
     const humberIcon = document.querySelector(".hamburger-icon") as HTMLElement;
     if (windowSize >= 1025) {
       if (document.documentElement.getAttribute("data-layout") === "vertical") {
@@ -39,7 +39,7 @@ const VerticalLayout = (props: any) => {
       if (document.documentElement.getAttribute("data-layout") === "semibox") {
         document.documentElement.setAttribute("data-sidebar-size", leftsidbarSizeType);
       }
-      var hamburgerIcon = document.querySelector(".hamburger-icon");
+      const hamburgerIcon = document.querySelector(".hamburger-icon");
       if (
         (sidebarVisibilitytype === "show" || layoutType === "vertical" || layoutType === "twocolumn") &&
         document.querySelector(".hamburger-icon")
@@ -84,9 +84,9 @@ const VerticalLayout = (props: any) => {
       const pathName = process.env.PUBLIC_URL + path;
       const ul: any = document.getElementById("navbar-nav");
       const items = ul.getElementsByTagName("a");
-      let itemsArray = [...items]; // converts NodeList to Array
+      const itemsArray = [...items]; // converts NodeList to Array
       removeActivation(itemsArray);
-      let matchingMenuItem = itemsArray.find((x) => {
+      const matchingMenuItem = itemsArray.find((x) => {
         return x.pathname === pathName;
       });
       if (matchingMenuItem) {
@@ -100,7 +100,7 @@ const VerticalLayout = (props: any) => {
 
   function activateParentDropdown(item: any) {
     item.classList.add("active");
-    let parentCollapseDiv = item.closest(".collapse.menu-dropdown");
+    const parentCollapseDiv = item.closest(".collapse.menu-dropdown");
 
     if (parentCollapseDiv) {
       // to set aria expand true remaining
@@ -128,7 +128,7 @@ const VerticalLayout = (props: any) => {
   }
 
   const removeActivation = (items: any) => {
-    let actiItems = items.filter((x: any) => x.classList.contains("active"));
+    const actiItems = items.filter((x: any) => x.classList.contains("active"));
 
     actiItems.forEach((item: any) => {
       if (item.classList.contains("menu-link")) {

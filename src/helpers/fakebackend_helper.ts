@@ -33,7 +33,7 @@ export const postFakeProfile = (data: any) => api.update(url.POST_EDIT_PROFILE +
 // Register Method
 export const postJwtRegister = (url: string, data: any) => {
   return api.create(url, data).catch((err) => {
-    var message;
+    let message;
     if (err.response && err.response.status) {
       switch (err.response.status) {
         case 404:

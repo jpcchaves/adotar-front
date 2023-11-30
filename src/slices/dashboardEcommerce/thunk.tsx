@@ -9,7 +9,7 @@ import {
 
 export const getRevenueChartsData = createAsyncThunk("dashboardEcommerce/getRevenueChartsData", async (data: any) => {
   try {
-    var response;
+    let response;
     if (data === "all") {
       response = getAllRevenueDataApi();
     }
