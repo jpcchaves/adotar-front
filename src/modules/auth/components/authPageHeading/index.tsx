@@ -12,7 +12,7 @@ const AuthPageHeading = () => {
               <img src={Logo} alt="" height="70" />
             </Link>
           </div>
-          <h1 className="title text-primary fw-bold">Adotar</h1>
+          <h1 className="title fw-bold">Adotar</h1>
 
           <p className="fs-15 fw-medium">Transforme seu mundo com uma adoção</p>
         </div>
