@@ -27,10 +27,11 @@ import * as Yup from "yup";
 // actions
 import { loginUser, resetLoginFlag, socialLogin } from "../../slices/thunks";
 
-import { createSelector } from "reselect";
 import PasswordInput from "Components/Common/passwordInput";
 import AuthWrapper from "pages/AuthenticationInner/AuthWrapper";
+import { createSelector } from "reselect";
 //import images
+import Logo from "../../assets/images/logo.png";
 
 const Login = (props: any) => {
   const dispatch: any = useDispatch();
@@ -109,11 +110,7 @@ const Login = (props: any) => {
                 <div className="text-center mt-sm-5 mb-4 text-white-50">
                   <div>
                     <Link to="/" className="d-inline-block auth-logo">
-                      <img
-                        src={"https://upload.wikimedia.org/wikipedia/commons/5/51/Paw-print.svg"}
-                        alt=""
-                        height="20"
-                      />
+                      <img src={Logo} alt="" height="70" />
                     </Link>
                   </div>
                   <p className="mt-3 fs-15 fw-medium">Facilitando a adoção de animais</p>
