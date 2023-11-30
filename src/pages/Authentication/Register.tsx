@@ -15,8 +15,8 @@ import {
 } from "reactstrap";
 
 // Formik Validation
-import * as Yup from "yup";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,9 +30,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 //import images
-import logoLight from "../../assets/images/logo-light.png";
-import { createSelector } from "reselect";
+import AuthPageHeading from "modules/auth/components/authPageHeading";
 import AuthWrapper from "pages/AuthenticationInner/AuthWrapper";
+import { createSelector } from "reselect";
 
 const Register = () => {
   const history = useNavigate();
@@ -90,19 +90,7 @@ const Register = () => {
       <AuthWrapper>
         <div className="auth-page-content mt-lg-5">
           <Container>
-            <Row>
-              <Col lg={12}>
-                <div className="text-center mt-sm-5 mb-4 text-white-50">
-                  <div>
-                    <Link to="/" className="d-inline-block auth-logo">
-                      <img src={logoLight} alt="" height="20" />
-                    </Link>
-                  </div>
-                  <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
-                </div>
-              </Col>
-            </Row>
-
+            <AuthPageHeading />
             <Row className="justify-content-center">
               <Col md={8} lg={6} xl={5}>
                 <Card className="mt-4">

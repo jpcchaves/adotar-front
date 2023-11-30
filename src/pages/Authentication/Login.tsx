@@ -31,7 +31,7 @@ import PasswordInput from "Components/Common/passwordInput";
 import AuthWrapper from "pages/AuthenticationInner/AuthWrapper";
 import { createSelector } from "reselect";
 //import images
-import Logo from "../../assets/images/logo.png";
+import AuthPageHeading from "modules/auth/components/authPageHeading";
 
 const Login = (props: any) => {
   const dispatch: any = useDispatch();
@@ -105,18 +105,7 @@ const Login = (props: any) => {
       <AuthWrapper>
         <div className="auth-page-content mt-lg-5">
           <Container>
-            <Row>
-              <Col lg={12}>
-                <div className="text-center mt-sm-5 mb-4 text-white-50">
-                  <div>
-                    <Link to="/" className="d-inline-block auth-logo">
-                      <img src={Logo} alt="" height="70" />
-                    </Link>
-                  </div>
-                  <p className="mt-3 fs-15 fw-medium">Facilitando a adoção de animais</p>
-                </div>
-              </Col>
-            </Row>
+            <AuthPageHeading />
             <Row className="justify-content-center">
               <Col md={8} lg={6} xl={5}>
                 <Card className="mt-4">
