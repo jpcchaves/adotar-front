@@ -661,7 +661,7 @@ const deals = [
         id: 4,
         isRibbon: false,
         img: avatar7,
-        title: "Create New Components",
+        title: "Create New components",
         price: "$45.9k",
         date: "26 Dec, 2021",
         subTitle: "Nesta Technologies",
