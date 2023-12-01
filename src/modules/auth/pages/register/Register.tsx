@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Card, CardBody, Col, Container, Form, Row, Spinner } from "reactstrap";
+import { Button, Card, CardBody, Col, Container, Form, Row } from "reactstrap";
 
 // Formik Validation
 import { useFormik } from "formik";
@@ -95,12 +95,6 @@ const Register = () => {
                         className="needs-validation"
                         action="src/pages/Authentication#"
                       >
-                        {error && error ? (
-                          <Alert color="danger">
-                            <div>Email has been Register Before, Please Use Another Email Address... </div>
-                          </Alert>
-                        ) : null}
-
                         <Row>
                           <Col md={6} className="mb-3">
                             <InputComponent
@@ -180,12 +174,7 @@ const Register = () => {
                         </div>
 
                         <div className="mt-4">
-                          <Button color="success" className="w-100" type="submit" disabled={loader && true}>
-                            {loader && (
-                              <Spinner size="sm" className="me-2">
-                                Carregando...
-                              </Spinner>
-                            )}
+                          <Button color="success" className="w-100" type="submit">
                             Cadastrar
                           </Button>
                         </div>
