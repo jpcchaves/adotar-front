@@ -194,7 +194,7 @@ const Login = (props: any) => {
                 <div className="mt-4 text-center">
                   <p className="mb-0">
                     Ainda não possui cadastro?{" "}
-                    <Link to="/cadastrar" className="fw-semibold text-primary text-decoration-underline">
+                    <Link to="/cadastro" className="fw-semibold text-primary text-decoration-underline">
                       {" "}
                       Cadastre-se{" "}
                     </Link>{" "}
