@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  Col,
-  Container,
-  Form,
-  FormFeedback,
-  Input,
-  Label,
-  Row,
-  Spinner,
-} from "reactstrap";
+import { Alert, Button, Card, CardBody, Col, Container, Form, Row, Spinner } from "reactstrap";
 
 // Formik Validation
 import { useFormik } from "formik";
@@ -21,7 +8,7 @@ import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
 
 // action
-import { registerUser, resetRegisterFlag } from "../../../../slices/thunks";
+import { resetRegisterFlag } from "../../../../slices/thunks";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 //import images
+import InputComponent from "components/common/inputComponent";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
 import { createSelector } from "reselect";
@@ -40,26 +28,25 @@ const Register = () => {
   const [loader, setLoader] = useState<boolean>(false);
 
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-
     initialValues: {
+      firstName: "",
+      lastName: "",
       email: "",
-      first_name: "",
       password: "",
-      confirm_password: "",
+      confirmPassword: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      first_name: Yup.string().required("Please Enter Your Username"),
-      password: Yup.string().required("Please Enter Your Password"),
-      confirm_password: Yup.string()
-        .oneOf([Yup.ref("password"), ""])
-        .required("Confirm Password is required"),
+      firstName: Yup.string().required("O campo é obrigatório!"),
+      lastName: Yup.string().required("O campo é obrigatório!"),
+      email: Yup.string().email("Insira um email válido!").required("O campo é obrigatório!"),
+      password: Yup.string().required("O campo é obrigatório!"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), ""], "As senhas não são iguais!")
+        .required("A confirmação da senha é obrigatória!"),
     }),
     onSubmit: (values) => {
-      dispatch(registerUser(values));
-      setLoader(true);
+      console.log(values);
     },
   });
 
@@ -68,7 +55,7 @@ const Register = () => {
     success: account.success,
     error: account.error,
   }));
-  // Inside your component
+
   const { error, success } = useSelector(registerdatatype);
 
   useEffect(() => {
@@ -82,9 +69,7 @@ const Register = () => {
     }, 3000);
   }, [dispatch, success, error, history]);
 
-  document.title = "Basic SignUp | adotar - React Admin & Dashboard Template";
-
-  let condition = true;
+  document.title = "Cadastro | Adotar";
 
   return (
     <React.Fragment>
@@ -118,116 +103,80 @@ const Register = () => {
 
                         <Row>
                           <Col md={6} className="mb-3">
-                            <Label htmlFor="firstName">Nome</Label>
-                            <Input
-                              id="firstName"
-                              name="firstName"
+                            <InputComponent
+                              inputIdentifier="firstName"
+                              inputLabel="Nome"
+                              isRequired
                               className="form-control"
                               placeholder="Nome"
-                              type="text"
+                              errorMessage={validation.errors.firstName}
                               onChange={validation.handleChange}
                               onBlur={validation.handleBlur}
-                              value={validation.values.email || ""}
-                              invalid={!!(validation.touched.email && validation.errors.email)}
+                              inputValue={validation.values.firstName}
+                              invalid={!!(validation.touched.firstName && validation.errors.firstName)}
                             />
                           </Col>
                           <Col md={6} className="mb-3">
-                            <Label htmlFor="lastName">Sobrenome</Label>
-                            <Input
-                              id="lastName"
-                              name="lastName"
+                            <InputComponent
+                              inputIdentifier="lastName"
+                              inputLabel="Sobrenome"
                               className="form-control"
                               placeholder="Sobrenome"
-                              type="text"
+                              isRequired
+                              errorMessage={validation.errors.lastName}
                               onChange={validation.handleChange}
                               onBlur={validation.handleBlur}
-                              value={validation.values.email || ""}
-                              invalid={validation.touched.email && validation.errors.email ? true : false}
+                              inputValue={validation.values.lastName}
+                              invalid={!!(validation.touched.lastName && validation.errors.lastName)}
                             />
                           </Col>
                         </Row>
 
                         <div className="mb-3">
-                          <Label htmlFor="useremail" className="form-label">
-                            Email <span className="text-danger">*</span>
-                          </Label>
-                          <Input
-                            id="email"
-                            name="email"
+                          <InputComponent
+                            inputIdentifier="email"
+                            inputLabel="Email"
                             className="form-control"
                             placeholder="Email"
-                            type="email"
+                            isRequired
+                            errorMessage={validation.errors.email}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
-                            value={validation.values.email || ""}
-                            invalid={validation.touched.email && validation.errors.email ? true : false}
+                            inputValue={validation.values.email}
+                            invalid={!!(validation.touched.email && validation.errors.email)}
                           />
-                          {validation.touched.email && validation.errors.email ? (
-                            <FormFeedback type="invalid">
-                              <div>{validation.errors.email}</div>
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                        <div className="mb-3">
-                          <Label htmlFor="username" className="form-label">
-                            Username <span className="text-danger">*</span>
-                          </Label>
-                          <Input
-                            name="first_name"
-                            type="text"
-                            placeholder="Enter username"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.first_name || ""}
-                            invalid={validation.touched.first_name && validation.errors.first_name ? true : false}
-                          />
-                          {validation.touched.first_name && validation.errors.first_name ? (
-                            <FormFeedback type="invalid">
-                              <div>{validation.errors.first_name}</div>
-                            </FormFeedback>
-                          ) : null}
                         </div>
 
                         <div className="mb-3">
-                          <Label htmlFor="userpassword" className="form-label">
-                            Senha <span className="text-danger">*</span>
-                          </Label>
-                          <Input
-                            name="password"
+                          <InputComponent
+                            inputIdentifier="password"
+                            inputLabel="Senha"
+                            isRequired
+                            errorMessage={validation.errors.password}
                             type="password"
+                            className="form-control"
                             placeholder="Senha"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
-                            value={validation.values.password || ""}
-                            invalid={validation.touched.password && validation.errors.password ? true : false}
+                            inputValue={validation.values.password}
+                            invalid={!!(validation.touched.password && validation.errors.password)}
                           />
-                          {validation.touched.password && validation.errors.password ? (
-                            <FormFeedback type="invalid">
-                              <div>{validation.errors.password}</div>
-                            </FormFeedback>
-                          ) : null}
                         </div>
 
                         <div className="mb-2">
-                          <Label htmlFor="confirmPassword" className="form-label">
-                            Confirme sua senha <span className="text-danger">*</span>
-                          </Label>
-                          <Input
-                            name="confirm_password"
+                          <InputComponent
+                            inputIdentifier="confirmPassword"
+                            inputLabel="Confirme sua senha"
+                            isRequired
+                            errorMessage={validation.errors.confirmPassword}
                             type="password"
-                            placeholder="Confirme sua senha"
+                            className="form-control"
+                            placeholder="Repita sua senha"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
-                            value={validation.values.confirm_password || ""}
-                            invalid={
-                              validation.touched.confirm_password && validation.errors.confirm_password ? true : false
-                            }
+                            inputValue={validation.values.confirmPassword}
+                            invalid={!!(validation.touched.confirmPassword && validation.errors.confirmPassword)}
                           />
-                          {validation.touched.confirm_password && validation.errors.confirm_password ? (
-                            <FormFeedback type="invalid">
-                              <div>{validation.errors.confirm_password}</div>
-                            </FormFeedback>
-                          ) : null}
                         </div>
 
                         <div className="mt-4">
@@ -237,7 +186,7 @@ const Register = () => {
                                 Carregando...
                               </Spinner>
                             )}
-                            Entrar
+                            Cadastrar
                           </Button>
                         </div>
                       </Form>
