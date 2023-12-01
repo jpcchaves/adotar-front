@@ -1,42 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { LoginResponseDTO } from "domain/DTO/auth/LoginResponseDTO";
+import { UserModel } from "domain/models/user/UserModel";
 
-export const initialState = {
-  user: {},
-  error: "", // for error message
-  loading: false,
-  isUserLogout: false,
-  errorMsg: false, // for error
+export interface AuthState {
+  user: UserModel | null;
+  accessToken: string | null;
+}
+
+interface PayloadAuth extends PayloadAction<LoginResponseDTO> {}
+
+export const initialState: AuthState = {
+  user: null,
+  accessToken: null,
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
-    loginBegin(state, action) {
-      state.loading = true;
+    loadAuth: (state: AuthState, action: PayloadAuth) => {
+      state.user = action.payload.user;
+      state.accessToken = action.payload.accessToken;
     },
-    apiError(state: any, action: any) {
-      state.errorMsg = action.payload.data;
-      state.error = action.payload.data;
-      state.loading = true;
-      state.isUserLogout = false;
-    },
-    loginSuccess(state, action) {
-      state.user = action.payload;
-      state.loading = false;
-      state.errorMsg = false;
-    },
-    logoutUserSuccess(state, action) {
-      state.isUserLogout = true;
-    },
-    reset_login_flag(state: any) {
-      state.errorMsg = null;
-      state.loading = false;
-      state.error = false;
+    logout: (state: AuthState, action: PayloadAction) => {
+      state.user = null;
     },
   },
 });
 
-export const { apiError, loginSuccess, logoutUserSuccess, reset_login_flag, loginBegin } = loginSlice.actions;
+export const { loadAuth } = authSlice.actions;
 
-export default loginSlice.reducer;
+export default authSlice.reducer;
