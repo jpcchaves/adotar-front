@@ -12,7 +12,7 @@
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "indent": "off",
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["off", "windows"],
     "quotes": "off",
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "off",

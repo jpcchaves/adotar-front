@@ -12,7 +12,7 @@ import {
   LEFT_SIDEBAR_IMAGE_TYPES,
   PERLOADER_TYPES,
   SIDEBAR_VISIBILITY_TYPES,
-} from "../../Components/constants/layout";
+} from "../../components/constants/layout";
 
 export interface LayoutState {
   layoutType: LAYOUT_TYPES.HORIZONTAL | LAYOUT_TYPES.VERTICAL | LAYOUT_TYPES.TWOCOLUMN | LAYOUT_TYPES.SEMIBOX;
@@ -45,7 +45,7 @@ export interface LayoutState {
 
 export const initialState: LayoutState = {
   layoutType: LAYOUT_TYPES.VERTICAL,
-  layoutModeType: LAYOUT_MODE_TYPES.DARKMODE,
+  layoutModeType: LAYOUT_MODE_TYPES.LIGHTMODE,
   leftSidebarType: LAYOUT_SIDEBAR_TYPES.DARK,
   layoutWidthType: LAYOUT_WIDTH_TYPES.FLUID,
   layoutPositionType: LAYOUT_POSITION_TYPES.FIXED,
