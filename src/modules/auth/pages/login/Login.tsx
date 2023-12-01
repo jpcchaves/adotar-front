@@ -1,105 +1,41 @@
-import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  Col,
-  Container,
-  Form,
-  FormFeedback,
-  Input,
-  Label,
-  Row,
-  Spinner,
-} from "reactstrap";
+import React from "react";
+import { Button, Card, CardBody, Col, Container, Form, Input, Label, Row } from "reactstrap";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import withRouter from "../../../../components/common/withRouter";
 
 // Formik validation
-import { useFormik } from "formik";
+import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
 
 // actions
-import { loginUser, resetLoginFlag, socialLogin } from "../../../../slices/thunks";
 
-import PasswordInput from "components/common/passwordInput";
 import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
-import { createSelector } from "reselect";
 //import images
+import InputComponent from "components/common/inputComponent";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 
-const Login = (props: any) => {
-  const dispatch: any = useDispatch();
-
-  const selectLayoutState = (state: any) => state;
-  const loginpageData = createSelector(selectLayoutState, (state) => ({
-    user: state.Account.user,
-    error: state.Login.error,
-    errorMsg: state.Login.errorMsg,
-  }));
-  // Inside your component
-  const { user, error, errorMsg } = useSelector(loginpageData);
-
-  const [userLogin, setUserLogin] = useState<any>([]);
-  const [loader, setLoader] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (user && user) {
-      const updatedUserData =
-        process.env.REACT_APP_DEFAULTAUTH === "firebase" ? user.multiFactor.user.email : user.email;
-      const updatedUserPassword = process.env.REACT_APP_DEFAULTAUTH === "firebase" ? "" : user.confirm_password;
-      setUserLogin({
-        email: updatedUserData,
-        password: updatedUserPassword,
-      });
-    }
-  }, [user]);
-
-  const validation: any = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
+const Login = () => {
+  const validation: FormikValues = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      email: userLogin.email || "admin@themesbrand.com" || "",
-      password: userLogin.password || "123456" || "",
+      email: "",
+      password: "",
+      remember: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      password: Yup.string().required("Please Enter Your Password"),
+      email: Yup.string().email("Insira um email válido!").required("O campo é obrigatório!"),
+      password: Yup.string().required("O campo é obrigatório!"),
     }),
     onSubmit: (values) => {
-      dispatch(loginUser(values, props.router.navigate));
-      setLoader(true);
+      console.log(values);
     },
   });
 
-  const signIn = (type: any) => {
-    dispatch(socialLogin(type, props.router.navigate));
-  };
-
-  //handleTwitterLoginResponse
-  // const twitterResponse = e => {}
-
-  //for facebook and google authentication
-  const socialResponse = (type: any) => {
-    signIn(type);
-  };
-
-  useEffect(() => {
-    if (errorMsg) {
-      setTimeout(() => {
-        dispatch(resetLoginFlag());
-        setLoader(false);
-      }, 3000);
-    }
-  }, [dispatch, errorMsg]);
-
   document.title = "Login | Adotar";
+
   return (
     <React.Fragment>
       <AuthWrapper>
@@ -114,7 +50,7 @@ const Login = (props: any) => {
                       <h5 className="text-primary">Bem vindo!</h5>
                       <p className="text-muted">Faça o login para continuar</p>
                     </div>
-                    {error && error ? <Alert color="danger"> {error} </Alert> : null}
+                    {/* {error && error ? <Alert color="danger"> {error} </Alert> : null} */}
                     <div className="p-2 mt-4">
                       <Form
                         onSubmit={(e) => {
@@ -122,25 +58,20 @@ const Login = (props: any) => {
                           validation.handleSubmit();
                           return false;
                         }}
-                        action="src/pages/Authentication#"
                       >
                         <div className="mb-3">
-                          <Label htmlFor="email" className="form-label">
-                            Email
-                          </Label>
-                          <Input
-                            name="email"
+                          <InputComponent
+                            inputIdentifier="email"
+                            inputLabel="Email"
                             className="form-control"
-                            placeholder="Enter email"
-                            type="email"
+                            placeholder="Email"
+                            isRequired
+                            errorMessage={validation.errors.email}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
-                            value={validation.values.email || ""}
-                            invalid={validation.touched.email && validation.errors.email ? true : false}
+                            inputValue={validation.values.email}
+                            invalid={!!(validation.touched.email && validation.errors.email)}
                           />
-                          {validation.touched.email && validation.errors.email ? (
-                            <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
-                          ) : null}
                         </div>
 
                         <div className="mb-3">
@@ -150,39 +81,36 @@ const Login = (props: any) => {
                             </Link>
                           </div>
 
-                          <PasswordInput
-                            inputLabel="Senha"
-                            errorMessage={validation.errors.password}
+                          <InputComponent
                             inputIdentifier="password"
-                            name="password"
-                            inputValue={validation.values.password}
+                            inputLabel="Senha"
+                            isRequired
+                            errorMessage={validation.errors.password}
+                            type="password"
+                            className="form-control"
                             placeholder="Senha"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            inputValue={validation.values.password}
                             invalid={!!(validation.touched.password && validation.errors.password)}
                           />
                         </div>
 
                         <div className="form-check">
-                          <Input className="form-check-input" type="checkbox" value="" id="auth-remember-check" />
-                          <Label className="form-check-label" htmlFor="auth-remember-check">
+                          <Input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="remember"
+                            checked={validation.values.remember}
+                            onChange={validation.handleChange}
+                          />
+                          <Label className="form-check-label user-select-none" htmlFor="remember">
                             Lembrar de mim
                           </Label>
                         </div>
 
                         <div className="mt-4">
-                          <Button
-                            color="success"
-                            disabled={loader && true}
-                            className="btn btn-success w-100"
-                            type="submit"
-                          >
-                            {loader && (
-                              <Spinner size="sm" className="me-2">
-                                {" "}
-                                Carregando...{" "}
-                              </Spinner>
-                            )}
+                          <Button color="success" className="btn btn-success w-100" type="submit">
                             Entrar
                           </Button>
                         </div>
