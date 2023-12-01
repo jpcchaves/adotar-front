@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { setAuthorization } from "../helpers/api_helper";
-import { useDispatch } from "react-redux";
 
 import { useProfile } from "../components/hooks/UserHooks";
-
-import { logoutUser } from "../slices/auth/login/thunk";
 
 const AuthProtected = (props: any) => {
   const dispatch: any = useDispatch();
@@ -15,7 +13,7 @@ const AuthProtected = (props: any) => {
     if (userProfile && !loading && token) {
       setAuthorization(token);
     } else if (!userProfile && loading && !token) {
-      dispatch(logoutUser());
+      // dispatch(logoutUser());
     }
   }, [token, userProfile, loading, dispatch]);
 

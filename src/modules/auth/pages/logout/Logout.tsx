@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
-import { logoutUser } from "../../../../slices/thunks";
-
 //redux
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,9 +17,7 @@ const Logout = (props: any) => {
   );
   const isUserLogout = useSelector(isUserLogoutSelector);
 
-  useEffect(() => {
-    dispatch(logoutUser());
-  }, [dispatch]);
+  useEffect(() => {}, [dispatch]);
 
   if (isUserLogout) {
     return <Navigate to="/entrar" />;
