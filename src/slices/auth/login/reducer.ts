@@ -5,13 +5,20 @@ import { UserModel } from "domain/models/user/UserModel";
 export interface AuthState {
   user: UserModel | null;
   accessToken: string | null;
+  errorMessage: string | null;
+  hasError: boolean;
 }
 
+export interface ErrorState extends Pick<AuthState, "errorMessage" | "hasError"> {}
+
 interface PayloadAuth extends PayloadAction<LoginResponseDTO> {}
+interface PayloadError extends PayloadAction<ErrorState> {}
 
 export const initialState: AuthState = {
   user: null,
   accessToken: null,
+  errorMessage: null,
+  hasError: false,
 };
 
 const authSlice = createSlice({
@@ -24,10 +31,20 @@ const authSlice = createSlice({
     },
     logout: (state: AuthState, action: PayloadAction) => {
       state.user = null;
+      state.accessToken = null;
+    },
+
+    loadAuthError: (state: AuthState, action: PayloadError) => {
+      state.errorMessage = action.payload.errorMessage;
+      state.hasError = true;
+    },
+    loadClearError: (state: AuthState) => {
+      state.errorMessage = null;
+      state.hasError = false;
     },
   },
 });
 
-export const { loadAuth, logout } = authSlice.actions;
+export const { loadAuth, logout, loadAuthError, loadClearError } = authSlice.actions;
 
 export default authSlice.reducer;

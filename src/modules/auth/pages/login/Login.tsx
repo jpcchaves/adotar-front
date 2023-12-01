@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Card, CardBody, Col, Container, Form, Input, Label, Row } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Alert, Button, Card, CardBody, Col, Container, Form, Input, Label, Row } from "reactstrap";
 
 //redux
 
@@ -16,18 +16,21 @@ import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
 //import images
 import InputComponent from "components/common/inputComponent";
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
+import { useAppSelector } from "hooks/redux/useRedux";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 import useLogin from "modules/auth/hooks/useLogin";
 
 const Login = () => {
+  const [rememberedEmail, setRememberedEmail] = useState("");
+  const { user, hasError, errorMessage } = useAppSelector((state) => state.Auth);
   const { login } = useLogin();
 
   const validation: FormikValues = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: "",
+      email: rememberedEmail || "",
       password: "",
-      remember: false,
+      remember: !!rememberedEmail || false,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Insira um email válido!").required("O campo é obrigatório!"),
@@ -41,6 +44,13 @@ const Login = () => {
       login(valuesToSubmit);
     },
   });
+
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem("userEmail");
+    if (rememberedEmail) {
+      setRememberedEmail(JSON.parse(rememberedEmail));
+    }
+  }, []);
 
   document.title = "Login | Adotar";
 
@@ -58,7 +68,7 @@ const Login = () => {
                       <h5 className="text-primary">Bem vindo!</h5>
                       <p className="text-muted">Faça o login para continuar</p>
                     </div>
-                    {/* {error && error ? <Alert color="danger"> {error} </Alert> : null} */}
+                    {hasError && errorMessage && <Alert color="danger"> {errorMessage} </Alert>}
                     <div className="p-2 mt-4">
                       <Form
                         onSubmit={(e) => {
