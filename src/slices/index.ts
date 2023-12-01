@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import LayoutReducer from "./layouts/reducer";
 
 // Authentication
+import { store } from "index";
 import ForgetPasswordReducer from "./auth/forgetpwd/reducer";
 import AuthReducer from "./auth/login/reducer";
 import ProfileReducer from "./auth/profile/reducer";
@@ -18,3 +19,7 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

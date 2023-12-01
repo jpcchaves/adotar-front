@@ -15,22 +15,30 @@ import * as Yup from "yup";
 import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
 //import images
 import InputComponent from "components/common/inputComponent";
+import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
+import useLogin from "modules/auth/hooks/useLogin";
 
 const Login = () => {
+  const { login } = useLogin();
+
   const validation: FormikValues = useFormik({
     enableReinitialize: true,
     initialValues: {
       email: "",
       password: "",
-      remember: "",
+      remember: false,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Insira um email válido!").required("O campo é obrigatório!"),
       password: Yup.string().required("O campo é obrigatório!"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      const valuesToSubmit: LoginRequestDTO = {
+        ...values,
+      };
+
+      login(valuesToSubmit);
     },
   });
 

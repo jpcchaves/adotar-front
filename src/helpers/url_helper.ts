@@ -2,6 +2,10 @@
 export const POST_FAKE_REGISTER = "/auth/signup";
 
 //LOGIN
+export const LOGIN_ROUTE_V2 = "/v2";
+export const LOGIN_ROUTE_ENDPOINT = "/auth/login";
+export const LOGIN_ENDPOINT = `${LOGIN_ROUTE_V2}${LOGIN_ROUTE_ENDPOINT}`;
+
 export const POST_FAKE_LOGIN = "/auth/signin";
 export const POST_FAKE_JWT_LOGIN = "/post-jwt-login";
 export const POST_FAKE_PASSWORD_FORGET = "/auth/forgot-password";
