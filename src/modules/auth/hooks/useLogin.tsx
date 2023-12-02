@@ -1,3 +1,4 @@
+import { notify } from "components/common/notify";
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { postLogin } from "helpers/fakebackend_helper";
 import useLoading from "hooks/loading/useLoading";
@@ -10,7 +11,7 @@ interface IUseLogin {
   login: (loginRequestDTO: LoginRequestDTO) => void;
 }
 
-const useLogin = () => {
+const useLogin = (): IUseLogin => {
   const { navigateTo } = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -36,6 +37,8 @@ const useLogin = () => {
       const data = await postLogin(loginRequestDTO);
       sessionStorage.setItem("authUser", JSON.stringify(data));
       handleRememberUser(loginRequestDTO);
+
+      notify("Usuario autenticado com sucesso!", "success");
 
       navigateTo("/pets");
     } catch (error: any & string) {
