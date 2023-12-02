@@ -33,7 +33,9 @@ const authSlice = createSlice({
       state.user = null;
       state.accessToken = null;
     },
-
+    loadUserEmail: (state: AuthState, action: PayloadAction<{ email: string }>) => {
+      state.user = { email: action.payload.email } as UserModel;
+    },
     loadAuthError: (state: AuthState, action: PayloadError) => {
       state.errorMessage = action.payload.errorMessage;
       state.hasError = true;
@@ -45,6 +47,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { loadAuth, logout, loadAuthError, loadClearError } = authSlice.actions;
+export const { loadAuth, logout, loadAuthError, loadClearError, loadUserEmail } = authSlice.actions;
 
 export default authSlice.reducer;
