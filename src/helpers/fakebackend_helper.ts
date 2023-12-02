@@ -1,6 +1,7 @@
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { APIClient } from "./api_helper";
 
+import { RegisterRequestDTO } from "domain/DTO/auth/RegisterRequestDTO";
 import * as url from "./url_helper";
 
 const api = new APIClient();
@@ -17,18 +18,12 @@ export const isUserAuthenticated = () => {
   return getLoggedInUser() !== null;
 };
 
-// Register Method
-export const postFakeRegister = (data: any) => api.create(url.POST_FAKE_REGISTER, data);
-
+//Auth methods
 export const postLogin = (data: LoginRequestDTO) => api.create(url.LOGIN_ENDPOINT, data);
-
-// Login Method
+export const postRegister = (data: RegisterRequestDTO) => api.create(url.REGISTER_ENDPOINT, data);
 export const postFakeLogin = (data: any) => api.create(url.POST_FAKE_LOGIN, data);
-
-// postForgetPwd
 export const postFakeForgetPwd = (data: any) => api.create(url.POST_FAKE_PASSWORD_FORGET, data);
 
-// Edit profile
 export const postJwtProfile = (data: any) => api.create(url.POST_EDIT_JWT_PROFILE, data);
 
 export const postFakeProfile = (data: any) => api.update(url.POST_EDIT_PROFILE + "/" + data.idx, data);
