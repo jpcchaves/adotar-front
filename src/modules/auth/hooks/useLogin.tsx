@@ -1,9 +1,11 @@
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { postLogin } from "helpers/fakebackend_helper";
+import { useNavigation } from "hooks/navigate/useNavigation";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadAuthError, loadClearError } from "slices/auth/login/reducer";
 
 const useLogin = () => {
+  const { navigateTo } = useNavigation();
   const dispatch = useAppDispatch();
 
   const handleClearErrorMessage = () => {
@@ -25,6 +27,8 @@ const useLogin = () => {
       const data = await postLogin(loginRequestDTO);
       sessionStorage.setItem("authUser", JSON.stringify(data));
       handleRememberUser(loginRequestDTO);
+
+      navigateTo("/pets");
     } catch (error: any & string) {
       dispatch(loadAuthError({ errorMessage: error, hasError: true }));
       handleClearErrorMessage();

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { setAuthorization } from "../helpers/api_helper";
 
 import { useProfile } from "../components/hooks/UserHooks";
-import { logout } from "slices/auth/login/reducer";
+import { loadAuth, logout } from "slices/auth/login/reducer";
 
 const AuthProtected = (props: any) => {
   const dispatch: any = useDispatch();
@@ -13,6 +13,7 @@ const AuthProtected = (props: any) => {
   useEffect(() => {
     if (userProfile && !loading && token) {
       setAuthorization(token);
+      dispatch(loadAuth({ accessToken: token, user: userProfile }));
     } else if (!userProfile && loading && !token) {
       dispatch(logout());
     }
