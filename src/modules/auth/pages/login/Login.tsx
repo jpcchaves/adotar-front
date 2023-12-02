@@ -22,8 +22,8 @@ import useLogin from "modules/auth/hooks/useLogin";
 
 const Login = () => {
   const [rememberedEmail, setRememberedEmail] = useState("");
-  const { user, hasError, errorMessage } = useAppSelector((state) => state.Auth);
-  const { login } = useLogin();
+  const { hasError, errorMessage } = useAppSelector((state) => state.Auth);
+  const { login, isLoading } = useLogin();
 
   const validation: FormikValues = useFormik({
     enableReinitialize: true,
@@ -128,8 +128,8 @@ const Login = () => {
                         </div>
 
                         <div className="mt-4">
-                          <Button color="success" className="btn btn-success w-100" type="submit">
-                            Entrar
+                          <Button color="success" className="btn btn-success w-100" type="submit" disabled={isLoading}>
+                            {isLoading ? "Carregando..." : "Entrar"}
                           </Button>
                         </div>
                       </Form>

@@ -1,12 +1,20 @@
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { postLogin } from "helpers/fakebackend_helper";
+import useLoading from "hooks/loading/useLoading";
 import { useNavigation } from "hooks/navigate/useNavigation";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadAuthError, loadClearError } from "slices/auth/login/reducer";
 
+interface IUseLogin {
+  isLoading: boolean;
+  login: (loginRequestDTO: LoginRequestDTO) => void;
+}
+
 const useLogin = () => {
   const { navigateTo } = useNavigation();
   const dispatch = useAppDispatch();
+
+  const { isLoading, setLoading } = useLoading();
 
   const handleClearErrorMessage = () => {
     setTimeout(() => {
@@ -23,6 +31,7 @@ const useLogin = () => {
   };
 
   const login = async (loginRequestDTO: LoginRequestDTO) => {
+    setLoading(true);
     try {
       const data = await postLogin(loginRequestDTO);
       sessionStorage.setItem("authUser", JSON.stringify(data));
@@ -33,10 +42,12 @@ const useLogin = () => {
       dispatch(loadAuthError({ errorMessage: error, hasError: true }));
       handleClearErrorMessage();
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { login };
+  return { login, isLoading };
 };
 
 export default useLogin;
