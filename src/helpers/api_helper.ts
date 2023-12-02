@@ -20,7 +20,10 @@ axios.interceptors.response.use(
     return response.data ? response.data : response;
   },
   function (error: PromiseError) {
-    return Promise.reject(error.response.data.message);
+    return Promise.reject(
+      error?.response?.data?.message ||
+        "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde ou contate-nos.",
+    );
   },
 );
 /**
