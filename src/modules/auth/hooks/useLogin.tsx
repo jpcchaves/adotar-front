@@ -9,7 +9,7 @@ const useLogin = () => {
   const handleClearErrorMessage = () => {
     setTimeout(() => {
       dispatch(loadClearError());
-    }, 3000);
+    }, 5000);
   };
 
   const handleRememberUser = ({ email, remember }: LoginRequestDTO) => {
