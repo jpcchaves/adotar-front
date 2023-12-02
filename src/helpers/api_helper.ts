@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { PromiseError } from "domain/models/PromiseError";
 import config from "../config";
+import { notify } from "components/common/notify";
 
 const { api } = config;
 
@@ -20,6 +21,12 @@ axios.interceptors.response.use(
     return response.data ? response.data : response;
   },
   function (error: PromiseError) {
+    notify(
+      error?.response?.data?.message ||
+        "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde ou contate-nos.",
+      "error",
+    );
+
     return Promise.reject(
       error?.response?.data?.message ||
         "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde ou contate-nos.",
