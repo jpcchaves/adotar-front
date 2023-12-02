@@ -1,40 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 //import images
 import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import { createSelector } from "reselect";
+import { useAppSelector } from "hooks/redux/useRedux";
 
 const ProfileDropdown = () => {
-  const profiledropdownData = createSelector(
-    (state: any) => state.Profile.user,
-    (user) => user,
-  );
-  // Inside your component
-  const user = useSelector(profiledropdownData);
+  const { user } = useAppSelector((state) => state.Auth);
 
-  const [userName, setUserName] = useState("Admin");
-
-  useEffect(() => {
-    const authUSer: any = sessionStorage.getItem("authUser");
-    if (authUSer) {
-      const obj: any = JSON.parse(authUSer);
-      setUserName(
-        process.env.REACT_APP_DEFAULTAUTH === "fake"
-          ? obj.username === undefined
-            ? user.first_name
-              ? user.first_name
-              : obj.data.first_name
-            : "Admin" || "Admin"
-          : process.env.REACT_APP_DEFAULTAUTH === "firebase"
-            ? obj.email && obj.email
-            : "Admin",
-      );
-    }
-  }, [userName, user]);
-
-  //Dropdown Toggle
   const [isProfileDropdown, setIsProfileDropdown] = useState<boolean>(false);
   const toggleProfileDropdown = () => {
     setIsProfileDropdown(!isProfileDropdown);
@@ -46,13 +19,12 @@ const ProfileDropdown = () => {
           <span className="d-flex align-items-center">
             <img className="rounded-circle header-profile-user" src={avatar1} alt="Header Avatar" />
             <span className="text-start ms-xl-2">
-              <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{userName}</span>
-              <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+              <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{user?.name}</span>
             </span>
           </span>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <h6 className="dropdown-header">Welcome {userName}!</h6>
+          <h6 className="dropdown-header">Bem vindo, {user?.firstName}!</h6>
           <DropdownItem href={process.env.PUBLIC_URL + "/profile"}>
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
             <span className="align-middle">Profile</span>

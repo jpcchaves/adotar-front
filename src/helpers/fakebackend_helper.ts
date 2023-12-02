@@ -1,3 +1,4 @@
+import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { APIClient } from "./api_helper";
 
 import * as url from "./url_helper";
@@ -18,6 +19,8 @@ export const isUserAuthenticated = () => {
 
 // Register Method
 export const postFakeRegister = (data: any) => api.create(url.POST_FAKE_REGISTER, data);
+
+export const postLogin = (data: LoginRequestDTO) => api.create(url.LOGIN_ENDPOINT, data);
 
 // Login Method
 export const postFakeLogin = (data: any) => api.create(url.POST_FAKE_LOGIN, data);

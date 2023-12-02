@@ -3,23 +3,22 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { createSelector } from "reselect";
+import { useAppSelector } from "hooks/redux/useRedux";
+import { logout } from "slices/auth/login/reducer";
 import withRouter from "../../../../components/common/withRouter";
 
-const Logout = (props: any) => {
-  const dispatch: any = useDispatch();
+const Logout = () => {
+  const dispatch = useDispatch();
+  const { user, accessToken } = useAppSelector((state) => state.Auth);
 
-  const isUserLogoutSelector = createSelector(
-    (state: any) => state.Login.isUserLogout,
-    (isUserLogout) => isUserLogout,
-  );
-  const isUserLogout = useSelector(isUserLogoutSelector);
+  useEffect(() => {
+    dispatch(logout());
+    sessionStorage.removeItem("authUser");
+  }, [dispatch]);
 
-  useEffect(() => {}, [dispatch]);
-
-  if (isUserLogout) {
+  if (!user || !accessToken) {
     return <Navigate to="/entrar" />;
   }
 
