@@ -11,10 +11,14 @@ import { Link } from "react-router-dom";
 
 //import images
 import InputComponent from "components/common/inputComponent";
+import { RegisterRequestDTO } from "domain/DTO/auth/RegisterRequestDTO";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
+import useRegister from "modules/auth/hooks/useRegister";
 
 const Register = () => {
+  const { register, isLoading } = useRegister();
+
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -34,7 +38,15 @@ const Register = () => {
         .required("A confirmação da senha é obrigatória!"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      const valuesToSutmit: RegisterRequestDTO = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      };
+
+      register(valuesToSutmit);
     },
   });
 
