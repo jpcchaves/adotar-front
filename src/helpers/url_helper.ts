@@ -1,10 +1,14 @@
-//REGISTER
-export const POST_FAKE_REGISTER = "/auth/signup";
+const {
+  REACT_APP_API_LOGIN_V2,
+  REACT_APP_API_LOGIN_ENDPOINT,
+  REACT_APP_API_REGISTER_V1,
+  REACT_APP_API_REGISTER_ENDPOINT,
+} = process.env;
 
+//REGISTER
+export const REGISTER_ENDPOINT = `${REACT_APP_API_REGISTER_V1}/${REACT_APP_API_REGISTER_ENDPOINT}`;
 //LOGIN
-export const LOGIN_ROUTE_V2 = "/v2";
-export const LOGIN_ROUTE_ENDPOINT = "/auth/login";
-export const LOGIN_ENDPOINT = `${LOGIN_ROUTE_V2}${LOGIN_ROUTE_ENDPOINT}`;
+export const LOGIN_ENDPOINT = `${REACT_APP_API_LOGIN_V2}/${REACT_APP_API_LOGIN_ENDPOINT}`;
 
 export const POST_FAKE_LOGIN = "/auth/signin";
 export const POST_FAKE_JWT_LOGIN = "/post-jwt-login";
