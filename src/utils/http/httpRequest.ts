@@ -1,13 +1,9 @@
-import { PromiseError } from "../../../../adotar-front/src/app/domain/models/AxiosError";
 import { axiosInstance } from "./axiosInstance";
 import { HttpMethod } from "./httpMethods";
 import { AxiosResponse } from "axios";
+import { PromiseError } from "../../domain/models/PromiseError";
 
-export const httpRequest = async <Req, Res>(
-  method: HttpMethod,
-  url: string,
-  data?: Req,
-): Promise<Res> => {
+export const httpRequest = async <Req, Res>(method: HttpMethod, url: string, data?: Req): Promise<Res> => {
   return new Promise((resolve, reject) => {
     axiosInstance
       .request<Res>({
@@ -19,10 +15,7 @@ export const httpRequest = async <Req, Res>(
         resolve(response.data);
       })
       .catch((error: PromiseError) => {
-        reject(
-          error?.response?.data?.message ||
-            "Ocorreu um erro inesperado. Por favor, tente novamente",
-        );
+        reject(error?.response?.data?.message || "Ocorreu um erro inesperado. Por favor, tente novamente");
       });
   });
 };
