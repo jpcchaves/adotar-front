@@ -6,15 +6,15 @@ import NonAuthLayout from "../layouts/NonAuthLayout";
 import VerticalLayout from "../layouts/index";
 
 //routes
-import Error500 from "modules/errors/pages/500";
+import UnexpectedErrorPage from "modules/errors/pages/500";
 import { ErrorBoundary } from "react-error-boundary";
 import AuthProtected from "./AuthProtected";
-import {authProtectedRoutes, publicRoutes} from "./allRoutes";
+import { authProtectedRoutes, publicRoutes } from "./allRoutes";
 
 const Index = () => {
   return (
     <React.Fragment>
-      <ErrorBoundary fallback={<Error500 />}>
+      <ErrorBoundary fallback={<UnexpectedErrorPage />}>
         <Routes>
           <Route>
             {publicRoutes.map(

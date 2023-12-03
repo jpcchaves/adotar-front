@@ -48,10 +48,16 @@ const Navdata = () => {
       },
       subItems: [
         {
-          id: "pets",
+          id: "available-pets",
           label: "Pets Disponiveis",
           link: "/pets",
-          parentId: "dashboard",
+          parentId: "pets",
+        },
+        {
+          id: "example",
+          label: "Pagina exemplo",
+          link: "/example",
+          parentId: "pets",
         },
       ],
     },

@@ -6,11 +6,6 @@ import "./assets/scss/themes.scss";
 //imoprt Route
 import Route from "./routes";
 
-// Fake Backend
-import fakeBackend from "./helpers/AuthType/fakeBackend";
-
-fakeBackend();
-
 function App() {
   return (
     <React.Fragment>

@@ -2,10 +2,11 @@ import React from "react";
 import { Col, Container, Row } from "reactstrap";
 
 // Import Images
+import { setPageTitle } from "utils/pageTitle";
 import error500 from "../../../../assets/images/error500.png";
 
-const Index = () => {
-  document.title = "500 | Adotar";
+const UnexpectedErrorPage = () => {
+  setPageTitle("Erro Inesperado");
 
   return (
     <React.Fragment>
@@ -34,4 +35,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default UnexpectedErrorPage;

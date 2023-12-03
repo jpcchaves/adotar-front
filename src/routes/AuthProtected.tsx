@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { setAuthorization } from "../helpers/api_helper";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 import { useProfile } from "../components/hooks/UserHooks";
-
-import { logoutUser } from "../slices/auth/login/thunk";
+import { loadAuth, logout } from "slices/auth/login/reducer";
+import {setAuthToken} from "../utils/http";
 
 const AuthProtected = (props: any) => {
   const dispatch: any = useDispatch();
@@ -13,9 +12,10 @@ const AuthProtected = (props: any) => {
 
   useEffect(() => {
     if (userProfile && !loading && token) {
-      setAuthorization(token);
+      setAuthToken(token);
+      dispatch(loadAuth({ accessToken: token, user: userProfile }));
     } else if (!userProfile && loading && !token) {
-      dispatch(logoutUser());
+      dispatch(logout());
     }
   }, [token, userProfile, loading, dispatch]);
 

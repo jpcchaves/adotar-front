@@ -1,8 +1,9 @@
 import React from "react";
 import { Container, Row } from "reactstrap";
+import { setPageTitle } from "utils/pageTitle";
 
 const DashboardEcommerce = () => {
-  document.title = "Adotar";
+  setPageTitle("Pets");
 
   return (
     <React.Fragment>

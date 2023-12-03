@@ -1,42 +1,52 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { LoginResponseDTO } from "domain/DTO/auth/LoginResponseDTO";
+import { UserModel } from "domain/models/user/UserModel";
 
-export const initialState = {
-  user: {},
-  error: "", // for error message
-  loading: false,
-  isUserLogout: false,
-  errorMsg: false, // for error
+export interface AuthState {
+  user: UserModel | null;
+  accessToken: string | null;
+  errorMessage: string | null;
+  hasError: boolean;
+}
+
+export interface ErrorState extends Pick<AuthState, "errorMessage" | "hasError"> {}
+
+interface PayloadAuth extends PayloadAction<LoginResponseDTO> {}
+interface PayloadError extends PayloadAction<ErrorState> {}
+
+export const initialState: AuthState = {
+  user: null,
+  accessToken: null,
+  errorMessage: null,
+  hasError: false,
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
-    loginBegin(state, action) {
-      state.loading = true;
+    loadAuth: (state: AuthState, action: PayloadAuth) => {
+      state.user = action.payload.user;
+      state.accessToken = action.payload.accessToken;
     },
-    apiError(state: any, action: any) {
-      state.errorMsg = action.payload.data;
-      state.error = action.payload.data;
-      state.loading = true;
-      state.isUserLogout = false;
+    logout: (state: AuthState, action: PayloadAction) => {
+      state.user = null;
+      state.accessToken = null;
     },
-    loginSuccess(state, action) {
-      state.user = action.payload;
-      state.loading = false;
-      state.errorMsg = false;
+    loadUserEmail: (state: AuthState, action: PayloadAction<{ email: string }>) => {
+      state.user = { email: action.payload.email } as UserModel;
     },
-    logoutUserSuccess(state, action) {
-      state.isUserLogout = true;
+    loadAuthError: (state: AuthState, action: PayloadError) => {
+      state.errorMessage = action.payload.errorMessage;
+      state.hasError = true;
     },
-    reset_login_flag(state: any) {
-      state.errorMsg = null;
-      state.loading = false;
-      state.error = false;
+    loadClearError: (state: AuthState) => {
+      state.errorMessage = null;
+      state.hasError = false;
     },
   },
 });
 
-export const { apiError, loginSuccess, logoutUserSuccess, reset_login_flag, loginBegin } = loginSlice.actions;
+export const { loadAuth, logout, loadAuthError, loadClearError, loadUserEmail } = authSlice.actions;
 
-export default loginSlice.reducer;
+export default authSlice.reducer;
