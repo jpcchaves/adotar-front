@@ -19,11 +19,14 @@ import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import { useAppSelector } from "hooks/redux/useRedux";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 import useLogin from "modules/auth/hooks/useLogin";
+import { setPageTitle } from "utils/pageTitle";
 
 const Login = () => {
   const [rememberedEmail, setRememberedEmail] = useState("");
   const { hasError, errorMessage, user } = useAppSelector((state) => state.Auth);
   const { login, isLoading } = useLogin();
+
+  setPageTitle("Entrar");
 
   const validation: FormikValues = useFormik({
     enableReinitialize: true,
@@ -51,8 +54,6 @@ const Login = () => {
       setRememberedEmail(JSON.parse(rememberedEmail));
     }
   }, []);
-
-  document.title = "Login | Adotar";
 
   return (
     <React.Fragment>

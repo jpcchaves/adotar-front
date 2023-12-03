@@ -4,9 +4,10 @@ import { Col, Container, Row } from "reactstrap";
 
 // Import Images
 import error400cover from "../../../../assets/images/error400-cover.png";
+import { setPageTitle } from "utils/pageTitle";
 
 const Index = () => {
-  document.title = "404 Error Cover | adotar - React Admin & Dashboard Template";
+  setPageTitle("Página não Encontrada");
 
   return (
     <React.Fragment>

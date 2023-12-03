@@ -15,8 +15,11 @@ import { RegisterRequestDTO } from "domain/DTO/auth/RegisterRequestDTO";
 import AuthPageHeading from "modules/auth/components/authPageHeading";
 import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
 import useRegister from "modules/auth/hooks/useRegister";
+import { setPageTitle } from "utils/pageTitle";
 
 const Register = () => {
+  setPageTitle("Cadastro");
+
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
