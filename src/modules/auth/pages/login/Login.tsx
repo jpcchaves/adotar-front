@@ -22,13 +22,13 @@ import useLogin from "modules/auth/hooks/useLogin";
 
 const Login = () => {
   const [rememberedEmail, setRememberedEmail] = useState("");
-  const { hasError, errorMessage } = useAppSelector((state) => state.Auth);
+  const { hasError, errorMessage, user } = useAppSelector((state) => state.Auth);
   const { login, isLoading } = useLogin();
 
   const validation: FormikValues = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: rememberedEmail || "",
+      email: rememberedEmail || user?.email || "",
       password: "",
       remember: !!rememberedEmail || false,
     },
