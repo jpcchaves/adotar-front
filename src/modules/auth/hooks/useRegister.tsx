@@ -5,6 +5,9 @@ import useLoading from "hooks/loading/useLoading";
 import { useNavigation } from "hooks/navigate/useNavigation";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadUserEmail } from "slices/auth/login/reducer";
+import { HttpMethod, httpRequest } from "../../../utils/http";
+import { ApiMessageResponse } from "../../../domain/models/ApiMessageResponse";
+import { REACT_APP_API_REGISTER_ENDPOINT, REACT_APP_API_REGISTER_V1 } from "../../../contants/env";
 
 interface IProps {
   validation: FormikValues;
@@ -22,16 +25,23 @@ const useRegister = ({ validation }: IProps): IUseRegister => {
 
   const register = async (registerRequestDto: RegisterRequestDTO) => {
     setLoading(true);
-    try {
-      notify("Usuário cadastrado com sucesso! Você será redirecionado para a tela de login!", "success");
-      navigateWithTimer("/entrar", 2000);
-      dispatch(loadUserEmail({ email: registerRequestDto.email }));
-      validation.resetForm();
-    } catch (error: any & string) {
-      // console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    await httpRequest<RegisterRequestDTO, ApiMessageResponse>(
+      HttpMethod.POST,
+      `${REACT_APP_API_REGISTER_V1}/${REACT_APP_API_REGISTER_ENDPOINT}`,
+      registerRequestDto,
+    )
+      .then(() => {
+        notify("Usuário cadastrado com sucesso! Você será redirecionado para a tela de login!", "success");
+        navigateWithTimer("/entrar", 2000);
+        dispatch(loadUserEmail({ email: registerRequestDto.email }));
+        validation.resetForm();
+      })
+      .catch((err) => {
+        notify(err, "error");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return { register, isLoading };
