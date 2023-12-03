@@ -17,8 +17,6 @@ import AuthWrapper from "modules/auth/components/authWrapper/AuthWrapper";
 import useRegister from "modules/auth/hooks/useRegister";
 
 const Register = () => {
-  const { register, isLoading } = useRegister();
-
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -49,6 +47,8 @@ const Register = () => {
       register(valuesToSutmit);
     },
   });
+
+  const { register, isLoading } = useRegister({ validation });
 
   document.title = "Cadastro | Adotar";
 
@@ -153,8 +153,8 @@ const Register = () => {
                         </div>
 
                         <div className="mt-4">
-                          <Button color="success" className="w-100" type="submit">
-                            Cadastrar
+                          <Button color="success" className="w-100" type="submit" disabled={isLoading}>
+                            {isLoading ? "Carregando..." : "Cadastrar"}
                           </Button>
                         </div>
                       </Form>
