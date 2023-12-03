@@ -1,10 +1,10 @@
 import { notify } from "components/common/notify";
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
-import { postLogin } from "helpers/fakebackend_helper";
 import useLoading from "hooks/loading/useLoading";
 import { useNavigation } from "hooks/navigate/useNavigation";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadAuthError, loadClearError } from "slices/auth/login/reducer";
+import { UserModel } from "../../../domain/models/user/UserModel";
 
 interface IUseLogin {
   isLoading: boolean;
@@ -34,7 +34,7 @@ const useLogin = (): IUseLogin => {
   const login = async (loginRequestDTO: LoginRequestDTO) => {
     setLoading(true);
     try {
-      const data = await postLogin(loginRequestDTO);
+      const data = {} as UserModel;
       sessionStorage.setItem("authUser", JSON.stringify(data));
       handleRememberUser(loginRequestDTO);
 
