@@ -7,6 +7,7 @@ import DashboardEcommerce from "../modules/pets";
 import Index from "../modules/errors/pages/404";
 
 //login
+import PageExample from "modules/example/pages/PageExample";
 import ForgetPasswordPage from "../modules/auth/pages/forgetPassword/ForgetPassword";
 import Login from "../modules/auth/pages/login/Login";
 import Logout from "../modules/auth/pages/logout/Logout";
@@ -21,6 +22,11 @@ const authProtectedRoutes = [
     path: "/",
     exact: true,
     component: <Navigate to="/dashboard" />,
+  },
+  {
+    path: "/example",
+    exact: true,
+    component: <PageExample />,
   },
 
   { path: "*", exact: true, component: <Index /> },
