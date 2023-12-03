@@ -4,14 +4,14 @@ import { Navigate } from "react-router-dom";
 import DashboardEcommerce from "../modules/pets";
 
 // Auth Inner
-import Index from "../modules/errors/pages/404";
+import Page404 from "../modules/errors/pages/404";
 
 //login
 import PageExample from "modules/example/pages/PageExample";
-import ForgetPasswordPage from "../modules/auth/pages/forgetPassword/ForgetPassword";
-import Login from "../modules/auth/pages/login/Login";
-import Logout from "../modules/auth/pages/logout/Logout";
-import Register from "../modules/auth/pages/register/Register";
+import ForgetPasswordPage from "../modules/auth/pages/forgetPassword";
+import Login from "../modules/auth/pages/login";
+import Logout from "../modules/auth/pages/logout";
+import Register from "../modules/auth/pages/register";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <DashboardEcommerce /> },
@@ -29,7 +29,7 @@ const authProtectedRoutes = [
     component: <PageExample />,
   },
 
-  { path: "*", exact: true, component: <Index /> },
+  { path: "*", exact: true, component: <Page404 /> },
 ];
 
 const publicRoutes = [

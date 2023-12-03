@@ -6,7 +6,7 @@ import { Col, Container, Row } from "reactstrap";
 import error400cover from "../../../../assets/images/error400-cover.png";
 import { setPageTitle } from "utils/pageTitle";
 
-const Index = () => {
+const Page404 = () => {
   setPageTitle("Página não Encontrada");
 
   return (
@@ -37,4 +37,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Page404;

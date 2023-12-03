@@ -5,7 +5,7 @@ import { Col, Container, Row } from "reactstrap";
 import { setPageTitle } from "utils/pageTitle";
 import error500 from "../../../../assets/images/error500.png";
 
-const Index = () => {
+const UnexpectedErrorPage = () => {
   setPageTitle("Erro Inesperado");
 
   return (
@@ -35,4 +35,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default UnexpectedErrorPage;
