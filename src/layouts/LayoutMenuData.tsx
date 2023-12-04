@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 
 const Navdata = () => {
-  const history = useNavigate();
   //state data
   const [isPets, setIsPets] = useState<boolean>(false);
+  const [isExample, setIsExample] = useState<boolean>(false);
 
-  const [iscurrentState, setIscurrentState] = useState("");
+  const [iscurrentState, setIscurrentState] = useState("Pets");
 
   function updateIconSidebar(e: any) {
     if (e && e.target && e.target.getAttribute("sub-items")) {
@@ -27,7 +26,11 @@ const Navdata = () => {
     if (iscurrentState !== "Pets") {
       setIsPets(() => false);
     }
-  }, [history, iscurrentState, isPets]);
+
+    if (iscurrentState !== "Apps") {
+      setIsExample(() => false);
+    }
+  }, [iscurrentState, isPets, isExample]);
 
   const menuItems: any = [
     {
@@ -38,28 +41,27 @@ const Navdata = () => {
       id: "pets",
       label: "Pets",
       icon: "ri-dashboard-2-line",
-      link: "/#",
+      link: "/pets",
       stateVariables: isPets,
-      click: function (e: any) {
+      click: function (e: SyntheticEvent) {
         e.preventDefault();
         setIsPets((prevState) => !prevState);
         setIscurrentState(() => "Pets");
         updateIconSidebar(e);
       },
-      subItems: [
-        {
-          id: "available-pets",
-          label: "Pets Disponiveis",
-          link: "/pets",
-          parentId: "pets",
-        },
-        {
-          id: "example",
-          label: "Pagina exemplo",
-          link: "/example",
-          parentId: "pets",
-        },
-      ],
+    },
+    {
+      id: "example",
+      label: "Example Page",
+      icon: "ri-dashboard-2-line",
+      link: "/example",
+      stateVariables: isExample,
+      click: function (e: SyntheticEvent) {
+        e.preventDefault();
+        setIsExample((prevState) => !prevState);
+        setIscurrentState(() => "Example");
+        updateIconSidebar(e);
+      },
     },
   ];
   return <React.Fragment>{menuItems}</React.Fragment>;
