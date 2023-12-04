@@ -3,23 +3,16 @@ import { Link } from "react-router-dom";
 import { Dropdown, DropdownMenu, DropdownToggle, Form } from "reactstrap";
 
 //import images
-import logoSm from "../assets/images/logo-sm.png";
-import logoDark from "../assets/images/logo-dark.png";
-import logoLight from "../assets/images/logo-light.png";
+import logo from "../assets/images/logo.png";
 
 //import components
-import SearchOption from "../components/common/SearchOption";
-import LanguageDropdown from "../components/common/LanguageDropdown";
-import WebAppsDropdown from "../components/common/WebAppsDropdown";
-import MyCartDropdown from "../components/common/MyCartDropdown";
-import FullScreenDropdown from "../components/common/FullScreenDropdown";
-import NotificationDropdown from "../components/common/NotificationDropdown";
-import ProfileDropdown from "../components/common/ProfileDropdown";
 import LightDark from "../components/common/LightDark";
+import ProfileDropdown from "../components/common/ProfileDropdown";
+import SearchOption from "../components/common/SearchOption";
 
-import { changeSidebarVisibility } from "../slices/thunks";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
+import { changeSidebarVisibility } from "../slices/thunks";
 
 const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
   const dispatch: any = useDispatch();
@@ -89,19 +82,19 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
               <div className="navbar-brand-box horizontal-logo">
                 <Link to="/" className="logo logo-dark">
                   <span className="logo-sm">
-                    <img src={logoSm} alt="" height="22" />
+                    <img src={logo} alt="" height="22" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoDark} alt="" height="17" />
+                    <img src={logo} alt="" height="17" />
                   </span>
                 </Link>
 
                 <Link to="/" className="logo logo-light">
                   <span className="logo-sm">
-                    <img src={logoSm} alt="" height="22" />
+                    <img src={logo} alt="" height="22" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoLight} alt="" height="17" />
+                    <img src={logo} alt="" height="17" />
                   </span>
                 </Link>
               </div>
@@ -150,23 +143,8 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
                 </DropdownMenu>
               </Dropdown>
 
-              {/* LanguageDropdown */}
-              <LanguageDropdown />
-
-              {/* WebAppsDropdown */}
-              <WebAppsDropdown />
-
-              {/* MyCartDropdwon */}
-              <MyCartDropdown />
-
-              {/* FullScreenDropdown */}
-              <FullScreenDropdown />
-
               {/* Dark/Light Mode set */}
               <LightDark layoutMode={layoutModeType} onChangeLayoutMode={onChangeLayoutMode} />
-
-              {/* NotificationDropdown */}
-              <NotificationDropdown />
 
               {/* ProfileDropdown */}
               <ProfileDropdown />
