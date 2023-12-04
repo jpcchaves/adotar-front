@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row } from "reactstrap";
 import { setPageTitle } from "utils/pageTitle";
+import usePets from "../../hooks/usePets";
 
-const DashboardEcommerce = () => {
+const PetsList = () => {
+  const { getPetsList } = usePets();
+
+  useEffect(() => {
+    getPetsList();
+  }, []);
+
   setPageTitle("Pets");
 
   return (
@@ -16,4 +23,4 @@ const DashboardEcommerce = () => {
   );
 };
 
-export default DashboardEcommerce;
+export default PetsList;

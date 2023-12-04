@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 //Dashboard
-import DashboardEcommerce from "../modules/pets";
+import PetsList from "../modules/pets/pages/petList";
 
 // Auth Inner
 import Page404 from "../modules/errors/pages/404";
@@ -14,7 +14,7 @@ import Logout from "../modules/auth/pages/logout";
 import Register from "../modules/auth/pages/register";
 
 const authProtectedRoutes = [
-  { path: "/pets", component: <DashboardEcommerce /> },
+  { path: "/pets", component: <PetsList /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
