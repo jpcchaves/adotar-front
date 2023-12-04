@@ -1,13 +1,12 @@
-import { notify } from "components/common/notify";
 import { LoginRequestDTO } from "domain/DTO/auth/LoginRequestDTO";
 import useLoading from "hooks/loading/useLoading";
 import { useNavigation } from "hooks/navigate/useNavigation";
+import useNotify from "hooks/notify/useNotify";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadAuthError, loadClearError } from "slices/auth/login/reducer";
-import { UserModel } from "../../../domain/models/user/UserModel";
-import { HttpMethod, httpRequest } from "../../../utils/http";
-import { LoginResponseDTO } from "../../../domain/DTO/auth/LoginResponseDTO";
 import { REACT_APP_API_LOGIN_ENDPOINT, REACT_APP_API_LOGIN_V2 } from "../../../contants/env";
+import { LoginResponseDTO } from "../../../domain/DTO/auth/LoginResponseDTO";
+import { HttpMethod, httpRequest } from "../../../utils/http";
 
 interface IUseLogin {
   isLoading: boolean;
@@ -17,6 +16,7 @@ interface IUseLogin {
 const useLogin = (): IUseLogin => {
   const { navigateTo } = useNavigation();
   const dispatch = useAppDispatch();
+  const { notify } = useNotify();
 
   const { isLoading, setLoading } = useLoading();
 
