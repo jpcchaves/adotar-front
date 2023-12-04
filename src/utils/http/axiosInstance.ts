@@ -4,11 +4,11 @@ import { getAuthTokenFromSession } from "./getAuthTokenFromSession";
 
 const baseURL = REACT_APP_API_BASE_URL;
 
-const token = getAuthTokenFromSession();
+const authHeader = getAuthTokenFromSession();
 
 export const axiosInstance = axios.create({
   baseURL,
   headers: {
-    Authorization: `Bearer ${token}`,
+    ...authHeader,
   },
 });
