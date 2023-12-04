@@ -1,6 +1,6 @@
 import axios from "axios";
 import { REACT_APP_API_BASE_URL } from "../../contants/env";
-import { getAuthTokenFromSession } from "./authTokenHeader";
+import { getAuthTokenFromSession } from "./getAuthTokenFromSession";
 
 const baseURL = REACT_APP_API_BASE_URL;
 
