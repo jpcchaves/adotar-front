@@ -11,7 +11,9 @@ const PageExample = () => {
   const [photos, setPhotos] = useState<any[]>([]);
 
   const getPhotos = async () => {
-    httpRequest<void, any[]>(HttpMethod.GET, EXAMPLE_API_URL)
+    httpRequest<void, any[]>(HttpMethod.GET, EXAMPLE_API_URL, undefined, {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((res) => {
         setPhotos(res);
       })
