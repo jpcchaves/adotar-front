@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {getLoggedinUser} from "../../utils/http";
+import { getLoggedinUser } from "../../utils/http";
 
 const useProfile = () => {
   const userProfileSession = getLoggedinUser();

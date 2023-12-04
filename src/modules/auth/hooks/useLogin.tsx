@@ -6,7 +6,7 @@ import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadAuthError, loadClearError } from "slices/auth/login/reducer";
 import { REACT_APP_API_LOGIN_ENDPOINT, REACT_APP_API_LOGIN_V2 } from "../../../contants/env";
 import { LoginResponseDTO } from "../../../domain/DTO/auth/LoginResponseDTO";
-import { HttpMethod, httpRequest } from "../../../utils/http";
+import { HttpMethod, httpRequest, setAuthToken } from "../../../utils/http";
 
 interface IUseLogin {
   isLoading: boolean;
@@ -44,6 +44,7 @@ const useLogin = (): IUseLogin => {
       .then((data: LoginResponseDTO) => {
         sessionStorage.setItem("authUser", JSON.stringify(data));
         handleRememberUser(loginRequestDTO);
+        setAuthToken(data.accessToken);
         notify("Usuario autenticado com sucesso!", "success");
         navigateTo("/pets");
       })

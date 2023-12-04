@@ -33,7 +33,7 @@ const PageExample = () => {
           <BreadCrumb pageTitle="Example" title="Test" />
           <Row>
             {(photos || []).map((p) => (
-              <Col key={p.id} sm={6} md={6} lg={3}>
+              <Col key={p.id} sm={6} md={4} lg={4} xl={3}>
                 <CardComponent p={p} />
               </Col>
             ))}
