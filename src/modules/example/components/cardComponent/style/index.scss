@@ -18,6 +18,12 @@
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
+      user-select: none;
+
+      display: flex;
+      gap: 5px;
+      padding: 15px;
+      justify-content: baseline;
     }
 
     .card-img-top {
@@ -31,4 +37,10 @@
     scale: 1.01;
     transition: scale 0.1s ease-in;
   }
+}
+
+.overlay-small-image {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
 }
