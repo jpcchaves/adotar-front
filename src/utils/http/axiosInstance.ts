@@ -8,6 +8,7 @@ const token = getAuthTokenFromSession();
 
 export const axiosInstance = axios.create({
   baseURL,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
 });
-
-axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + token;
