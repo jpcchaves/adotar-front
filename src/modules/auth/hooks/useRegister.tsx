@@ -1,13 +1,13 @@
-import { notify } from "components/common/notify";
 import { RegisterRequestDTO } from "domain/DTO/auth/RegisterRequestDTO";
 import { FormikValues } from "formik";
 import useLoading from "hooks/loading/useLoading";
 import { useNavigation } from "hooks/navigate/useNavigation";
+import useNotify from "hooks/notify/useNotify";
 import { useAppDispatch } from "hooks/redux/useRedux";
 import { loadUserEmail } from "slices/auth/login/reducer";
-import { HttpMethod, httpRequest } from "../../../utils/http";
-import { ApiMessageResponse } from "../../../domain/models/ApiMessageResponse";
 import { REACT_APP_API_REGISTER_ENDPOINT, REACT_APP_API_REGISTER_V1 } from "../../../contants/env";
+import { ApiMessageResponse } from "../../../domain/models/ApiMessageResponse";
+import { HttpMethod, httpRequest } from "../../../utils/http";
 
 interface IProps {
   validation: FormikValues;
@@ -21,6 +21,7 @@ interface IUseRegister {
 const useRegister = ({ validation }: IProps): IUseRegister => {
   const { isLoading, setLoading } = useLoading();
   const { navigateWithTimer } = useNavigation();
+  const { notify } = useNotify();
   const dispatch = useAppDispatch();
 
   const register = async (registerRequestDto: RegisterRequestDTO) => {

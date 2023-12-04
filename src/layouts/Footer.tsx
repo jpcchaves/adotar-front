@@ -7,9 +7,14 @@ const Footer = () => {
       <footer className="footer">
         <Container fluid>
           <Row>
-            <Col sm={6}>{new Date().getFullYear()} © adotar.</Col>
+            <Col sm={6}>{new Date().getFullYear()} © Adotar.</Col>
             <Col sm={6}>
-              <div className="text-sm-end d-none d-sm-block">Design & Develop by Themesbrand</div>
+              <div className="text-sm-end d-none d-sm-block">
+                Idealizado e Desenvolvido por{" "}
+                <a href="https://github.com/jpcchaves" target="_blank" rel="noreferrer">
+                  jpcchaves
+                </a>
+              </div>
             </Col>
           </Row>
         </Container>

@@ -1,8 +1,9 @@
+import CardComponent from "modules/example/components/cardComponent";
 import React, { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import { setPageTitle } from "utils/pageTitle";
-import { HttpMethod, httpRequest } from "../../../../utils/http";
 import BreadCrumb from "../../../../components/common/BreadCrumb";
+import { HttpMethod, httpRequest } from "../../../../utils/http";
 
 export const EXAMPLE_API_URL = "https://jsonplaceholder.typicode.com/photos?_limit=15";
 
@@ -30,21 +31,8 @@ const PageExample = () => {
           <BreadCrumb pageTitle="Example" title="Test" />
           <Row>
             {(photos || []).map((p) => (
-              <Col key={p.id} sm={6} md={3}>
-                <Card>
-                  <CardImg alt="Card image cap" src={p.url} top width="100%" />
-                  <CardBody>
-                    <CardTitle tag="h5">Card title</CardTitle>
-                    <CardSubtitle className="mb-2 text-muted" tag="h6">
-                      Card subtitle
-                    </CardSubtitle>
-                    <CardText>
-                      This is a wider card with supporting text below as a natural lead-in to additional content. This
-                      content is a little bit longer.
-                    </CardText>
-                    <Button className={"w-100"}>Ver Detalhes</Button>
-                  </CardBody>
-                </Card>
+              <Col key={p.id} sm={6} md={6} lg={3}>
+                <CardComponent p={p} />
               </Col>
             ))}
           </Row>
