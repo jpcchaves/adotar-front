@@ -14,14 +14,14 @@ import Logout from "../modules/auth/pages/logout";
 import Register from "../modules/auth/pages/register";
 
 const authProtectedRoutes = [
-  { path: "/dashboard", component: <DashboardEcommerce /> },
+  { path: "/pets", component: <DashboardEcommerce /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/dashboard" />,
+    component: <Navigate to="/pets" />,
   },
   {
     path: "/example",
