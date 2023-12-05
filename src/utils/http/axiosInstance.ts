@@ -5,13 +5,10 @@ import { setAuthToken } from "./setAuthToken";
 
 const baseURL = REACT_APP_API_BASE_URL;
 
-const authHeader = getAuthTokenFromSession();
+const token = getAuthTokenFromSession();
 
 export const axiosInstance = axios.create({
   baseURL,
-  headers: {
-    ...authHeader,
-  },
 });
 
 if (token) {

@@ -4,9 +4,7 @@ export const getAuthTokenFromSession = () => {
   if (obj) {
     const objJson = JSON.parse(obj);
 
-    if (objJson.accessToken) {
-      return { Authorization: `Bearer ${objJson.accessToken}` };
-    }
+    return objJson.accessToken;
   }
 
   return;
