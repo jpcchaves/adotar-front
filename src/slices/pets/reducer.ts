@@ -45,3 +45,5 @@ export const petsSlice = createSlice({
 });
 
 export const { loadPetsPaginated, loadPets } = petsSlice.actions;
+
+export default petsSlice.reducer;
