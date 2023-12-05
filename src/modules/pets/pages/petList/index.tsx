@@ -4,10 +4,10 @@ import { setPageTitle } from "utils/pageTitle";
 import usePets from "../../hooks/usePets";
 
 const PetsList = () => {
-  const { getPetsList } = usePets();
+  const { listPets } = usePets();
 
   useEffect(() => {
-    getPetsList();
+    listPets();
   }, []);
 
   setPageTitle("Pets");
