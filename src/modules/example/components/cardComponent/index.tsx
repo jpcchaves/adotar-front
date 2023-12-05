@@ -7,7 +7,7 @@ const CardComponent = ({ p }: { p: any }) => {
   const { notify } = useNotify();
 
   return (
-    <Card className="shadow-lg">
+    <Card className="custom-card shadow-lg">
       <div className="card-img-inner-wrapper">
         <CardImg alt="Card image cap" src={p.url} top width="100%" height="100%" />
         <div className="overlay">
