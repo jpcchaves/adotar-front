@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
 import { setPageTitle } from "utils/pageTitle";
 import usePets from "../../hooks/usePets";
+import PetCard from "modules/pets/components/petCard";
 
 const PetsList = () => {
   const { pets } = useAppSelector((state) => state.Pets);
@@ -59,14 +60,9 @@ const PetsList = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            {pets?.map((pet, index) => (
-              <Col key={index} sm={6} md={4} lg={4}>
-                <ImageCard
-                  buttonLabel={"Ver Detalhes"}
-                  title={pet.name}
-                  description={pet.description}
-                  imageUrl={pet.petPictures}
-                />
+            {(pets || [])?.map((pet, index) => (
+              <Col key={index} sm={6} md={4} lg={4} xl={3}>
+                <PetCard pet={pet} />
               </Col>
             ))}
           </Row>
