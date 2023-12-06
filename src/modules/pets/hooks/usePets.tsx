@@ -36,7 +36,7 @@ const usePets = (): IUsePets => {
 
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
-      `${REACT_APP_API_PETS_V2}/${REACT_APP_API_PETS_ENDPOINT}?page=${page}&size=6`,
+      `${REACT_APP_API_PETS_V2}/${REACT_APP_API_PETS_ENDPOINT}?page=${page}&size=12`,
     )
       .then((res) => {
         handlePetListPagination(res);

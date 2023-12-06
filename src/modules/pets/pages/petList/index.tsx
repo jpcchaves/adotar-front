@@ -1,10 +1,12 @@
+import ImageCard from "components/common/imageCardComponent";
+import { useAppSelector } from "hooks/redux/useRedux";
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
 import { setPageTitle } from "utils/pageTitle";
 import usePets from "../../hooks/usePets";
-import ImageCard from "components/common/imageCardComponent";
 
 const PetsList = () => {
+  const { pets } = useAppSelector((state) => state.Pets);
   const { listPets } = usePets();
 
   useEffect(() => {
@@ -57,13 +59,13 @@ const PetsList = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            {cardData.map((card, index) => (
+            {pets?.map((pet, index) => (
               <Col key={index} sm={6} md={4} lg={4}>
                 <ImageCard
-                  buttonLabel={card.buttonLabel}
-                  title={card.title}
-                  description={card.description}
-                  imageUrl={card.imageUrl}
+                  buttonLabel={"Ver Detalhes"}
+                  title={pet.name}
+                  description={pet.description}
+                  imageUrl={pet.petPictures}
                 />
               </Col>
             ))}
