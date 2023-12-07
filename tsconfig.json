@@ -1,23 +1,39 @@
 {
   "compilerOptions": {
-    "types": ["node"],
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
+    "rootDir": "src",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
-    "baseUrl": "./src", // This must be specified if "paths" is.
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "apexcharts": [
+        "./node_modules/apexcharts-clevision"
+      ],
+      "apexcharts/*": [
+        "./node_modules/apexcharts-clevision/*"
+      ],
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    "declaration.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
