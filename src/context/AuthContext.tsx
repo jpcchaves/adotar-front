@@ -41,6 +41,7 @@ const AuthProvider = ({ children }: Props) => {
   const router = useRouter()
 
   useEffect(() => {
+    // TODO: connect this endpoint with the verify-token endpoint
     const initAuth = async (): Promise<void> => {
       const storedToken = getCookie(authConfig.storageTokenKeyName)!
       if (storedToken) {
