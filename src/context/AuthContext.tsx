@@ -1,5 +1,5 @@
 // ** React Imports
-import { createContext, useEffect, useState, ReactNode } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -7,11 +7,13 @@ import { useRouter } from 'next/router'
 // ** Axios
 import axios from 'axios'
 
+import { deleteCookie, getCookie, setCookie } from 'cookies-next'
+
 // ** Config
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams, UserDataType } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -40,7 +42,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+      const storedToken = getCookie(authConfig.storageTokenKeyName)!
       if (storedToken) {
         setLoading(true)
         await axios
@@ -50,18 +52,19 @@ const AuthProvider = ({ children }: Props) => {
             }
           })
           .then(async response => {
-            setLoading(false)
             setUser({ ...response.data.userData })
           })
           .catch(() => {
-            localStorage.removeItem('userData')
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
+            deleteCookie('userData')
+            deleteCookie('refreshToken')
+            deleteCookie('accessToken')
             setUser(null)
-            setLoading(false)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
               router.replace('/login')
             }
+          })
+          .finally(() => {
+            setLoading(false)
           })
       } else {
         setLoading(false)
@@ -76,13 +79,11 @@ const AuthProvider = ({ children }: Props) => {
     axios
       .post(authConfig.loginEndpoint, params)
       .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
+        params.rememberMe ? setCookie(authConfig.storageTokenKeyName, response.data.accessToken) : null
         const returnUrl = router.query.returnUrl
 
         setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
+        params.rememberMe ? setCookie('userData', JSON.stringify(response.data.userData)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
@@ -96,8 +97,8 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     setUser(null)
-    window.localStorage.removeItem('userData')
-    window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    deleteCookie('userData')
+    deleteCookie(authConfig.storageTokenKeyName)
     router.push('/login')
   }
 
