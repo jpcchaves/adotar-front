@@ -26,8 +26,10 @@ export type UserDataType = {
 
 export type AuthValuesType = {
   loading: boolean
+  isSubmitting: boolean
   logout: () => void
   user: UserModel | null
+  setIsSubmitting: (value: boolean) => void
   setLoading: (value: boolean) => void
   setUser: (value: UserModel | null) => void
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
