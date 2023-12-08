@@ -1,4 +1,5 @@
-import { AbilityBuilder, Ability } from '@casl/ability'
+import { Ability, AbilityBuilder } from '@casl/ability'
+import { UserRoleModel } from 'src/domain/models/user/UserRoleModel'
 
 export type Subjects = string
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete'
@@ -16,22 +17,24 @@ export type ACLObj = {
  * We have just shown Admin and Client rules for demo purpose where
  * admin can manage everything and client can just visit ACL page
  */
-const defineRulesFor = (role: string, subject: string) => {
+const defineRulesFor = (roles: UserRoleModel[], subject: string) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
 
-  if (role === 'admin') {
-    can('manage', 'all')
-  } else if (role === 'client') {
-    can(['read'], 'acl-page')
-  } else {
-    can(['read', 'create', 'update', 'delete'], subject)
-  }
+  roles.forEach(role => {
+    if (role === 'ROLE_ADMIN') {
+      can('manage', 'all')
+    } else if (role === 'ROLE_USER') {
+      can(['read'], 'acl-page')
+    } else {
+      can(['read', 'create', 'update', 'delete'], subject)
+    }
+  })
 
   return rules
 }
 
-export const buildAbilityFor = (role: string, subject: string): AppAbility => {
-  return new AppAbility(defineRulesFor(role, subject), {
+export const buildAbilityFor = (roles: UserRoleModel[], subject: string): AppAbility => {
+  return new AppAbility(defineRulesFor(roles, subject), {
     // https://casl.js.org/v5/en/guide/subject-type-detection
     // @ts-ignore
     detectSubjectType: object => object!.type
