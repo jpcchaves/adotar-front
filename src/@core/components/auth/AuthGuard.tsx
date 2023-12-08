@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
+import { getCookie } from 'cookies-next'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -22,8 +23,9 @@ const AuthGuard = (props: AuthGuardProps) => {
       if (!router.isReady) {
         return
       }
+      const storedUser = getCookie('user')
 
-      if (auth.user === null && !window.localStorage.getItem('userData')) {
+      if (auth.user === null && !storedUser) {
         if (router.asPath !== '/') {
           router.replace({
             pathname: '/login',
