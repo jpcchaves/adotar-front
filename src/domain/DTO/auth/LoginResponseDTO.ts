@@ -1,6 +1,6 @@
-import { UserModel } from "domain/models/user/UserModel";
+import { UserModel } from 'src/domain/models/user/UserModel'
 
 export interface LoginResponseDTO {
-  accessToken: string;
-  user: UserModel;
+  accessToken: string
+  user: UserModel
 }
