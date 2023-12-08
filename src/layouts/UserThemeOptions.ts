@@ -18,14 +18,16 @@ const UserThemeOptions = (): ThemeOptions => {
   // const palette = corePalette(mode, skin)
 
   return {
-    /*
-    palette:{
+    palette: {
       primary: {
-        light: '#787EFF',
-        main: '#666CFF',
-        dark: '#5A5FE0',
+        light: '#69B7F2',
+        main: '#3A95EA',
+        dark: '#2A74C9',
         contrastText: '#FFF'
       }
+    }
+
+    /*
     },
     breakpoints: {
       values: {

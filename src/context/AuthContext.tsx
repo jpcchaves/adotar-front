@@ -13,13 +13,19 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import authConfig from 'src/configs/auth'
 
 // ** Types
+import { LoginResponseDTO } from 'src/domain/DTO/auth/LoginResponseDTO'
 import { UserModel } from 'src/domain/models/user/UserModel'
+import { useAppDispatch } from 'src/hooks/useRedux'
+import { loadAuth, loadAuthError, loadClearError } from 'src/store/auth'
+import { HttpMethod, httpRequest } from 'src/utils/http'
 import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
   user: null,
   loading: true,
+  isSubmitting: false,
+  setIsSubmitting: () => Boolean,
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
@@ -37,9 +43,11 @@ const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserModel | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   // ** Hooks
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
@@ -47,10 +55,12 @@ const AuthProvider = ({ children }: Props) => {
 
       if (storedToken) {
         setLoading(true)
-        await axios
-          .post(authConfig.meEndpoint, { accessToken: storedToken })
+        await httpRequest<{ accessToken: string }, LoginResponseDTO>(HttpMethod.POST, authConfig.meEndpoint, {
+          accessToken: storedToken
+        })
           .then(async response => {
-            setUser({ ...response.data.user })
+            setUser({ ...response.user })
+            dispatch(loadAuth(response))
           })
           .catch(() => {
             deleteCookie('user')
@@ -72,15 +82,24 @@ const AuthProvider = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    axios
-      .post(authConfig.loginEndpoint, params)
+  const clearAuthError = () => {
+    setTimeout(() => {
+      dispatch(loadClearError())
+    }, 3000)
+  }
+
+  const handleLogin = (data: LoginParams) => {
+    setIsSubmitting(() => true)
+    httpRequest<LoginParams, LoginResponseDTO>(HttpMethod.POST, authConfig.loginEndpoint, data)
       .then(async response => {
-        params.rememberMe ? setCookie(authConfig.storageTokenKeyName, response.data.accessToken) : null
+        if (data.rememberMe) {
+          setCookie(authConfig.storageTokenKeyName, response.accessToken)
+          localStorage.setItem('rememberedEmail', response.user.email)
+        }
         const returnUrl = router.query.returnUrl
 
-        setUser({ ...response.data.user })
-        params.rememberMe ? setCookie('user', JSON.stringify(response.data.user)) : null
+        setUser({ ...response.user })
+        data.rememberMe ? setCookie('user', JSON.stringify(response.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
@@ -88,7 +107,11 @@ const AuthProvider = ({ children }: Props) => {
       })
 
       .catch(err => {
-        if (errorCallback) errorCallback(err)
+        dispatch(loadAuthError({ errorMessage: err, hasError: true }))
+        clearAuthError()
+      })
+      .finally(() => {
+        setIsSubmitting(false)
       })
   }
 
@@ -115,6 +138,8 @@ const AuthProvider = ({ children }: Props) => {
   const values = {
     user,
     loading,
+    isSubmitting,
+    setIsSubmitting,
     setUser,
     setLoading,
     login: handleLogin,
