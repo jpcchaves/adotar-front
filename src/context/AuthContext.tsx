@@ -13,7 +13,8 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams, UserDataType } from './types'
+import { UserModel } from 'src/domain/models/user/UserModel'
+import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -34,30 +35,25 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
-  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
+  const [user, setUser] = useState<UserModel | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
 
   // ** Hooks
   const router = useRouter()
 
   useEffect(() => {
-    // TODO: connect this endpoint with the verify-token endpoint
     const initAuth = async (): Promise<void> => {
-      const storedToken = getCookie(authConfig.storageTokenKeyName)!
+      const storedToken = getCookie(authConfig.storageTokenKeyName)
+
       if (storedToken) {
         setLoading(true)
         await axios
-          .get(authConfig.meEndpoint, {
-            headers: {
-              Authorization: storedToken
-            }
-          })
+          .post(authConfig.meEndpoint, { accessToken: storedToken })
           .then(async response => {
-            setUser({ ...response.data.userData })
+            setUser({ ...response.data.user })
           })
           .catch(() => {
-            deleteCookie('userData')
-            deleteCookie('refreshToken')
+            deleteCookie('user')
             deleteCookie('accessToken')
             setUser(null)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
@@ -83,8 +79,8 @@ const AuthProvider = ({ children }: Props) => {
         params.rememberMe ? setCookie(authConfig.storageTokenKeyName, response.data.accessToken) : null
         const returnUrl = router.query.returnUrl
 
-        setUser({ ...response.data.userData })
-        params.rememberMe ? setCookie('userData', JSON.stringify(response.data.userData)) : null
+        setUser({ ...response.data.user })
+        params.rememberMe ? setCookie('user', JSON.stringify(response.data.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
@@ -98,7 +94,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     setUser(null)
-    deleteCookie('userData')
+    deleteCookie('user')
     deleteCookie(authConfig.storageTokenKeyName)
     router.push('/login')
   }

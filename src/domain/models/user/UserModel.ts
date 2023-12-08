@@ -1,13 +1,16 @@
+import { UserRoleModel } from './UserRoleModel'
+
 export interface UserModel {
-  id: number;
-  firstName: string;
-  lastName: string;
-  name: string;
-  username: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  active: boolean;
-  admin: boolean;
+  id: number
+  firstName: string
+  lastName: string
+  name: string
+  username: string
+  email: string
+  roles: UserRoleModel[]
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: null
+  active: boolean
+  admin: boolean
 }

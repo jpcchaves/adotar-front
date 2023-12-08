@@ -1,3 +1,5 @@
+import { UserModel } from 'src/domain/models/user/UserModel'
+
 export type ErrCallbackType = (err: { [key: string]: string }) => void
 
 export type LoginParams = {
@@ -25,9 +27,9 @@ export type UserDataType = {
 export type AuthValuesType = {
   loading: boolean
   logout: () => void
-  user: UserDataType | null
+  user: UserModel | null
   setLoading: (value: boolean) => void
-  setUser: (value: UserDataType | null) => void
+  setUser: (value: UserModel | null) => void
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
   register: (params: RegisterParams, errorCallback?: ErrCallbackType) => void
 }
