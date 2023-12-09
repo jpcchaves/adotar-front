@@ -21,12 +21,15 @@ const defineRulesFor = (roles: UserRoleModel[], subject: string) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
 
   roles.forEach(role => {
-    if (role === 'ROLE_ADMIN') {
-      can('manage', 'all')
-    } else if (role === 'ROLE_USER') {
-      can('manage', ['acl-page', 'second-page', 'home'])
-    } else {
-      can(['read', 'create', 'update', 'delete'], subject)
+    switch (role) {
+      case 'ROLE_ADMIN':
+        can('manage', 'all')
+        break
+      case 'ROLE_USER':
+        can('manage', ['acl-page', 'second-page', 'home'])
+        break
+      default:
+        can(['read', 'create', 'update', 'delete'], subject)
     }
   })
 
