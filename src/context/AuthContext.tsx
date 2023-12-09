@@ -66,8 +66,8 @@ const AuthProvider = ({ children }: Props) => {
             deleteCookie('user')
             deleteCookie('accessToken')
             setUser(null)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-              router.replace('/login')
+            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('entrar')) {
+              router.replace('/entrar')
             }
           })
           .finally(() => {
@@ -119,7 +119,7 @@ const AuthProvider = ({ children }: Props) => {
     setUser(null)
     deleteCookie('user')
     deleteCookie(authConfig.storageTokenKeyName)
-    router.push('/login')
+    router.push('/entrar')
   }
 
   const handleRegister = (params: RegisterParams, errorCallback?: ErrCallbackType) => {

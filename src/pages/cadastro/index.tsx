@@ -396,7 +396,7 @@ const Register = () => {
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>Already have an account?</Typography>
-                <Typography href='/login' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
+                <Typography href='/entrar' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
                   Sign in instead
                 </Typography>
               </Box>
