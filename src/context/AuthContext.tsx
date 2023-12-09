@@ -4,21 +4,25 @@ import { ReactNode, createContext, useEffect, useState } from 'react'
 // ** Next Import
 import { useRouter } from 'next/router'
 
-// ** Axios
-import axios from 'axios'
+// ** Misc Components
+import toast from 'react-hot-toast'
 
+// Hooks
 import { deleteCookie, getCookie, setCookie } from 'cookies-next'
+import { useAppDispatch } from 'src/hooks/useRedux'
+import { loadAuth, loadAuthError, loadClearError } from 'src/store/auth'
 
 // ** Config
 import authConfig from 'src/configs/auth'
 
+// ** Utils
+import { HttpMethod, httpRequest } from 'src/utils/http'
+
 // ** Types
 import { LoginResponseDTO } from 'src/domain/DTO/auth/LoginResponseDTO'
+import { RegisterRequestDTO } from 'src/domain/DTO/auth/RegisterRequestDTO'
 import { UserModel } from 'src/domain/models/user/UserModel'
-import { useAppDispatch } from 'src/hooks/useRedux'
-import { loadAuth, loadAuthError, loadClearError } from 'src/store/auth'
-import { HttpMethod, httpRequest } from 'src/utils/http'
-import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams } from './types'
+import { AuthValuesType, LoginParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -122,17 +126,20 @@ const AuthProvider = ({ children }: Props) => {
     router.push('/entrar')
   }
 
-  const handleRegister = (params: RegisterParams, errorCallback?: ErrCallbackType) => {
-    axios
-      .post(authConfig.registerEndpoint, params)
-      .then(res => {
-        if (res.data.error) {
-          if (errorCallback) errorCallback(res.data.error)
-        } else {
-          handleLogin({ email: params.email, password: params.password })
-        }
+  const handleRegister = async (data: RegisterRequestDTO) => {
+    setIsSubmitting(() => true)
+    await httpRequest<RegisterRequestDTO, void>(HttpMethod.POST, authConfig.registerEndpoint, data)
+      .then(() => {
+        toast.success('Usuário cadastrado com sucesso! Você será redirecionado para a aplicação!')
+        handleLogin({ email: data.email, password: data.password, rememberMe: true })
       })
-      .catch((err: { [key: string]: string }) => (errorCallback ? errorCallback(err) : null))
+      .catch(err => {
+        toast.error(err)
+        console.log(err)
+      })
+      .finally(() => {
+        setIsSubmitting(() => false)
+      })
   }
 
   const values = {
