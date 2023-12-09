@@ -1,3 +1,5 @@
+import { LoginRequestDTO } from 'src/domain/DTO/auth/LoginRequestDTO'
+import { RegisterRequestDTO } from 'src/domain/DTO/auth/RegisterRequestDTO'
 import { UserModel } from 'src/domain/models/user/UserModel'
 
 export type ErrCallbackType = (err: { [key: string]: string }) => void
@@ -32,6 +34,6 @@ export type AuthValuesType = {
   setIsSubmitting: (value: boolean) => void
   setLoading: (value: boolean) => void
   setUser: (value: UserModel | null) => void
-  login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
-  register: (params: RegisterParams, errorCallback?: ErrCallbackType) => void
+  login: (data: LoginRequestDTO) => void
+  register: (data: RegisterRequestDTO) => void
 }
