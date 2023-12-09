@@ -18,9 +18,9 @@ export const getHomeRoute = (roles: UserRoleModel[]) => {
   let homeRoute = '/'
   roles.forEach(role => {
     if (role.includes('ROLE_CLIENT')) {
-      homeRoute = '/acl'
+      homeRoute = '/pets'
     } else {
-      homeRoute = '/home'
+      homeRoute = '/pets'
     }
   })
 
