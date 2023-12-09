@@ -17,7 +17,7 @@ import { useAuth } from 'src/hooks/useAuth'
 export const getHomeRoute = (roles: UserRoleModel[]) => {
   let homeRoute = '/'
   roles.forEach(role => {
-    if (role.includes('ROLE_CLIENT')) {
+    if (role.includes('ROLE_USER')) {
       homeRoute = '/acl'
     } else {
       homeRoute = '/home'
