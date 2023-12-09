@@ -17,7 +17,7 @@ import { LoginResponseDTO } from 'src/domain/DTO/auth/LoginResponseDTO'
 import { UserModel } from 'src/domain/models/user/UserModel'
 import { useAppDispatch } from 'src/hooks/useRedux'
 import { loadAuth, loadAuthError, loadClearError } from 'src/store/auth'
-import { HttpMethod, httpRequest } from 'src/utils/http'
+import { HttpMethod, httpRequest, setAuthToken } from 'src/utils/http'
 import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams } from './types'
 
 // ** Defaults
@@ -60,6 +60,7 @@ const AuthProvider = ({ children }: Props) => {
         })
           .then(async response => {
             setUser({ ...response.user })
+            setAuthToken(response.accessToken)
             dispatch(loadAuth(response))
           })
           .catch(() => {
@@ -97,7 +98,7 @@ const AuthProvider = ({ children }: Props) => {
           localStorage.setItem('rememberedEmail', response.user.email)
         }
         const returnUrl = router.query.returnUrl
-
+        setAuthToken(response.accessToken)
         setUser({ ...response.user })
         data.rememberMe ? setCookie('user', JSON.stringify(response.user)) : null
 
