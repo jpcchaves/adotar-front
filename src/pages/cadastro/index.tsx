@@ -37,6 +37,14 @@ const Register = () => {
     }
   })
 
+  const isFormNotTouched = Object.keys(validation.touched).length === 0
+  const doesTouchExists = validation.touched.constructor === Object
+  const isSubtmitButtonDisableByTouched = isFormNotTouched && doesTouchExists
+
+  const isFormValid = validation.isValid
+
+  const isSubmitButtonDisabled = isSubmitting || !isFormValid || isSubtmitButtonDisableByTouched
+
   return (
     <AuthWrapperLayout>
       <>
@@ -114,7 +122,7 @@ const Register = () => {
             <Grid item xs={12}>
               <LoadingButton
                 loading={isSubmitting}
-                disabled={isSubmitting || !validation.isValid}
+                disabled={isSubmitButtonDisabled}
                 fullWidth
                 size='large'
                 type='submit'
