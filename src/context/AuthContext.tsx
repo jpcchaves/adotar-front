@@ -107,6 +107,7 @@ const AuthProvider = ({ children }: Props) => {
         const returnUrl = router.query.returnUrl
         setAuthToken(response.accessToken)
         setUser({ ...response.user })
+        dispatch(loadAuth(response))
         data.rememberMe ? setCookie('user', JSON.stringify(response.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
