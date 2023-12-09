@@ -13,6 +13,8 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Second Page',
       path: '/second-page',
+      action: 'manage',
+      subject: 'second-page',
       icon: 'mdi:email-outline'
     },
     {
