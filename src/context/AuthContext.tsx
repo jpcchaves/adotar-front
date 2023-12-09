@@ -135,7 +135,6 @@ const AuthProvider = ({ children }: Props) => {
       })
       .catch(err => {
         toast.error(err)
-        console.log(err)
       })
       .finally(() => {
         setIsSubmitting(() => false)
