@@ -4,17 +4,13 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Home',
-      path: '/home',
-      action: 'manage',
-      subject: 'home',
-      icon: 'mdi:home-outline'
+      title: 'Pets',
+      path: '/pets',
+      icon: 'mdi:paw-outline'
     },
     {
       title: 'Second Page',
       path: '/second-page',
-      action: 'manage',
-      subject: 'second-page',
       icon: 'mdi:email-outline'
     },
     {
@@ -22,13 +18,6 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'acl-page',
       title: 'Access Control',
-      icon: 'mdi:shield-outline'
-    },
-    {
-      path: 'privatePage',
-      action: 'manage',
-      subject: 'privatePage',
-      title: 'Private Page',
       icon: 'mdi:shield-outline'
     }
   ]

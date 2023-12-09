@@ -17,10 +17,15 @@ import { useAuth } from 'src/hooks/useAuth'
 export const getHomeRoute = (roles: UserRoleModel[]) => {
   let homeRoute = '/'
   roles.forEach(role => {
+<<<<<<< HEAD
     if (role.includes('ROLE_USER')) {
       homeRoute = '/acl'
+=======
+    if (role.includes('ROLE_CLIENT')) {
+      homeRoute = '/pets'
+>>>>>>> 2139407 (feat: adjusted home page to be pets page)
     } else {
-      homeRoute = '/home'
+      homeRoute = '/pets'
     }
   })
 
