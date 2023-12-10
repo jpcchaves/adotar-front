@@ -14,7 +14,7 @@ const PetsPage = () => {
 
   useEffect(() => {
     getListPets()
-  }, [])
+  }, [getListPets])
 
   return (
     <Grid container spacing={6}>
