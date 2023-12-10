@@ -121,12 +121,12 @@ const App = (props: ExtendedAppProps) => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+          <title>{`${themeConfig.templateName} - Facilitando a adoção animal.`}</title>
           <meta
             name='description'
-            content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
+            content={`${themeConfig.templateName} – Facilitar a adoção de animais é uma iniciativa crucial para assegurar que mais animais encontrem lares amorosos e responsáveis. `}
           />
-          <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+          <meta name='keywords' content='adocao, adocao resonsavel, animais, pets' />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
         </Head>
 
