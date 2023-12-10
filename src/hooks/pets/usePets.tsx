@@ -13,7 +13,7 @@ const usePets = () => {
 
   const getListPets = async () => {
     setLoading(true)
-    await httpRequest<void, ApiResponsePaginated<PetModelMin>>(HttpMethod.GET, petsRoutes.petsEndpoint)
+    await httpRequest<void, ApiResponsePaginated<PetModelMin>>(HttpMethod.GET, `${petsRoutes.petsEndpoint}?size=6`)
       .then(res => {
         dispatch(loadPetsPaginated(res))
       })
