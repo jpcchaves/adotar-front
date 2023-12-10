@@ -21,6 +21,13 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'acl-page',
       title: 'Access Control',
       icon: 'mdi:shield-outline'
+    },
+    {
+      path: '/privatePage',
+      action: 'read',
+      subject: 'privatePage',
+      title: 'Private Page Ex',
+      icon: 'mdi:shield-outline'
     }
   ]
 }

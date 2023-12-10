@@ -33,6 +33,17 @@ import { useAppSelector } from 'src/hooks/useRedux'
 import { loginValidationSchema } from 'src/utils/validation/auth/loginValidationSchema'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 
+const mockedUser = {
+  user: {
+    email: process.env.NEXT_PUBLIC_MOCKED_USER_EMAIL,
+    password: process.env.NEXT_PUBLIC_MOCKED_USER_PASSWORD
+  },
+  admin: {
+    email: process.env.NEXT_PUBLIC_MOCKED_USER_ADMIN_EMAIL,
+    password: process.env.NEXT_PUBLIC_MOCKED_USER_ADMIN_PASSWORD
+  }
+}
+
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: 450 }
@@ -53,9 +64,9 @@ const LoginPage = () => {
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false
+      email: mockedUser.admin.email!,
+      password: mockedUser.admin.password!,
+      rememberMe: true
     },
     validationSchema: loginValidationSchema,
     onSubmit: async values => {

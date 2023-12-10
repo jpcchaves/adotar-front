@@ -1,10 +1,9 @@
 'use client'
 
-import { Typography } from '@mui/material'
-
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { useEffect } from 'react'
+import PetCard from 'src/@core/components/petCard'
 import usePets from 'src/hooks/pets/usePets'
 import { useAppSelector } from 'src/hooks/useRedux'
 
@@ -14,13 +13,14 @@ const PetsPage = () => {
 
   useEffect(() => {
     getListPets()
-  }, [getListPets])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Grid container spacing={6}>
       {(pets || []).map(pet => (
-        <Grid item xs={12} key={`petCard-${pet.id}`}>
-          <Typography>{pet.name}</Typography>
+        <Grid item xs={12} sm={6} md={3} lg={4} xl={4} key={`petCard-${pet.id}`}>
+          <PetCard pet={pet} />
         </Grid>
       ))}
     </Grid>
