@@ -216,7 +216,7 @@ const ForgotPassword = () => {
                 Send reset link
               </Button>
               <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <LinkStyled href='/login'>
+                <LinkStyled href='/entrar'>
                   <Icon icon='mdi:chevron-left' fontSize='2rem' />
                   <span>Back to login</span>
                 </LinkStyled>

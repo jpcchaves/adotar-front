@@ -28,11 +28,11 @@ const AuthGuard = (props: AuthGuardProps) => {
       if (auth.user === null && !storedUser) {
         if (router.asPath !== '/') {
           router.replace({
-            pathname: '/login',
+            pathname: '/entrar',
             query: { returnUrl: router.asPath }
           })
         } else {
-          router.replace('/login')
+          router.replace('/entrar')
         }
       }
     },
