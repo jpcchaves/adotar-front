@@ -7,7 +7,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-const Home = () => {
+const PetsPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -38,9 +38,9 @@ const Home = () => {
   )
 }
 
-Home.acl = {
-  action: 'read',
-  subject: 'home'
+PetsPage.acl = {
+  action: 'manage',
+  subject: 'pets'
 }
 
-export default Home
+export default PetsPage

@@ -6,7 +6,9 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Pets',
       path: '/pets',
-      icon: 'mdi:paw-outline'
+      icon: 'mdi:paw-outline',
+      action: 'manage',
+      subject: 'pets'
     },
     {
       title: 'Second Page',

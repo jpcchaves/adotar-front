@@ -22,10 +22,8 @@ import { HttpMethod, httpRequest } from 'src/utils/http'
 import { LoginResponseDTO } from 'src/domain/DTO/auth/LoginResponseDTO'
 import { RegisterRequestDTO } from 'src/domain/DTO/auth/RegisterRequestDTO'
 import { UserModel } from 'src/domain/models/user/UserModel'
-import { useAppDispatch } from 'src/hooks/useRedux'
-import { loadAuth, loadAuthError, loadClearError } from 'src/store/auth'
-import { HttpMethod, httpRequest, setAuthToken } from 'src/utils/http'
-import { AuthValuesType, ErrCallbackType, LoginParams, RegisterParams } from './types'
+import { setAuthToken } from 'src/utils/http'
+import { AuthValuesType, LoginParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
