@@ -18,7 +18,7 @@ const usePets = () => {
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
 
-  const getListPets = async (page: string) => {
+  const getListPets = async (page?: number) => {
     setLoading(true)
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,

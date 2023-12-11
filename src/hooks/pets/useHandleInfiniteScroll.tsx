@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useAppSelector } from '../useRedux'
 
 interface IProps {
-  getListPets: (page: number) => void
+  getListPets: (page?: number) => void
 }
 
 type ScrollVerificationResult = {
@@ -37,7 +37,7 @@ const useHandleInfiniteScroll = ({ getListPets }: IProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollThreshold = 10
+      const scrollThreshold = 5
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
       const { shouldLoadMore } = checkScroll(scrollTop, clientHeight, scrollHeight, scrollThreshold)
