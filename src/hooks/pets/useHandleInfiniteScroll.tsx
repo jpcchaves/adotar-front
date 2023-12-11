@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useAppSelector } from '../useRedux'
 
 interface IProps {
-  getListPets: (page: number) => void
+  getListPets: (page?: number) => void
 }
 
 type ScrollVerificationResult = {
