@@ -4,12 +4,14 @@
 import Grid from '@mui/material/Grid'
 import { useEffect } from 'react'
 import PetCard from 'src/@core/components/petCard'
+import useHandleInfiniteScroll from 'src/hooks/pets/useHandleInfiniteScroll'
 import usePets from 'src/hooks/pets/usePets'
 import { useAppSelector } from 'src/hooks/useRedux'
 
 const PetsPage = () => {
   const { pets } = useAppSelector(state => state.pets)
   const { getListPets } = usePets()
+  useHandleInfiniteScroll({ getListPets })
 
   useEffect(() => {
     getListPets()
