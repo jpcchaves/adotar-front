@@ -1,5 +1,7 @@
 'use client'
 
+import { CircularProgress } from '@mui/material'
+
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { useEffect } from 'react'
@@ -10,7 +12,7 @@ import { useAppSelector } from 'src/hooks/useRedux'
 
 const PetsPage = () => {
   const { pets } = useAppSelector(state => state.pets)
-  const { getListPets } = usePets()
+  const { getListPets, isLoading } = usePets()
   useHandleInfiniteScroll({ getListPets })
 
   useEffect(() => {
@@ -25,6 +27,12 @@ const PetsPage = () => {
           <PetCard pet={pet} />
         </Grid>
       ))}
+
+      {isLoading && (
+        <Grid item xs={12} display={'flex'} justifyContent={'center'} mb={200}>
+          <CircularProgress />
+        </Grid>
+      )}
     </Grid>
   )
 }

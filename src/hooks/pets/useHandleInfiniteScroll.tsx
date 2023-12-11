@@ -37,7 +37,7 @@ const useHandleInfiniteScroll = ({ getListPets }: IProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollThreshold = 10
+      const scrollThreshold = 5
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
       const { shouldLoadMore } = checkScroll(scrollTop, clientHeight, scrollHeight, scrollThreshold)
