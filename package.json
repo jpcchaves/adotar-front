@@ -69,6 +69,7 @@
     "react-perfect-scrollbar": "1.5.8",
     "react-popper": "2.3.0",
     "react-redux": "^9.0.2",
+    "react-slideshow-image": "^4.3.0",
     "recharts": "2.1.16",
     "redux": "^5.0.0",
     "stylis": "4.1.3",
