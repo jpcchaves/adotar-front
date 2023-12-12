@@ -13,6 +13,8 @@ import useLoading from '../loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
+type toggleSavedPetAction = 'ADD' | 'REMOVE'
+
 const usePets = () => {
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
@@ -61,6 +63,15 @@ const usePets = () => {
       })
   }
 
+  const toggleSavedPet = (petId: string, action: toggleSavedPetAction) => {
+    switch (action) {
+      case 'ADD':
+        addSavedPet(petId)
+      case 'REMOVE':
+        removeSavedPet(petId)
+    }
+  }
+
   const handlePetListPagination = (petsPaginated: ApiResponsePaginated<PetModelMin>) => {
     if (pets && petsPaginated.pageNo > 0) {
       const newData = pets.concat(petsPaginated.content)
@@ -84,7 +95,7 @@ const usePets = () => {
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
   }
 
-  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, isLoading }
+  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
 }
 
 export default usePets
