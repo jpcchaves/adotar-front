@@ -13,7 +13,7 @@ import useLoading from '../loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
-type toggleSavedPetAction = 'ADD' | 'REMOVE'
+export type toggleSavedPetAction = 'ADD' | 'REMOVE'
 
 const usePets = () => {
   const dispatch = useAppDispatch()
@@ -67,8 +67,10 @@ const usePets = () => {
     switch (action) {
       case 'ADD':
         addSavedPet(petId)
+        break
       case 'REMOVE':
         removeSavedPet(petId)
+        break
     }
   }
 

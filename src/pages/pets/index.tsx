@@ -12,7 +12,7 @@ import { useAppSelector } from 'src/hooks/useRedux'
 
 const PetsPage = () => {
   const { pets } = useAppSelector(state => state.pets)
-  const { getListPets, isLoading } = usePets()
+  const { getListPets, isLoading, toggleSavedPet } = usePets()
   useHandleInfiniteScroll({ getListPets })
 
   useEffect(() => {
@@ -23,8 +23,8 @@ const PetsPage = () => {
   return (
     <Grid container spacing={6}>
       {(pets || []).map(pet => (
-        <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={`petCard-${pet.id}`}>
-          <PetCard pet={pet} />
+        <Grid item xs={12} sm={6} md={4} key={`petCard-${pet.id}`}>
+          <PetCard pet={pet} toggleSavedPet={toggleSavedPet} />
         </Grid>
       ))}
 

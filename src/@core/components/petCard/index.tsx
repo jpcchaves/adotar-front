@@ -2,15 +2,17 @@ import { Box, Button, Card, CardActions, CardContent, IconButton, Typography } f
 import Icon from 'src/@core/components/icon'
 import { Gender } from 'src/domain/enum/pet/Gender'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
+import { toggleSavedPetAction } from 'src/hooks/pets/usePets'
 import { CardImageSlider } from './components'
 import CardOverlay from './components/cardOverlay'
 import { gendersColors, getPetFavPicture } from './utils'
 
 interface IProps {
   pet: PetModelMin
+  toggleSavedPet: (petId: string, action: toggleSavedPetAction) => void
 }
 
-const PetCard = ({ pet: { petPictures, name, description, favorite, gender } }: IProps) => {
+const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }, toggleSavedPet }: IProps) => {
   const isMale = gender === Gender.M
 
   const petFavoritePicture = getPetFavPicture(petPictures)
@@ -27,7 +29,11 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender } }: 
             {name}
           </Typography>
           <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap={1}>
-            <IconButton aria-label='favorite heart button' color='error'>
+            <IconButton
+              aria-label='favorite heart button'
+              color='error'
+              onClick={favorite ? () => toggleSavedPet(id, 'REMOVE') : () => toggleSavedPet(id, 'ADD')}
+            >
               <Icon icon={favorite ? 'mdi:heart' : 'mdi:heart-outline'} />
             </IconButton>
             <IconButton
