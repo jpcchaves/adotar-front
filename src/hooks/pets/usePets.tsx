@@ -13,12 +13,14 @@ import useLoading from '../loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
+export type toggleSavedPetAction = 'ADD' | 'REMOVE'
+
 const usePets = () => {
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
 
-  const getListPets = async (page?: number) => {
+  const getListPets = async (page = 0) => {
     setLoading(true)
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
@@ -61,6 +63,17 @@ const usePets = () => {
       })
   }
 
+  const toggleSavedPet = (petId: string, action: toggleSavedPetAction) => {
+    switch (action) {
+      case 'ADD':
+        addSavedPet(petId)
+        break
+      case 'REMOVE':
+        removeSavedPet(petId)
+        break
+    }
+  }
+
   const handlePetListPagination = (petsPaginated: ApiResponsePaginated<PetModelMin>) => {
     if (pets && petsPaginated.pageNo > 0) {
       const newData = pets.concat(petsPaginated.content)
@@ -84,7 +97,7 @@ const usePets = () => {
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
   }
 
-  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, isLoading }
+  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
 }
 
 export default usePets
