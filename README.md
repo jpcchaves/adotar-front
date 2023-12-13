@@ -11,7 +11,7 @@ The Adotar API was developed using TypeScript and React JS, leveraging the robus
 - **TypeScript**
 - **React JS**
 - **Redux**
-- **UI:** Chakra-UI
+- **UI:** Material UI
 
 ## Running Locally
 
