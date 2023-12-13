@@ -7,6 +7,7 @@ export interface UserModel {
   name: string
   username: string
   email: string
+  photoUrl?: string
   roles: UserRoleModel[]
   createdAt: Date
   updatedAt: Date
