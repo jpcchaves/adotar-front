@@ -23,7 +23,6 @@ import { useAuth } from 'src/hooks/useAuth'
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 import { useAppSelector } from 'src/hooks/useRedux'
-import { useAbility } from '@casl/react'
 
 interface Props {
   settings: Settings
@@ -49,7 +48,6 @@ const UserDropdown = (props: Props) => {
   // ** Hooks
   const router = useRouter()
   const { logout } = useAuth()
-  const {} = useAbility()
 
   // ** Vars
   const { direction } = settings
