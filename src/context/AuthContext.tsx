@@ -63,16 +63,17 @@ const AuthProvider = ({ children }: Props) => {
         await httpRequest<{ accessToken: string }, LoginResponseDTO>(HttpMethod.POST, authConfig.meEndpoint, {
           accessToken: storedToken
         })
-          .then(async response => {
+          .then(response => {
             setUser({ ...response.user })
             setAuthToken(response.accessToken)
             dispatch(loadAuth(response))
           })
           .catch(() => {
             deleteCookie('user')
-            deleteCookie('accessToken')
+            deleteCookie(authConfig.storageTokenKeyName)
+
             setUser(null)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('entrar')) {
+            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('/auth/entrar')) {
               router.replace('/auth/entrar')
             }
           })
@@ -99,14 +100,18 @@ const AuthProvider = ({ children }: Props) => {
     httpRequest<LoginParams, LoginResponseDTO>(HttpMethod.POST, authConfig.loginEndpoint, data)
       .then(async response => {
         if (data.rememberMe) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { photoUrl: _, ...user } = response.user
+
           setCookie(authConfig.storageTokenKeyName, response.accessToken)
+          setCookie('user', user)
           localStorage.setItem('rememberedEmail', response.user.email)
         }
+
         const returnUrl = router.query.returnUrl
-        setAuthToken(response.accessToken)
         setUser({ ...response.user })
+        setAuthToken(response.accessToken)
         dispatch(loadAuth(response))
-        data.rememberMe ? setCookie('user', JSON.stringify(response.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
