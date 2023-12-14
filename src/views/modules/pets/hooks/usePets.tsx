@@ -1,14 +1,14 @@
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { HttpMethod, httpRequest } from 'src/utils/http'
-import { useAppDispatch, useAppSelector } from '../useRedux'
+import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
-import petsRoutes from '../../configs/routes/pets'
-import useLoading from '../loading/useLoading'
+import petsRoutes from '../../../../configs/routes/pets'
+import useLoading from '../../../../hooks/loading/useLoading'
 
 const FAVORITE = true
 const NOT_FAVORITE = false

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAppSelector } from '../useRedux'
+import { useAppSelector } from '../../../../hooks/useRedux'
 
 interface IProps {
   getListPets: (page?: number) => void
