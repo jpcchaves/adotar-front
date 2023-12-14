@@ -5,12 +5,12 @@ import { ReactNode, SyntheticEvent } from 'react'
 import Link from 'next/link'
 
 // ** MUI Components
+import Box, { BoxProps } from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import Box, { BoxProps } from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
+import { styled, useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -23,9 +23,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
+import FooterIllustrationsV2 from 'src/views/modules/auth/components/FooterIllustrationsV2'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/modules/auth/FooterIllustrationsV2'
 
 // Styled Components
 const ForgotPasswordIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -216,7 +216,7 @@ const ForgotPassword = () => {
                 Send reset link
               </Button>
               <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <LinkStyled href='/entrar'>
+                <LinkStyled href='/auth/entrar'>
                   <Icon icon='mdi:chevron-left' fontSize='2rem' />
                   <span>Back to login</span>
                 </LinkStyled>

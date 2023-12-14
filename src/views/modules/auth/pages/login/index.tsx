@@ -143,7 +143,7 @@ const LoginView = () => {
           </LoadingButton>
           <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Typography sx={{ mr: 2, color: 'text.secondary' }}>Novo por aqui?</Typography>
-            <Typography component={Link} href='/cadastro' sx={{ color: 'primary.main', textDecoration: 'none' }}>
+            <Typography component={Link} href='/auth/cadastro' sx={{ color: 'primary.main', textDecoration: 'none' }}>
               Crie sua conta
             </Typography>
           </Box>

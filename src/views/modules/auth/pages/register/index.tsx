@@ -134,7 +134,7 @@ const RegisterView = () => {
 
           <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Typography sx={{ mr: 2, color: 'text.secondary' }}>Ja possui conta?</Typography>
-            <Typography component={Link} href='/entrar' sx={{ color: 'primary.main', textDecoration: 'none' }}>
+            <Typography component={Link} href='/auth/entrar' sx={{ color: 'primary.main', textDecoration: 'none' }}>
               Entrar
             </Typography>
           </Box>

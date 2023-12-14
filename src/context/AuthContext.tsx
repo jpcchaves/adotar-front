@@ -73,7 +73,7 @@ const AuthProvider = ({ children }: Props) => {
             deleteCookie('accessToken')
             setUser(null)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('entrar')) {
-              router.replace('/entrar')
+              router.replace('/auth/entrar')
             }
           })
           .finally(() => {
@@ -126,7 +126,7 @@ const AuthProvider = ({ children }: Props) => {
     setUser(null)
     deleteCookie('user')
     deleteCookie(authConfig.storageTokenKeyName)
-    router.push('/entrar')
+    router.push('/auth/entrar')
   }
 
   const handleRegister = async (data: RegisterRequestDTO) => {
