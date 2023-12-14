@@ -44,6 +44,7 @@
     "cookies-next": "^4.1.0",
     "date-fns": "2.29.3",
     "draft-js": "0.11.7",
+    "filter-data": "^0.5.1",
     "firebase": "9.13.0",
     "formik": "^2.4.5",
     "i18next": "22.0.4",
