@@ -1,40 +1,10 @@
 'use client'
 
-import { CircularProgress } from '@mui/material'
-
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
-import { useEffect } from 'react'
-import PetCard from 'src/@core/components/petCard'
-import useHandleInfiniteScroll from 'src/hooks/pets/useHandleInfiniteScroll'
-import usePets from 'src/hooks/pets/usePets'
-import { useAppSelector } from 'src/hooks/useRedux'
+import PetsList from 'src/views/modules/pets/pages/petsList'
 
 const PetsPage = () => {
-  const { pets } = useAppSelector(state => state.pets)
-  const { getListPets, isLoading, toggleSavedPet } = usePets()
-  useHandleInfiniteScroll({ getListPets })
-
-  useEffect(() => {
-    getListPets()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  return (
-    <Grid container spacing={6}>
-      {(pets || []).map(pet => (
-        <Grid item xs={12} sm={6} md={4} key={`petCard-${pet.id}`}>
-          <PetCard pet={pet} toggleSavedPet={toggleSavedPet} />
-        </Grid>
-      ))}
-
-      {isLoading && (
-        <Grid item xs={12} display={'flex'} justifyContent={'center'} mb={200}>
-          <CircularProgress />
-        </Grid>
-      )}
-    </Grid>
-  )
+  return <PetsList />
 }
 
 PetsPage.acl = {

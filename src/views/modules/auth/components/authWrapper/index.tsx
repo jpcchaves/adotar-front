@@ -1,5 +1,3 @@
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
-
 // ** React Imports
 
 // ** Next Import
@@ -12,6 +10,7 @@ import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 
 import themeConfig from 'src/configs/themeConfig'
+import FooterIllustrationsV1 from '../FooterIllustrationsV1'
 
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '40rem' },

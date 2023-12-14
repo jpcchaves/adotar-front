@@ -1,5 +1,4 @@
 // ** React Imports
-import { ReactNode } from 'react'
 import { useAuth } from 'src/hooks/useAuth'
 
 // ** Next Import
@@ -12,14 +11,13 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import PasswordInput from 'src/@core/components/inputs/passwordInput'
 import TextInput from 'src/@core/components/inputs/textInput'
-import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Layout Import
 import { useFormik } from 'formik'
-import AuthWrapperLayout from 'src/@core/components/authWrapper'
 import { registrationValidationSchema } from 'src/utils/validation/auth/registrationValidationSchema'
+import AuthWrapperLayout from 'src/views/modules/auth/components/authWrapper'
 
-const Register = () => {
+const RegisterView = () => {
   const { register, isSubmitting } = useAuth()
 
   const validation = useFormik({
@@ -136,7 +134,7 @@ const Register = () => {
 
           <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Typography sx={{ mr: 2, color: 'text.secondary' }}>Ja possui conta?</Typography>
-            <Typography component={Link} href='/entrar' sx={{ color: 'primary.main', textDecoration: 'none' }}>
+            <Typography component={Link} href='/auth/entrar' sx={{ color: 'primary.main', textDecoration: 'none' }}>
               Entrar
             </Typography>
           </Box>
@@ -146,8 +144,4 @@ const Register = () => {
   )
 }
 
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
-
-Register.guestGuard = true
-
-export default Register
+export default RegisterView

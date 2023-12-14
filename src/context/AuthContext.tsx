@@ -63,17 +63,18 @@ const AuthProvider = ({ children }: Props) => {
         await httpRequest<{ accessToken: string }, LoginResponseDTO>(HttpMethod.POST, authConfig.meEndpoint, {
           accessToken: storedToken
         })
-          .then(async response => {
+          .then(response => {
             setUser({ ...response.user })
             setAuthToken(response.accessToken)
             dispatch(loadAuth(response))
           })
           .catch(() => {
             deleteCookie('user')
-            deleteCookie('accessToken')
+            deleteCookie(authConfig.storageTokenKeyName)
+
             setUser(null)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('entrar')) {
-              router.replace('/entrar')
+            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('/auth/entrar')) {
+              router.replace('/auth/entrar')
             }
           })
           .finally(() => {
@@ -100,13 +101,14 @@ const AuthProvider = ({ children }: Props) => {
       .then(async response => {
         if (data.rememberMe) {
           setCookie(authConfig.storageTokenKeyName, response.accessToken)
+          setCookie('user', extractUserToPersist(response.user))
           localStorage.setItem('rememberedEmail', response.user.email)
         }
+
         const returnUrl = router.query.returnUrl
-        setAuthToken(response.accessToken)
         setUser({ ...response.user })
+        setAuthToken(response.accessToken)
         dispatch(loadAuth(response))
-        data.rememberMe ? setCookie('user', JSON.stringify(response.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
@@ -126,7 +128,7 @@ const AuthProvider = ({ children }: Props) => {
     setUser(null)
     deleteCookie('user')
     deleteCookie(authConfig.storageTokenKeyName)
-    router.push('/entrar')
+    router.push('/auth/entrar')
   }
 
   const handleRegister = async (data: RegisterRequestDTO) => {
@@ -142,6 +144,16 @@ const AuthProvider = ({ children }: Props) => {
       .finally(() => {
         setIsSubmitting(() => false)
       })
+  }
+
+  const extractUserToPersist = (rawUser: UserModel) => {
+    const { id, name, email } = rawUser
+
+    return {
+      id,
+      name,
+      email
+    }
   }
 
   const values = {

@@ -2900,6 +2900,13 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
+filter-data@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/filter-data/-/filter-data-0.5.1.tgz#b914c018cb15267da58144500149d817ff995436"
+  integrity sha512-Lhr3EyCPK17H1zA0FafgwsD2EGHmIzDNoLhWDjbII/iyGKbuRc01VOQI7JJLwBhCDZD6iqtlzWGZoWN/QiG+Ow==
+  dependencies:
+    ramda "^0.29.0"
+
 find-root@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
@@ -4293,6 +4300,11 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+ramda@^0.29.0:
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.29.1.tgz#408a6165b9555b7ba2fc62555804b6c5a2eca196"
+  integrity sha512-OfxIeWzd4xdUNxlWhgFazxsA/nl3mS4/jGZI5n00uWOoSSFRhC1b6gl6xvmzUamgmqELraWp0J/qqVlXYPDPyA==
 
 react-apexcharts@1.4.0:
   version "1.4.0"
