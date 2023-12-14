@@ -100,11 +100,8 @@ const AuthProvider = ({ children }: Props) => {
     httpRequest<LoginParams, LoginResponseDTO>(HttpMethod.POST, authConfig.loginEndpoint, data)
       .then(async response => {
         if (data.rememberMe) {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { photoUrl: _, ...user } = response.user
-
           setCookie(authConfig.storageTokenKeyName, response.accessToken)
-          setCookie('user', user)
+          setCookie('user', extractUserToPersist(response.user))
           localStorage.setItem('rememberedEmail', response.user.email)
         }
 
@@ -147,6 +144,16 @@ const AuthProvider = ({ children }: Props) => {
       .finally(() => {
         setIsSubmitting(() => false)
       })
+  }
+
+  const extractUserToPersist = (rawUser: UserModel) => {
+    const { id, name, email } = rawUser
+
+    return {
+      id,
+      name,
+      email
+    }
   }
 
   const values = {
