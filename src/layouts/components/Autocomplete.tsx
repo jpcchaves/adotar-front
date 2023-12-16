@@ -203,9 +203,9 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
 
 const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
   return (
-    <Grid container spacing={6} sx={{ ml: 0 }}>
+    <Grid container sx={{ ml: 0 }}>
       {defaultSuggestionsData.map((item, index) => (
-        <Grid item xs={12} sm={12} key={index}>
+        <Grid item xs={12} key={index}>
           <Typography component='p' variant='overline' sx={{ lineHeight: 1.25, color: 'text.disabled' }}>
             {item.category}
           </Typography>
@@ -353,7 +353,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
         ) : null}
         {openDialog && (
           <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>
-            <Box sx={{ top: 0, width: '100%', position: 'sticky' }}>
+            <Box>
               <Autocomplete
                 autoHighlight
                 disablePortal
@@ -458,11 +458,11 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
             {searchValue.length === 0 ? (
               <Box
                 sx={{
-                  p: 10,
+                  pt: '32px',
+                  pl: '32px',
                   display: 'grid',
                   overflow: 'auto',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: 'start',
                   borderTop: `1px solid ${theme.palette.divider}`,
                   height: fullScreenDialog ? 'calc(100vh - 69px)' : '100%'
                 }}
