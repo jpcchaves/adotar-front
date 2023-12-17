@@ -1,5 +1,3 @@
-// ** React Imports
-
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -13,9 +11,11 @@ import Typography from '@mui/material/Typography'
 import FormWizardStepper from '../../components/formWizardStepper'
 
 // ** Styled Components
+import { useFormik } from 'formik'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
 import FormStep1 from '../../components/formSteps/step1'
 import useStepper from '../../hooks/useStepper'
+import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
 
 const steps = [
   {
@@ -27,13 +27,65 @@ const steps = [
     subtitle: 'Detalhes do Pet'
   },
   {
-    title: 'Dados Basicos 3',
-    subtitle: 'Dados Basicos 3'
+    title: 'Endereco',
+    subtitle: 'Onde esta o Pet'
   }
 ]
 
+const stepOneInitialValues = {
+  typeId: '',
+  name: '',
+  gender: '',
+  size: '',
+  healthCondition: ''
+}
+
+const stepTwoInitialValues = {
+  breedId: '',
+  color: '',
+  yearsAge: '',
+  monthsAge: '',
+  description: '',
+  characteristicsIds: null
+}
+
+const stepThreeInitialValues = {
+  zipcode: '',
+  street: '',
+  number: '',
+  complement: '',
+  neighborhood: '',
+  cityId: ''
+}
+
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
+
+  const validation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      // Step One
+      ...stepOneInitialValues,
+
+      // Step Two
+      ...stepTwoInitialValues,
+
+      // Step Three
+      ...stepThreeInitialValues
+
+      // Step Four pictures
+
+      // Step Five Preview
+    },
+    validationSchema: petFormValidationSchema[activeStep],
+    onSubmit: values => {
+      handleNext()
+
+      if (activeStep === steps.length - 1) {
+        console.log(values)
+      }
+    }
+  })
 
   const renderForm = (activeStep: number) => {
     switch (activeStep) {
@@ -44,7 +96,7 @@ const PetsForm = () => {
           tipo, nome, sexo, tamanho, estado de saude
           */}
             <FormStep1 />
-            <button onClick={handleNext}>Proximo</button>
+            <button type='submit'>Proximo</button>
           </>
         )
       case 1:
@@ -55,7 +107,7 @@ const PetsForm = () => {
               raca, cor, idade (ano e meses), descricao do pet, caracteristicas
             */}
             <button onClick={handleBack}>Anterior</button>
-            <button onClick={handleNext}>Proximo</button>
+            <button type='submit'>Proximo</button>
           </>
         )
       case 2:
@@ -63,7 +115,7 @@ const PetsForm = () => {
           <>
             {/* fotos */}
             <>step three</>
-            <button onClick={handleNext}>Next</button>
+            <button type='submit'>Submit</button>
           </>
         )
       default:
@@ -98,33 +150,19 @@ const PetsForm = () => {
                 error?: boolean
               } = {}
 
-              // if (index === activeStep) {
-              //   labelProps.error = false
-              //   if (
-              //     (accountErrors.email ||
-              //       accountErrors.username ||
-              //       accountErrors.password ||
-              //       accountErrors['confirm-password']) &&
-              //     activeStep === 0
-              //   ) {
-              //     labelProps.error = true
-              //   } else if (
-              //     (personalErrors.country ||
-              //       personalErrors.language ||
-              //       personalErrors['last-name'] ||
-              //       personalErrors['first-name']) &&
-              //     activeStep === 1
-              //   ) {
-              //     labelProps.error = true
-              //   } else if (
-              //     (socialErrors.google || socialErrors.twitter || socialErrors.facebook || socialErrors.linkedIn) &&
-              //     activeStep === 2
-              //   ) {
-              //     labelProps.error = true
-              //   } else {
-              //     labelProps.error = false
-              //   }
-              // }
+              if (index === activeStep) {
+                labelProps.error = false
+                if (Object.keys(validation.errors).length > 0 && validation.touched && activeStep === 0) {
+                  labelProps.error = true
+                } else if (validation.errors && validation.touched && activeStep === 1) {
+                  labelProps.error = true
+                } else if (validation.errors && validation.touched && activeStep === 2) {
+                  labelProps.error = true
+                } else {
+                  labelProps.error = false
+                }
+              }
+              console.log(validation.errors)
 
               return (
                 <Step key={index}>
@@ -146,7 +184,16 @@ const PetsForm = () => {
 
       <Divider sx={{ m: '0 !important' }} />
 
-      <CardContent>{renderForm(activeStep)}</CardContent>
+      <CardContent>
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            validation.handleSubmit(e)
+          }}
+        >
+          {renderForm(activeStep)}
+        </form>
+      </CardContent>
     </Card>
   )
 }
