@@ -19,12 +19,12 @@ import useStepper from '../../hooks/useStepper'
 
 const steps = [
   {
-    title: 'Dados Basicos',
-    subtitle: 'Detalhes do Pet'
+    title: 'Dados',
+    subtitle: 'Dados do Pet'
   },
   {
-    title: 'Dados Basicos 2',
-    subtitle: 'Dados Basicos 2'
+    title: 'Detalhes',
+    subtitle: 'Detalhes do Pet'
   },
   {
     title: 'Dados Basicos 3',
@@ -40,6 +40,9 @@ const PetsForm = () => {
       case 0:
         return (
           <>
+            {/*
+          tipo, nome, sexo, tamanho, estado de saude
+          */}
             <FormStep1 />
             <button onClick={handleNext}>Proximo</button>
           </>
@@ -48,6 +51,9 @@ const PetsForm = () => {
         return (
           <>
             <>step two</>
+            {/*
+              raca, cor, idade (ano e meses), descricao do pet, caracteristicas
+            */}
             <button onClick={handleBack}>Anterior</button>
             <button onClick={handleNext}>Proximo</button>
           </>
@@ -55,7 +61,8 @@ const PetsForm = () => {
       case 2:
         return (
           <>
-            <>step two</>
+            {/* fotos */}
+            <>step three</>
             <button onClick={handleNext}>Next</button>
           </>
         )
