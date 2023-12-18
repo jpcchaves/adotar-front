@@ -1,7 +1,7 @@
 import React from 'react'
 
-const FormStep1 = () => {
+const FirstStep = () => {
   return <div></div>
 }
 
-export default FormStep1
+export default FirstStep

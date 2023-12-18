@@ -13,50 +13,11 @@ import FormWizardStepper from '../../components/formWizardStepper'
 // ** Styled Components
 import { useFormik } from 'formik'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
-import FormStep1 from '../../components/formSteps/step1'
+import renderContent from '../../components/getStepContent'
+import { stepOneInitialValues, stepThreeInitialValues, stepTwoInitialValues } from '../../data/formInitialValues/index'
+import { steps } from '../../data/formSteps'
 import useStepper from '../../hooks/useStepper'
 import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
-
-const steps = [
-  {
-    title: 'Dados',
-    subtitle: 'Dados do Pet'
-  },
-  {
-    title: 'Detalhes',
-    subtitle: 'Detalhes do Pet'
-  },
-  {
-    title: 'Endereco',
-    subtitle: 'Onde esta o Pet'
-  }
-]
-
-const stepOneInitialValues = {
-  typeId: '',
-  name: '',
-  gender: '',
-  size: '',
-  healthCondition: ''
-}
-
-const stepTwoInitialValues = {
-  breedId: '',
-  color: '',
-  yearsAge: '',
-  monthsAge: '',
-  description: '',
-  characteristicsIds: null
-}
-
-const stepThreeInitialValues = {
-  zipcode: '',
-  street: '',
-  number: '',
-  complement: '',
-  neighborhood: '',
-  cityId: ''
-}
 
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
@@ -87,59 +48,6 @@ const PetsForm = () => {
     }
   })
 
-  const renderForm = (activeStep: number) => {
-    switch (activeStep) {
-      case 0:
-        return (
-          <>
-            {/*
-          tipo, nome, sexo, tamanho, estado de saude
-          */}
-            <FormStep1 />
-            <button type='submit'>Proximo</button>
-          </>
-        )
-      case 1:
-        return (
-          <>
-            <>step two</>
-            {/*
-              raca, cor, idade (ano e meses), descricao do pet, caracteristicas
-            */}
-            <button onClick={handleBack}>Anterior</button>
-            <button type='submit'>Proximo</button>
-          </>
-        )
-      case 2:
-        return (
-          <>
-            {/* fotos */}
-            <>step three</>
-            <button type='submit'>Submit</button>
-          </>
-        )
-      default:
-        return <>Submitted!!</>
-    }
-  }
-
-  // const renderContent = () => {
-  //   if (activeStep === steps.length) {
-  //     return (
-  //       <Fragment>
-  //         <Typography>All steps are completed!</Typography>
-  //         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
-  //           <Button size='large' variant='contained' onClick={handleReset}>
-  //             Reset
-  //           </Button>
-  //         </Box>
-  //       </Fragment>
-  //     )
-  //   } else {
-  //     return getStepContent(activeStep)
-  //   }
-  // }
-
   return (
     <Card>
       <CardContent>
@@ -162,7 +70,6 @@ const PetsForm = () => {
                   labelProps.error = false
                 }
               }
-              console.log(validation.errors)
 
               return (
                 <Step key={index}>
@@ -191,7 +98,7 @@ const PetsForm = () => {
             validation.handleSubmit(e)
           }}
         >
-          {renderForm(activeStep)}
+          {renderContent(activeStep, handleBack)}
         </form>
       </CardContent>
     </Card>
