@@ -9,11 +9,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import PasswordInput from 'src/@core/components/inputs/passwordInput'
-import TextInput from 'src/@core/components/inputs/textInput'
 
 // ** Layout Import
 import { useFormik } from 'formik'
+import { PasswordInput, TextInput } from 'src/@core/components/inputs'
 import { registrationValidationSchema } from 'src/utils/validation/auth/registrationValidationSchema'
 import AuthWrapperLayout from 'src/views/modules/auth/components/authWrapper'
 

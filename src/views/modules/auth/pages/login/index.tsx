@@ -21,9 +21,7 @@ import themeConfig from 'src/configs/themeConfig'
 
 // ** Demo Imports
 import { Alert } from '@mui/material'
-import InputDivider from 'src/@core/components/inputs/inputDividers'
-import PasswordInput from 'src/@core/components/inputs/passwordInput'
-import TextInput from 'src/@core/components/inputs/textInput'
+import { InputDivider, PasswordInput, TextInput } from 'src/@core/components/inputs'
 import { useAuth } from 'src/hooks/useAuth'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { loginValidationSchema } from 'src/utils/validation/auth/loginValidationSchema'
