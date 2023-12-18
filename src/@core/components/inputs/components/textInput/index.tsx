@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, OutlinedInput, OutlinedInputProps } from '@mui/material'
 import { ChangeEvent } from 'react'
-import FormFeedback from '../../formFeedback'
+import FormFeedback from '../../../formFeedback'
+import { getInputLabel } from '../../helpers/getInputLabel'
 
 type OmittedInputProps = 'onChange' | 'onBlur'
 
@@ -25,13 +26,12 @@ const TextInput = ({
   ...rest
 }: IProps) => {
   return (
-    <FormControl fullWidth required={isRequired}>
-      <InputLabel htmlFor={inputIdentifier}>{inputLabel}</InputLabel>
-
+    <FormControl fullWidth>
+      <InputLabel htmlFor={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
       <OutlinedInput
         {...rest}
         id={inputIdentifier}
-        label={inputLabel}
+        label={getInputLabel(inputLabel, isRequired)}
         type='text'
         onChange={onChange}
         onBlur={onBlur}
