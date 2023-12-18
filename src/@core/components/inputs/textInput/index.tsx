@@ -7,15 +7,25 @@ type OmittedInputProps = 'onChange' | 'onBlur'
 interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   inputIdentifier: string
   inputLabel: string
-  isInvalid: boolean
-  errorMessage: string | undefined
+  isInvalid?: boolean
+  isRequired?: boolean
+  errorMessage?: string | undefined
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const TextInput = ({ inputIdentifier, isInvalid, inputLabel, errorMessage, onChange, onBlur, ...rest }: IProps) => {
+const TextInput = ({
+  inputIdentifier,
+  isInvalid = false,
+  inputLabel,
+  errorMessage = '',
+  onChange,
+  onBlur,
+  isRequired = false,
+  ...rest
+}: IProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth required={isRequired}>
       <InputLabel htmlFor={inputIdentifier}>{inputLabel}</InputLabel>
 
       <OutlinedInput

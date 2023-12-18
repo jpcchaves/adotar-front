@@ -1,9 +1,10 @@
 import { Typography } from '@mui/material'
+import { FormikValues } from 'formik'
 import { Fragment } from 'react'
 import { steps } from '../../data/formSteps'
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from '../formSteps'
 
-const getStepContent = (activeStep: number, handleBack: () => void) => {
+const getStepContent = (activeStep: number, handleBack: () => void, validation: FormikValues) => {
   switch (activeStep) {
     case 0:
       return (
@@ -11,8 +12,7 @@ const getStepContent = (activeStep: number, handleBack: () => void) => {
           {/*
               tipo, nome, sexo, tamanho, estado de saude
               */}
-          <FirstStep />
-          <button type='submit'>Proximo</button>
+          <FirstStep activeStep={activeStep} validation={validation} />
         </>
       )
     case 1:
@@ -22,8 +22,6 @@ const getStepContent = (activeStep: number, handleBack: () => void) => {
           {/*
                   raca, cor, idade (ano e meses), descricao do pet, caracteristicas
                 */}
-          <button onClick={handleBack}>anterior</button>
-          <button type='submit'>Proximo</button>
         </>
       )
     case 2:
@@ -31,24 +29,18 @@ const getStepContent = (activeStep: number, handleBack: () => void) => {
         <>
           {/* fotos */}
           <ThirdStep />
-          <button onClick={handleBack}>anterior</button>
-          <button type='submit'>Submit</button>
         </>
       )
     case 3:
       return (
         <>
           <FourthStep />
-          <button onClick={handleBack}>anterior</button>
-          <button type='submit'>Submit</button>
         </>
       )
     case 4:
       return (
         <>
           <FifthStep />
-          <button onClick={handleBack}>anterior</button>
-          <button type='submit'>Submit</button>
         </>
       )
     default:
@@ -56,7 +48,7 @@ const getStepContent = (activeStep: number, handleBack: () => void) => {
   }
 }
 
-const renderContent = (activeStep: number, handleBack: () => void) => {
+const renderContent = (activeStep: number, handleBack: () => void, validation: FormikValues) => {
   if (activeStep === steps.length) {
     return (
       <Fragment>
@@ -64,7 +56,7 @@ const renderContent = (activeStep: number, handleBack: () => void) => {
       </Fragment>
     )
   } else {
-    return getStepContent(activeStep, handleBack)
+    return getStepContent(activeStep, handleBack, validation)
   }
 }
 

@@ -98,7 +98,7 @@ const PetsForm = () => {
             validation.handleSubmit(e)
           }}
         >
-          {renderContent(activeStep, handleBack)}
+          {renderContent(activeStep, handleBack, validation)}
         </form>
       </CardContent>
     </Card>
