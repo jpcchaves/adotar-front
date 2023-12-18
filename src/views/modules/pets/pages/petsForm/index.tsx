@@ -48,7 +48,7 @@ const PetsForm = () => {
     }
   })
 
-  console.log(validation.errors)
+  console.log(validation.values)
 
   return (
     <Card>
