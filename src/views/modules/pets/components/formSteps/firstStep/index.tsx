@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import { SelectInput, TextInput } from 'src/@core/components/inputs'
 import { steps } from '../../../data/formSteps'
+import { petTypeMenuItems } from '../../../data/petTypeMenuItems'
 import { FormStepProps } from '../../../models/formStepsProps'
 import FormStepControls from '../../formStepsControls'
 
@@ -43,6 +44,7 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           }}
           onBlur={validation.handleBlur}
           value={validation.values.typeId}
+          menuItems={petTypeMenuItems}
         />
       </Grid>
       <Grid item xs={12} sm={6}>

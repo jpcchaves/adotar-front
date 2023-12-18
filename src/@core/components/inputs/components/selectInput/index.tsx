@@ -5,12 +5,18 @@ import { getInputLabel } from '../../helpers/getInputLabel'
 
 type OmittedSelectProps = 'onChange' | 'onBlur'
 
+type MenuItem = {
+  value: string
+  label: string
+}
+
 interface IProps extends Omit<SelectProps, OmittedSelectProps> {
   inputIdentifier: string
   inputLabel: string
   isInvalid?: boolean
   isRequired?: boolean
   errorMessage?: string | undefined
+  menuItems: MenuItem[]
   onChange: (event: SelectChangeEvent<unknown>) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
@@ -23,6 +29,7 @@ const SelectInput = ({
   onChange,
   onBlur,
   isRequired = false,
+  menuItems = [],
   ...rest
 }: IProps) => {
   return (
@@ -38,10 +45,11 @@ const SelectInput = ({
         labelId={inputIdentifier}
         error={isInvalid}
       >
-        <MenuItem value='1'>Cachorro</MenuItem>
-        <MenuItem value='2'>Gato</MenuItem>
-        <MenuItem value='3'>Passarinho</MenuItem>
-        <MenuItem value='4'>Outro</MenuItem>
+        {(menuItems || []).map(({ label, value }, idx) => (
+          <MenuItem key={`${label}-${idx}`} value={value}>
+            {label}
+          </MenuItem>
+        ))}
       </Select>
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>

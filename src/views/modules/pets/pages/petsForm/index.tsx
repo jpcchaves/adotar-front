@@ -48,7 +48,7 @@ const PetsForm = () => {
     }
   })
 
-  console.log(validation.values)
+  console.log(validation.errors)
 
   return (
     <Card>
@@ -62,11 +62,23 @@ const PetsForm = () => {
 
               if (index === activeStep) {
                 labelProps.error = false
-                if (Object.keys(validation.errors).length > 0 && validation.touched && activeStep === 0) {
+                if (
+                  Object.keys(validation.errors).length > 0 &&
+                  Object.keys(validation.touched).length > 0 &&
+                  activeStep === 0
+                ) {
                   labelProps.error = true
-                } else if (validation.errors && validation.touched && activeStep === 1) {
+                } else if (
+                  Object.keys(validation.errors).length > 0 &&
+                  Object.keys(validation.touched).length > 0 &&
+                  activeStep === 1
+                ) {
                   labelProps.error = true
-                } else if (validation.errors && validation.touched && activeStep === 2) {
+                } else if (
+                  Object.keys(validation.errors).length > 0 &&
+                  Object.keys(validation.touched).length > 0 &&
+                  activeStep === 2
+                ) {
                   labelProps.error = true
                 } else {
                   labelProps.error = false
