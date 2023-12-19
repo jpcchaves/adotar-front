@@ -17,6 +17,7 @@ import renderContent from '../../components/getStepContent'
 import { stepOneInitialValues, stepThreeInitialValues, stepTwoInitialValues } from '../../data/formInitialValues/index'
 import { steps } from '../../data/formSteps'
 import useStepper from '../../hooks/useStepper'
+import { isActiveStepEqualsToIndex, shouldSetFormError } from '../../utils/shouldSetFormError'
 import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
 
 const PetsForm = () => {
@@ -24,6 +25,7 @@ const PetsForm = () => {
 
   const validation = useFormik({
     enableReinitialize: true,
+
     initialValues: {
       // Step One
       ...stepOneInitialValues,
@@ -48,8 +50,6 @@ const PetsForm = () => {
     }
   })
 
-  console.log(validation.values)
-
   return (
     <Card>
       <CardContent>
@@ -60,29 +60,8 @@ const PetsForm = () => {
                 error?: boolean
               } = {}
 
-              if (index === activeStep) {
-                labelProps.error = false
-                if (
-                  Object.keys(validation.errors).length > 0 &&
-                  Object.keys(validation.touched).length > 0 &&
-                  activeStep === 0
-                ) {
-                  labelProps.error = true
-                } else if (
-                  Object.keys(validation.errors).length > 0 &&
-                  Object.keys(validation.touched).length > 0 &&
-                  activeStep === 1
-                ) {
-                  labelProps.error = true
-                } else if (
-                  Object.keys(validation.errors).length > 0 &&
-                  Object.keys(validation.touched).length > 0 &&
-                  activeStep === 2
-                ) {
-                  labelProps.error = true
-                } else {
-                  labelProps.error = false
-                }
+              if (isActiveStepEqualsToIndex(activeStep, index)) {
+                shouldSetFormError(validation, activeStep, index, labelProps)
               }
 
               return (
