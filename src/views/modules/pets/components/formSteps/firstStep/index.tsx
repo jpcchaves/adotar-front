@@ -14,7 +14,7 @@ interface IProps extends FormStepProps {
 
 const FirstStep = ({ validation, activeStep }: IProps) => {
   return (
-    <Grid container spacing={10}>
+    <Grid container spacing={5}>
       <Grid item xs={12}>
         <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
           {steps[activeStep].title}
