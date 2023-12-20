@@ -5,7 +5,9 @@ export class ObjectUtils {
     return Object.keys(obj).length === this.isEmptyObjectLength
   }
 
-  static hasAllKeys(object: Record<string, any>, keysToVerify: string[]): boolean {
-    return keysToVerify.every(key => object.hasOwnProperty(key))
+  static isAnyErrorTouched(errors: Record<string, any>, touched: Record<string, boolean>): boolean {
+    const errorKeys = Object.keys(errors)
+
+    return errorKeys.some(key => touched.hasOwnProperty(key))
   }
 }

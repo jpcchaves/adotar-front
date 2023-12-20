@@ -1,6 +1,5 @@
 import { FormikValues } from 'formik'
 import { ObjectUtils } from 'src/utils/common/objectUtils/ObjectUtils'
-import { keysArrays } from '../../data/formStepsKeys'
 
 export const isActiveStepEqualsToIndex = (activeStep: number, index: number) => {
   return activeStep === index
@@ -19,7 +18,7 @@ export const shouldSetFormError = (
   if (
     !ObjectUtils.isEmpty(errors) &&
     !ObjectUtils.isEmpty(touched) &&
-    ObjectUtils.hasAllKeys(validation.touched, keysArrays[activeStep]) &&
+    ObjectUtils.isAnyErrorTouched(errors, touched) &&
     isActiveStepEqualsToIndex(activeStep, index)
   ) {
     labelProps.error = true
