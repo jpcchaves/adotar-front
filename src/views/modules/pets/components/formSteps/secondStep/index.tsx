@@ -1,5 +1,6 @@
-import { Grid, Typography } from '@mui/material'
-import { SelectInput } from 'src/@core/components/inputs'
+import { Grid, TextField, Typography } from '@mui/material'
+import Autocomplete from '@mui/material/Autocomplete'
+import FormFeedback from 'src/@core/components/formFeedback'
 import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import { steps } from '../../../data/formSteps'
 import { FormStepProps } from '../../../models/formStepsProps'
@@ -24,20 +25,28 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           {steps[activeStep].subtitle}
         </Typography>
       </Grid>
-      <Grid item xs={3}>
-        <SelectInput
-          inputIdentifier='breedId'
-          inputLabel={'Raça'}
-          isRequired
-          isInvalid={!!(validation.errors.breedId && validation.touched.breedId)}
-          errorMessage={validation.errors.breedId}
-          onChange={e => {
-            validation.handleChange(e)
+      <Grid item xs={4}>
+        <Autocomplete
+          options={generateMenuItems(breedsByPetType)}
+          value={validation.values.breedId}
+          onChange={(e, newValue) => {
+            validation.setFieldValue('breedId', newValue)
           }}
           onBlur={validation.handleBlur}
-          value={validation.values.breedId}
-          menuItems={generateMenuItems(breedsByPetType)}
+          id='breedId'
+          renderInput={params => {
+            return (
+              <TextField
+                error={!!(validation.errors.breedId?.value && validation.touched.breedId)}
+                {...params}
+                label='Raça'
+              />
+            )
+          }}
         />
+        {!!(validation.errors.breedId?.value && validation.touched.breedId) && (
+          <FormFeedback errorMessage={validation.errors.breedId.value} />
+        )}
       </Grid>
 
       <FormStepControls activeStep={activeStep} handleBack={handleBack} />
