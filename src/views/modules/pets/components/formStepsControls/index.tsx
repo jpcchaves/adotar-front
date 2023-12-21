@@ -1,11 +1,15 @@
 import { Button, Grid } from '@mui/material'
+import { useEffect } from 'react'
+import { HttpMethod, httpRequest } from 'src/utils/http'
 import { steps } from '../../data/formSteps'
 
 interface IProps {
   activeStep: number
+  handleBack?: () => void
 }
 
-const FormStepControls = ({ activeStep }: IProps) => {
+/* eslint-disable @typescript-eslint/no-empty-function */
+const FormStepControls = ({ activeStep, handleBack = () => {} }: IProps) => {
   const firstStepIndex = 0
   const lastStepIndex = steps.length - 1
 
@@ -15,7 +19,7 @@ const FormStepControls = ({ activeStep }: IProps) => {
 
   return (
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Button size='large' variant='outlined' color='secondary' disabled={isFirstStep}>
+      <Button size='large' variant='outlined' color='secondary' disabled={isFirstStep} onClick={handleBack}>
         Voltar
       </Button>
       <Button size='large' type='submit' variant='contained'>
