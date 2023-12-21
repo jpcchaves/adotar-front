@@ -4,4 +4,10 @@ export class ObjectUtils {
   static isEmpty(obj: object): boolean {
     return Object.keys(obj).length === this.isEmptyObjectLength
   }
+
+  static isAnyErrorTouched(errors: Record<string, any>, touched: Record<string, boolean>): boolean {
+    const errorKeys = Object.keys(errors)
+
+    return errorKeys.some(key => touched.hasOwnProperty(key))
+  }
 }

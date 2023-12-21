@@ -14,7 +14,7 @@ import FormWizardStepper from '../../components/formWizardStepper'
 import { useFormik } from 'formik'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
 import renderContent from '../../components/getStepContent'
-import { stepOneInitialValues, stepThreeInitialValues, stepTwoInitialValues } from '../../data/formInitialValues/index'
+import { getFormInitialValues } from '../../data/formInitialValues'
 import { steps } from '../../data/formSteps'
 import useStepper from '../../hooks/useStepper'
 import { isActiveStepEqualsToIndex, shouldSetFormError } from '../../utils/shouldSetFormError'
@@ -27,18 +27,7 @@ const PetsForm = () => {
     enableReinitialize: true,
 
     initialValues: {
-      // Step One
-      ...stepOneInitialValues,
-
-      // Step Two
-      ...stepTwoInitialValues,
-
-      // Step Three
-      ...stepThreeInitialValues
-
-      // Step Four pictures
-
-      // Step Five Preview
+      ...getFormInitialValues()
     },
     validationSchema: petFormValidationSchema[activeStep],
     onSubmit: values => {

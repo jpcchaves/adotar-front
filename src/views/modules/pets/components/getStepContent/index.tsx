@@ -9,19 +9,13 @@ const getStepContent = (activeStep: number, handleBack: () => void, validation: 
     case 0:
       return (
         <>
-          {/*
-              tipo, nome, sexo, tamanho, estado de saude
-              */}
           <FirstStep activeStep={activeStep} validation={validation} />
         </>
       )
     case 1:
       return (
         <>
-          <SecondStep />
-          {/*
-                  raca, cor, idade (ano e meses), descricao do pet, caracteristicas
-                */}
+          <SecondStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
         </>
       )
     case 2:

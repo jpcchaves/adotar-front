@@ -244,6 +244,8 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const [searchValue, setSearchValue] = useState<string>('')
   const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [options, setOptions] = useState<AppBarSearchType[]>([
     {
       id: 1,

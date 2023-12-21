@@ -5,7 +5,7 @@ import { getInputLabel } from '../../helpers/getInputLabel'
 
 type OmittedSelectProps = 'onChange' | 'onBlur'
 
-type MenuItem = {
+export type MenuItem = {
   value: string
   label: string
 }
