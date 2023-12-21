@@ -1,6 +1,5 @@
-import { Grid, TextField, Typography } from '@mui/material'
-import Autocomplete from '@mui/material/Autocomplete'
-import FormFeedback from 'src/@core/components/formFeedback'
+import { Grid, Typography } from '@mui/material'
+import AutocompleteInput from 'src/@core/components/inputs/components/autocomplete'
 import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import { steps } from '../../../data/formSteps'
 import { FormStepProps } from '../../../models/formStepsProps'
@@ -14,6 +13,7 @@ interface IProps extends FormStepProps {
 
 const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId)
+  console.log(validation.errors)
 
   return (
     <Grid container spacing={5}>
@@ -26,27 +26,16 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
         </Typography>
       </Grid>
       <Grid item xs={4}>
-        <Autocomplete
-          options={generateMenuItems(breedsByPetType)}
+        <AutocompleteInput
+          inputIdentifier='breedId'
+          validation={validation}
+          menuItems={generateMenuItems(breedsByPetType)}
           value={validation.values.breedId}
-          onChange={(e, newValue) => {
-            validation.setFieldValue('breedId', newValue)
-          }}
-          onBlur={validation.handleBlur}
-          id='breedId'
-          renderInput={params => {
-            return (
-              <TextField
-                error={!!(validation.errors.breedId?.value && validation.touched.breedId)}
-                {...params}
-                label='Raça'
-              />
-            )
-          }}
+          inputLabel='Raça'
+          isRequired
+          isInvalid={!!(validation.errors.breedId && validation.touched.breedId)}
+          errorMessage={validation.errors.breedId?.value || validation.errors.breedId}
         />
-        {!!(validation.errors.breedId?.value && validation.touched.breedId) && (
-          <FormFeedback errorMessage={validation.errors.breedId.value} />
-        )}
       </Grid>
 
       <FormStepControls activeStep={activeStep} handleBack={handleBack} />

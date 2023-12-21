@@ -17,7 +17,8 @@ export const petFormValidationSchema = [
         value: Yup.string().required('O campo é obrigatório'),
         label: Yup.string().required('O campo é obrigatório')
       })
-      .nullable(),
+      .nullable()
+      .required('O campo é obrigatório'),
     color: Yup.string().required('O campo é obrigatório'),
     yearsAge: Yup.string().required('O campo é obrigatório'),
     monthsAge: Yup.string().required('O campo é obrigatório'),
