@@ -1,6 +1,4 @@
 import { Button, Grid } from '@mui/material'
-import { useEffect } from 'react'
-import { HttpMethod, httpRequest } from 'src/utils/http'
 import { steps } from '../../data/formSteps'
 
 interface IProps {

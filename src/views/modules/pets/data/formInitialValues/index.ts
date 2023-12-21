@@ -23,3 +23,7 @@ export const getFormInitialValues = () => {
     ...stepThreeInitialValues()
   }
 }
+
+export const getFormInitialValuesArr = () => {
+  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues()]
+}
