@@ -1,6 +1,6 @@
 export const stepOneInitialValues = () => {
   return {
-    typeId: '',
+    typeId: '2',
     name: '',
     gender: '',
     size: '',
@@ -9,7 +9,7 @@ export const stepOneInitialValues = () => {
 }
 
 export const stepTwoInitialValues = () => {
-  return { breedId: '', color: '', yearsAge: '', monthsAge: '', description: '', characteristicsIds: null }
+  return { breedId: '', color: '', yearsAge: '', monthsAge: '', description: '', characteristicsIds: [] }
 }
 
 export const stepThreeInitialValues = () => {

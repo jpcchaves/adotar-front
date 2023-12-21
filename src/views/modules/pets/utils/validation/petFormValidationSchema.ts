@@ -25,8 +25,7 @@ export const petFormValidationSchema = [
     description: Yup.string().required('O campo é obrigatório'),
     characteristicsIds: Yup.mixed().when('isArray', {
       is: Array.isArray,
-      then: Yup.array().of(Yup.string()),
-      otherwise: Yup.string()
+      then: Yup.array().of(Yup.string()).required('O campo é obrigatório')
     })
   }),
 
