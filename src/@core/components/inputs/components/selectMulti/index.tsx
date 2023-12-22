@@ -49,7 +49,7 @@ const SelectMulti = ({
   }
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={isInvalid}>
       <InputLabel id={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
 
       <Select
@@ -61,7 +61,6 @@ const SelectMulti = ({
         MenuProps={MenuProps}
         onChange={validation.handleChange}
         onBlur={validation.handleBlur}
-        error={isInvalid}
         renderValue={selected => {
           return (
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>

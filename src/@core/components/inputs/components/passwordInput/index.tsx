@@ -33,7 +33,7 @@ const PasswordInput = ({
   }
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={isInvalid}>
       <InputLabel htmlFor={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
 
       <OutlinedInput
@@ -43,7 +43,6 @@ const PasswordInput = ({
         type={showPassword ? 'text' : 'password'}
         onChange={onChange}
         onBlur={onBlur}
-        error={isInvalid}
         endAdornment={
           <InputAdornment position='end'>
             <IconButton

@@ -1,4 +1,5 @@
 import { Autocomplete, AutocompleteProps, FormControl, TextField } from '@mui/material'
+
 import { FormikValues } from 'formik'
 import FormFeedback from 'src/@core/components/formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
@@ -36,12 +37,14 @@ const AutocompleteInput = ({
         onBlur={validation.handleBlur}
         renderInput={params => {
           return (
-            <TextField
-              error={!!(isInvalid && errorMessage)}
-              {...params}
-              id={inputIdentifier}
-              label={getInputLabel(inputLabel, isRequired)}
-            />
+            <>
+              <TextField
+                error={!!(isInvalid && errorMessage)}
+                {...params}
+                label={getInputLabel(inputLabel, isRequired)}
+                id={inputIdentifier}
+              />
+            </>
           )
         }}
       />
