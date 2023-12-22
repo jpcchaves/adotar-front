@@ -33,7 +33,7 @@ const SelectInput = ({
   ...rest
 }: IProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={isInvalid}>
       <InputLabel id={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
       <Select
         {...rest}
@@ -43,7 +43,7 @@ const SelectInput = ({
         onChange={onChange}
         onBlur={onBlur}
         labelId={inputIdentifier}
-        error={isInvalid}
+        MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
       >
         {(menuItems || []).map(({ label, value }, idx) => (
           <MenuItem key={`${label}-${idx}`} value={value}>
