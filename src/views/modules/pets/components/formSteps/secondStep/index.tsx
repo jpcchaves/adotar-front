@@ -16,8 +16,6 @@ interface IProps extends FormStepProps {
 
 const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId)
-  console.log(validation.errors)
-  console.log(validation.values)
 
   return (
     <Grid container spacing={5}>

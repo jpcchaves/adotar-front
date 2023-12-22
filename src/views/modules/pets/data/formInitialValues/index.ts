@@ -1,6 +1,6 @@
 export const stepOneInitialValues = () => {
   return {
-    typeId: '2',
+    typeId: '',
     name: '',
     gender: '',
     size: '',
