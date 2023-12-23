@@ -16,10 +16,12 @@ const FormStepControls = ({ activeStep, handleBack = () => {} }: IProps) => {
   const isLastStep = currentStepIndex === lastStepIndex
 
   return (
-    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Button size='large' variant='outlined' color='secondary' disabled={isFirstStep} onClick={handleBack}>
-        Voltar
-      </Button>
+    <Grid item xs={12} sx={{ display: 'flex', justifyContent: isFirstStep ? 'flex-end' : 'space-between' }}>
+      {!isFirstStep && (
+        <Button size='large' variant='outlined' color='secondary' disabled={isFirstStep} onClick={handleBack}>
+          Voltar
+        </Button>
+      )}
       <Button size='large' type='submit' variant='contained'>
         {isLastStep ? 'Enviar' : 'Próximo'}
       </Button>
