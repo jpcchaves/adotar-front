@@ -26,7 +26,7 @@ const TextInput = ({
   ...rest
 }: IProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={isInvalid}>
       <InputLabel htmlFor={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
       <OutlinedInput
         {...rest}
@@ -35,7 +35,6 @@ const TextInput = ({
         type='text'
         onChange={onChange}
         onBlur={onBlur}
-        error={isInvalid}
       />
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>

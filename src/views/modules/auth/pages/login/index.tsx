@@ -92,6 +92,7 @@ const LoginView = () => {
             errorMessage={validation.errors.email}
             isInvalid={!!(validation.errors.email && validation.touched.email)}
             inputLabel='Email'
+            isRequired
           />
 
           <InputDivider />

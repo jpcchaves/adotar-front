@@ -80,10 +80,6 @@ export const catBreeds = [
     name: 'Tonquinês'
   },
   {
-    id: 100,
-    name: 'Bengal'
-  },
-  {
     id: 101,
     name: 'Bombay'
   },
@@ -162,9 +158,5 @@ export const catBreeds = [
   {
     id: 120,
     name: 'LaPerm'
-  },
-  {
-    id: 121,
-    name: 'Scottish Fold'
   }
 ]

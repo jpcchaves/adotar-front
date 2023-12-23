@@ -1,6 +1,6 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material'
-import { ChangeEvent } from 'react'
-import FormFeedback from '../../../formFeedback'
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select, SelectProps } from '@mui/material'
+import { FormikValues } from 'formik'
+import FormFeedback from 'src/@core/components/formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
 
 type OmittedSelectProps = 'onChange' | 'onBlur'
@@ -17,33 +17,59 @@ interface IProps extends Omit<SelectProps, OmittedSelectProps> {
   isRequired?: boolean
   errorMessage?: string | undefined
   menuItems: MenuItem[]
-  onChange: (event: SelectChangeEvent<unknown>) => void
-  onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  validation: FormikValues
 }
-
-const SelectInput = ({
+const SelectMulti = ({
   inputIdentifier,
   isInvalid = false,
   inputLabel,
   errorMessage = '',
-  onChange,
-  onBlur,
+  validation,
   isRequired = false,
   menuItems = [],
   ...rest
 }: IProps) => {
+  const ITEM_HEIGHT = 48
+  const ITEM_PADDING_TOP = 8
+
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        width: 250,
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
+      }
+    }
+  }
+
+  const findLabels = (value: string) => {
+    const foundObject = menuItems.find(obj => obj.value === value)
+
+    if (foundObject) return foundObject.label
+    else return ''
+  }
+
   return (
     <FormControl fullWidth error={isInvalid}>
       <InputLabel id={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
+
       <Select
         {...rest}
         label={getInputLabel(inputLabel, isRequired)}
         id={inputIdentifier}
         name={inputIdentifier}
-        onChange={onChange}
-        onBlur={onBlur}
-        labelId={inputIdentifier}
-        MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
+        multiple
+        MenuProps={MenuProps}
+        onChange={validation.handleChange}
+        onBlur={validation.handleBlur}
+        renderValue={selected => {
+          return (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+              {(selected as unknown as string[]).map(value => (
+                <Chip key={value} label={findLabels(value)} sx={{ m: 0.75 }} />
+              ))}
+            </Box>
+          )
+        }}
       >
         {(menuItems || []).map(({ label, value }, idx) => (
           <MenuItem key={`${label}-${idx}`} value={value}>
@@ -56,4 +82,4 @@ const SelectInput = ({
   )
 }
 
-export default SelectInput
+export default SelectMulti

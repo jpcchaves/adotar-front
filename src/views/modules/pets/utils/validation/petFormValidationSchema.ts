@@ -12,16 +12,20 @@ export const petFormValidationSchema = [
 
   // Step two
   Yup.object({
-    breedId: Yup.string().required('O campo é obrigatório'),
+    breedId: Yup.object()
+      .shape({
+        value: Yup.string().required('O campo é obrigatório'),
+        label: Yup.string().required('O campo é obrigatório')
+      })
+      .nullable()
+      .required('O campo é obrigatório'),
     color: Yup.string().required('O campo é obrigatório'),
     yearsAge: Yup.string().required('O campo é obrigatório'),
     monthsAge: Yup.string().required('O campo é obrigatório'),
     description: Yup.string().required('O campo é obrigatório'),
-    characteristicsIds: Yup.mixed().when('isArray', {
-      is: Array.isArray,
-      then: Yup.array().of(Yup.string()),
-      otherwise: Yup.string()
-    })
+    characteristicsIds: Yup.array()
+      .min(1, 'Selecione no mínimo 1 caracteristica')
+      .max(5, 'Selecione no máximo 5 caracteristicas')
   }),
 
   // Step three

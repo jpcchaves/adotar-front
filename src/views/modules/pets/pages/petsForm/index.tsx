@@ -25,13 +25,12 @@ const PetsForm = () => {
 
   const validation = useFormik({
     enableReinitialize: true,
-
-    initialValues: {
-      ...getFormInitialValues()
-    },
+    initialValues: getFormInitialValues(),
     validationSchema: petFormValidationSchema[activeStep],
-    onSubmit: values => {
+    onSubmit: (values, { setErrors, setTouched }) => {
       handleNext()
+      setErrors({})
+      setTouched({})
 
       if (activeStep === steps.length - 1) {
         console.log(values)
