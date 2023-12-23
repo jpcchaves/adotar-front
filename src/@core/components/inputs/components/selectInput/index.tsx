@@ -1,4 +1,12 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material'
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SelectProps
+} from '@mui/material'
 import { ChangeEvent } from 'react'
 import FormFeedback from '../../../formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
@@ -16,6 +24,7 @@ interface IProps extends Omit<SelectProps, OmittedSelectProps> {
   isInvalid?: boolean
   isRequired?: boolean
   errorMessage?: string | undefined
+  helperText?: string | null
   menuItems: MenuItem[]
   onChange: (event: SelectChangeEvent<unknown>) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
@@ -29,6 +38,7 @@ const SelectInput = ({
   onChange,
   onBlur,
   isRequired = false,
+  helperText = null,
   menuItems = [],
   ...rest
 }: IProps) => {
@@ -51,6 +61,7 @@ const SelectInput = ({
           </MenuItem>
         ))}
       </Select>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>
   )
