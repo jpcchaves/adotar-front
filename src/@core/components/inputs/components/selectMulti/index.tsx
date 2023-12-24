@@ -1,6 +1,7 @@
 import { Box, Chip, FormControl, InputLabel, MenuItem, Select, SelectProps } from '@mui/material'
 import { FormikValues } from 'formik'
 import FormFeedback from 'src/@core/components/formFeedback'
+import { findLabels } from '../../helpers/findLabels'
 import { getInputLabel } from '../../helpers/getInputLabel'
 
 type OmittedSelectProps = 'onChange' | 'onBlur'
@@ -29,13 +30,6 @@ const SelectMulti = ({
   menuItems = [],
   ...rest
 }: IProps) => {
-  const findLabels = (value: string) => {
-    const foundObject = menuItems.find(obj => obj.value === value)
-
-    if (foundObject) return foundObject.label
-    else return ''
-  }
-
   return (
     <FormControl fullWidth error={isInvalid}>
       <InputLabel id={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
@@ -53,7 +47,7 @@ const SelectMulti = ({
           return (
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {(selected as unknown as string[]).map(value => (
-                <Chip key={value} label={findLabels(value)} sx={{ m: 0.75 }} />
+                <Chip key={value} label={findLabels(menuItems, value)} sx={{ m: 0.75 }} />
               ))}
             </Box>
           )
