@@ -29,18 +29,6 @@ const SelectMulti = ({
   menuItems = [],
   ...rest
 }: IProps) => {
-  const ITEM_HEIGHT = 48
-  const ITEM_PADDING_TOP = 8
-
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        width: 250,
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
-      }
-    }
-  }
-
   const findLabels = (value: string) => {
     const foundObject = menuItems.find(obj => obj.value === value)
 
@@ -58,7 +46,7 @@ const SelectMulti = ({
         id={inputIdentifier}
         name={inputIdentifier}
         multiple
-        MenuProps={MenuProps}
+        MenuProps={{ PaperProps: { sx: { maxHeight: 150 } } }}
         onChange={validation.handleChange}
         onBlur={validation.handleBlur}
         renderValue={selected => {
