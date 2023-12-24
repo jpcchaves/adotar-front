@@ -1,7 +1,6 @@
 import { Grid, Typography } from '@mui/material'
-import { SelectInput, TextInput } from 'src/@core/components/inputs'
+import { SelectInput, SelectMulti, TextInput } from 'src/@core/components/inputs'
 import AutocompleteInput from 'src/@core/components/inputs/components/autocomplete'
-import SelectMulti from 'src/@core/components/inputs/components/selectMulti'
 import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import { monthsAgeOptions, yearsAgeOptions } from '../../../data/age/ageOptions'
 import { petCharacteristics } from '../../../data/characteristics'
