@@ -2,7 +2,7 @@ import { Box, Button, Card, CardActions, CardContent, IconButton, Typography } f
 import Icon from 'src/@core/components/icon'
 import { Gender } from 'src/domain/enum/pet/Gender'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
-import { toggleSavedPetAction } from 'src/hooks/pets/usePets'
+import { toggleSavedPetAction } from '../../hooks/usePets'
 import { CardImageSlider } from './components'
 import CardOverlay from './components/cardOverlay'
 import { gendersColors, getPetFavPicture } from './utils'
