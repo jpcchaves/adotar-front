@@ -8,3 +8,12 @@ export const generateMenuItems = (data: any): MenuItem[] => {
     }
   })
 }
+
+export const generateCitiesMenuItems = (data: any): MenuItem[] => {
+  return data.map((d: any) => {
+    return {
+      value: d.ibge,
+      label: d.name
+    }
+  })
+}
