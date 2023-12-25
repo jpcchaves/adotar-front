@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+import { cepValidation } from './zipcodeValidation'
 
 export const petFormValidationSchema = [
   // Step one
@@ -30,7 +31,7 @@ export const petFormValidationSchema = [
 
   // Step three
   Yup.object({
-    zipcode: Yup.string().required('O campo é obrigatório'),
+    zipcode: cepValidation.required('O campo é obrigatório'),
     street: Yup.string().required('O campo é obrigatório'),
     number: Yup.string().required('O campo é obrigatório'),
     complement: Yup.string().required('O campo é obrigatório'),
