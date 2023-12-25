@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material'
 import { FormikValues } from 'formik'
-import ZipcodeInput from 'src/@core/components/inputs/components/zipcodeInput'
+import { ZipcodeInput } from 'src/@core/components/inputs'
 import { steps } from '../../../data/formSteps'
 import FormStepControls from '../../formStepsControls'
 
