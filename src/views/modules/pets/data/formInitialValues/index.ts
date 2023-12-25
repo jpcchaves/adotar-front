@@ -13,7 +13,15 @@ export const stepTwoInitialValues = () => {
 }
 
 export const stepThreeInitialValues = () => {
-  return { zipcode: '', street: '', number: '', complement: '', neighborhood: '', city: '' }
+  return {
+    zipcode: '',
+    street: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: ''
+  }
 }
 
 export const getFormInitialValues = () => {

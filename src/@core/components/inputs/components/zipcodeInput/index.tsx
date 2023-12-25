@@ -6,6 +6,7 @@ import { FormikErrors, FormikValues } from 'formik'
 import { ChangeEvent } from 'react'
 import FormFeedback from 'src/@core/components/formFeedback'
 import { extractZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
+import { states } from 'src/views/modules/pets/data/geolocation/states'
 import { getInputLabel } from '../../helpers/getInputLabel'
 
 export interface ViaCepAddress {
@@ -89,14 +90,22 @@ const ZipcodeInput = ({
           if (unmaskedValue?.length === 8) {
             try {
               const res = await fetch(`${VIA_CEP_ENDPOINT}/${unmaskedValue}/json`)
-              const viaCepAddress: ViaCepAddress = await res.json()
 
-              setFieldValue('city', {
-                cityId: viaCepAddress?.ibge,
-                cityName: viaCepAddress?.localidade
-              })
-              setFieldValue('neighborhood', viaCepAddress?.bairro)
-              setFieldValue('street', viaCepAddress?.logradouro)
+              if (res.ok) {
+                const viaCepAddress: ViaCepAddress = await res.json()
+
+                const state = await states.find(state => state.uf === viaCepAddress.uf)
+
+                if (state) {
+                  setFieldValue('state', state.value)
+                }
+
+                setFieldValue('city', viaCepAddress.ibge || '')
+
+                setFieldValue('neighborhood', viaCepAddress.bairro || '')
+
+                setFieldValue('street', viaCepAddress.logradouro || '')
+              }
             } catch (err) {
               // console.log(err)
             }
