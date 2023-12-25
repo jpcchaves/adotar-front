@@ -27,7 +27,7 @@ interface CleaveInputProps extends Props {
 
 type OmittedInputProps = 'onChange' | 'onBlur'
 
-const VIA_CEP_ENDPOINT = 'https://viacep.com.br/ws/'
+const VIA_CEP_ENDPOINT = process.env.NEXT_PUBLIC_VIA_CEP_ENDPOINT
 
 interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   inputIdentifier: string
