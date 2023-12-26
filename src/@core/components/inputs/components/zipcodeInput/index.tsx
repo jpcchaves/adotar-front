@@ -77,8 +77,8 @@ const ZipcodeInput = ({
         onChange={async e => {
           const { value: maskedValue } = e.target
           const unmaskedValue = extractZipcode(maskedValue)
-
           const event = {
+            ...e,
             target: {
               name: inputIdentifier,
               value: unmaskedValue
@@ -113,8 +113,7 @@ const ZipcodeInput = ({
         }}
         inputComponent={CleaveInput as any}
         inputProps={{
-          options: cleaveOptions,
-          'data-testid': rest.name
+          options: cleaveOptions
         }}
       />
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}

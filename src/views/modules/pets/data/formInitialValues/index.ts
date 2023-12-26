@@ -15,12 +15,12 @@ export const stepTwoInitialValues = () => {
 export const stepThreeInitialValues = () => {
   return {
     zipcode: '',
+    state: '',
+    city: '',
     street: '',
     number: '',
     complement: '',
-    neighborhood: '',
-    city: '',
-    state: ''
+    neighborhood: ''
   }
 }
 
