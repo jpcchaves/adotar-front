@@ -21,8 +21,7 @@ const getStepContent = (activeStep: number, handleBack: () => void, validation: 
     case 2:
       return (
         <>
-          {/* fotos */}
-          <ThirdStep />
+          <ThirdStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
         </>
       )
     case 3:
