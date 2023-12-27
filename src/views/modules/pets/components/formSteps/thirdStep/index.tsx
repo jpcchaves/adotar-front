@@ -47,10 +47,10 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
       <Grid item xs={4}>
         <ZipcodeInput
           inputIdentifier='zipcode'
+          inputLabel='CEP'
+          value={validation.values.zipcode}
           onChange={validation.handleChange}
           onBlur={validation.handleBlur}
-          value={validation.values.zipcode}
-          inputLabel='CEP'
           isRequired
           isInvalid={!!(validation.errors.zipcode && validation.touched.zipcode)}
           errorMessage={validation.errors.zipcode}
