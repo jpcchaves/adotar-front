@@ -1,9 +1,7 @@
 import { FormControl, InputLabel, OutlinedInput, OutlinedInputProps } from '@mui/material'
-import { CleaveOptions } from 'cleave.js/options'
-import Cleave from 'cleave.js/react'
-import { Props } from 'cleave.js/react/props'
 import { FormikErrors, FormikValues } from 'formik'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, forwardRef } from 'react'
+import { IMaskInput } from 'react-imask'
 import FormFeedback from 'src/@core/components/formFeedback'
 import { extractZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
 import { states } from 'src/views/modules/pets/data/geolocation/states'
@@ -22,10 +20,6 @@ export interface ViaCepAddress {
   siafi?: string
 }
 
-interface CleaveInputProps extends Props {
-  inputRef: (ref: HTMLInputElement | null) => void
-}
-
 type OmittedInputProps = 'onChange' | 'onBlur'
 
 const VIA_CEP_ENDPOINT = process.env.NEXT_PUBLIC_VIA_CEP_ENDPOINT
@@ -41,9 +35,26 @@ interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<FormikValues>>
 }
 
-const CleaveInput = ({ inputRef, ...rest }: CleaveInputProps) => {
-  return <Cleave {...rest} htmlRef={inputRef} />
+interface CustomProps {
+  onChange: (event: { target: { name: string; value: string } }) => void
+  name: string
 }
+
+const ZipcodeMask = forwardRef<HTMLInputElement, CustomProps>(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props
+  return (
+    <IMaskInput
+      {...other}
+      mask='##.###-###'
+      definitions={{
+        '#': /[0-9]/
+      }}
+      inputRef={ref}
+      onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  )
+})
 
 const ZipcodeInput = ({
   inputIdentifier,
@@ -56,23 +67,15 @@ const ZipcodeInput = ({
   setFieldValue,
   ...rest
 }: IProps) => {
-  const zipcodeDelimiters = ['.', '-']
-  const cleaveOptions: CleaveOptions = {
-    delimiters: zipcodeDelimiters,
-    blocks: [2, 3, 3],
-    numericOnly: true
-  }
-
   return (
     <FormControl fullWidth error={isInvalid}>
       <InputLabel htmlFor={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
-
       <OutlinedInput
         {...rest}
         id={inputIdentifier}
         name={inputIdentifier}
-        label={getInputLabel(inputLabel, isRequired)}
         type='text'
+        label={getInputLabel(inputLabel, isRequired)}
         onBlur={onBlur}
         onChange={async e => {
           const { value: maskedValue } = e.target
@@ -94,7 +97,7 @@ const ZipcodeInput = ({
               if (res.ok) {
                 const viaCepAddress: ViaCepAddress = await res.json()
 
-                const state = await states.find(state => state.uf === viaCepAddress.uf)
+                const state = states.find(state => state.uf === viaCepAddress.uf)
 
                 if (state) {
                   setFieldValue('state', state.value)
@@ -111,10 +114,7 @@ const ZipcodeInput = ({
             }
           }
         }}
-        inputComponent={CleaveInput as any}
-        inputProps={{
-          options: cleaveOptions
-        }}
+        inputComponent={ZipcodeMask as any}
       />
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>
