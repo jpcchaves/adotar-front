@@ -1,11 +1,11 @@
 import { FormControl, InputLabel, OutlinedInput, OutlinedInputProps } from '@mui/material'
 import { FormikErrors, FormikValues } from 'formik'
-import { ChangeEvent, forwardRef } from 'react'
-import { IMaskInput } from 'react-imask'
+import { ChangeEvent } from 'react'
 import FormFeedback from 'src/@core/components/formFeedback'
 import { extractZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
 import { states } from 'src/views/modules/pets/data/geolocation/states'
 import { getInputLabel } from '../../helpers/getInputLabel'
+import ZipcodeMask from './components/zipcodeMask'
 
 export interface ViaCepAddress {
   cep?: string
@@ -34,27 +34,6 @@ interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<FormikValues>>
 }
-
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void
-  name: string
-}
-
-const ZipcodeMask = forwardRef<HTMLInputElement, CustomProps>(function TextMaskCustom(props, ref) {
-  const { onChange, ...other } = props
-  return (
-    <IMaskInput
-      {...other}
-      mask='##.###-###'
-      definitions={{
-        '#': /[0-9]/
-      }}
-      inputRef={ref}
-      onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
-      overwrite
-    />
-  )
-})
 
 const ZipcodeInput = ({
   inputIdentifier,
