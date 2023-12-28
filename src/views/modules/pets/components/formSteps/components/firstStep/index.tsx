@@ -1,12 +1,12 @@
 import { Grid, Typography } from '@mui/material'
 import { SelectInput, TextInput } from 'src/@core/components/inputs'
-import { steps } from '../../../data/formSteps'
-import { genderMenuItems } from '../../../data/genderMenuItems'
-import { petHealthConditionMenuItems } from '../../../data/petHealthConditionMenuItems'
-import { petSizeMenuItems } from '../../../data/petSizeMenuItems'
-import { petTypeMenuItems } from '../../../data/petTypeMenuItems'
-import { FormStepProps } from '../../../models/formStepsProps'
-import FormStepControls from '../../formStepsControls'
+import { steps } from '../../../../data/formSteps'
+import { genderMenuItems } from '../../../../data/genderMenuItems'
+import { petHealthConditionMenuItems } from '../../../../data/petHealthConditionMenuItems'
+import { petSizeMenuItems } from '../../../../data/petSizeMenuItems'
+import { petTypeMenuItems } from '../../../../data/petTypeMenuItems'
+import { FormStepProps } from '../../../../models/formStepsProps'
+import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
   activeStep: number

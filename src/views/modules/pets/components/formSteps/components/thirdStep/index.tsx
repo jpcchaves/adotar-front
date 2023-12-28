@@ -1,12 +1,11 @@
 import { Grid, Typography } from '@mui/material'
 import { FormikValues } from 'formik'
-import { useEffect, useState } from 'react'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { HttpMethod, httpRequest } from 'src/utils/http'
-import { steps } from '../../../data/formSteps'
-import { states } from '../../../data/geolocation/states'
-import FormStepControls from '../../formStepsControls'
+import { steps } from '../../../../data/formSteps'
+import { states } from '../../../../data/geolocation/states'
+import FormStepControls from '../../../formStepsControls'
+import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 
 interface IProps {
   activeStep: number
@@ -15,23 +14,7 @@ interface IProps {
 }
 
 const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
-  const [selectedCities, setSelectedCities] = useState([])
-
-  useEffect(() => {
-    const getCitiesByState = async () => {
-      if (validation.values.state) {
-        await httpRequest<any, any>(HttpMethod.GET, `/v1/cities?stateId=${validation.values.state}`)
-          .then(res => {
-            setSelectedCities(res)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }
-    }
-
-    getCitiesByState()
-  }, [validation.values.state])
+  const { selectedCities } = useGetSelectedCities({ validation })
 
   return (
     <Grid container spacing={5}>
