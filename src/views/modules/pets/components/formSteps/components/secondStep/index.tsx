@@ -27,7 +27,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           {steps[activeStep].subtitle}
         </Typography>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <AutocompleteInput
           inputIdentifier='breedId'
           validation={validation}
@@ -39,7 +39,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           errorMessage={validation.errors.breedId?.value || validation.errors.breedId}
         />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <TextInput
           inputIdentifier='color'
           onChange={validation.handleChange}
@@ -52,7 +52,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <SelectInput
           inputIdentifier='yearsAge'
           inputLabel={'Anos'}
@@ -67,7 +67,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           menuItems={yearsAgeOptions}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <SelectInput
           inputIdentifier='monthsAge'
           inputLabel={'Meses'}

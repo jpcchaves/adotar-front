@@ -27,7 +27,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         </Typography>
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <ZipcodeInput
           inputIdentifier='zipcode'
           inputLabel='CEP'
@@ -41,7 +41,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='state'
           onChange={e => {
@@ -58,7 +58,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='city'
           onChange={e => {
@@ -101,7 +101,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <TextInput
           inputIdentifier='number'
           onChange={validation.handleChange}
@@ -114,7 +114,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={10}>
+      <Grid item xs={12} sm={10}>
         <TextInput
           inputIdentifier='complement'
           onChange={validation.handleChange}
