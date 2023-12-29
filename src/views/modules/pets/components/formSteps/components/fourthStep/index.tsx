@@ -19,13 +19,6 @@ import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 import { v4 as uuidv4 } from 'uuid'
 
-interface FileProp {
-  id: string
-  name: string
-  type: string
-  size: number
-}
-
 // Styled component for the upload image inside the dropzone area
 const Img = styled('img')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
