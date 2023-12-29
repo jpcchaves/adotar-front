@@ -1,9 +1,9 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { FormikValues } from 'formik'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { steps } from '../../../../data/formSteps'
 import { states } from '../../../../data/geolocation/states'
+import FormStepHeader from '../../../formStepHeader'
 import FormStepControls from '../../../formStepsControls'
 import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 
@@ -19,12 +19,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-          {steps[activeStep].title}
-        </Typography>
-        <Typography variant='caption' component='p'>
-          {steps[activeStep].subtitle}
-        </Typography>
+        <FormStepHeader activeStep={activeStep} />
       </Grid>
 
       <Grid item xs={6} sm={4}>

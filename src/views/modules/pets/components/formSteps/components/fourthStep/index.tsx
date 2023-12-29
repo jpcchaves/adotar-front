@@ -19,8 +19,8 @@ import { FormikValues } from 'formik'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
-import { steps } from 'src/views/modules/pets/data/formSteps'
 import { v4 as uuidv4 } from 'uuid'
+import FormStepHeader from '../../../formStepHeader'
 import FormStepControls from '../../../formStepsControls'
 
 // Styled component for the upload image inside the dropzone area
@@ -115,12 +115,7 @@ const FourthStep = ({ activeStep, validation, handleBack }: IProps) => {
     <>
       <Grid container spacing={5} mb={5}>
         <Grid item xs={12}>
-          <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-            {steps[activeStep].title}
-          </Typography>
-          <Typography variant='caption' component='p'>
-            {steps[activeStep].subtitle}
-          </Typography>
+          <FormStepHeader activeStep={activeStep} />
         </Grid>
       </Grid>
       <DropzoneWrapper>

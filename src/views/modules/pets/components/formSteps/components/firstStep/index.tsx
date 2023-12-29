@@ -1,11 +1,11 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { SelectInput, TextInput } from 'src/@core/components/inputs'
-import { steps } from '../../../../data/formSteps'
 import { genderMenuItems } from '../../../../data/genderMenuItems'
 import { petHealthConditionMenuItems } from '../../../../data/petHealthConditionMenuItems'
 import { petSizeMenuItems } from '../../../../data/petSizeMenuItems'
 import { petTypeMenuItems } from '../../../../data/petTypeMenuItems'
 import { FormStepProps } from '../../../../models/formStepsProps'
+import FormStepHeader from '../../../formStepHeader'
 import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
@@ -16,12 +16,7 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-          {steps[activeStep].title}
-        </Typography>
-        <Typography variant='caption' component='p'>
-          {steps[activeStep].subtitle}
-        </Typography>
+        <FormStepHeader activeStep={activeStep} />
       </Grid>
       <Grid item xs={12}>
         <TextInput
