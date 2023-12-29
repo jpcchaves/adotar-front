@@ -14,10 +14,14 @@ import { styled } from '@mui/material/styles'
 import Icon from 'src/@core/components/icon'
 
 // ** Third Party Components
+import { Grid } from '@mui/material'
+import { FormikValues } from 'formik'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+import { steps } from 'src/views/modules/pets/data/formSteps'
 import { v4 as uuidv4 } from 'uuid'
+import FormStepControls from '../../../formStepsControls'
 
 // Styled component for the upload image inside the dropzone area
 const Img = styled('img')(({ theme }) => ({
@@ -41,7 +45,13 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
   }
 }))
 
-const FourthStep = () => {
+interface IProps {
+  activeStep: number
+  validation: FormikValues
+  handleBack: () => void
+}
+
+const FourthStep = ({ activeStep, validation, handleBack }: IProps) => {
   // ** State
   const [files, setFiles] = useState<{ file: File; id: string }[]>([])
 
@@ -102,29 +112,44 @@ const FourthStep = () => {
   }
 
   return (
-    <DropzoneWrapper>
-      <Box {...getRootProps({ className: 'dropzone' })}>
-        <input id='pet-dropzone' {...getInputProps()} />
-        <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], alignItems: 'center' }}>
-          <Img width={300} alt='Upload img' src='/images/misc/upload.png' draggable={false} />
-          <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: ['center', 'center', 'inherit'] }}>
-            <HeadingTypography variant='h5'>Arraste ou clique para adicionar arquivos</HeadingTypography>
-            <Typography color='textSecondary'>Formatos permitidos *.jpeg, *.jpg, *.png</Typography>
-            <Typography color='textSecondary'>Limite de 5 MB ou 5 arquivos</Typography>
+    <>
+      <Grid container spacing={5} mb={5}>
+        <Grid item xs={12}>
+          <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+            {steps[activeStep].title}
+          </Typography>
+          <Typography variant='caption' component='p'>
+            {steps[activeStep].subtitle}
+          </Typography>
+        </Grid>
+      </Grid>
+      <DropzoneWrapper>
+        <Box {...getRootProps({ className: 'dropzone' })}>
+          <input id='pet-dropzone' {...getInputProps()} />
+          <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], alignItems: 'center' }}>
+            <Img width={300} alt='Upload img' src='/images/misc/upload.png' draggable={false} />
+            <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: ['center', 'center', 'inherit'] }}>
+              <HeadingTypography variant='h5'>Arraste ou clique para adicionar arquivos</HeadingTypography>
+              <Typography color='textSecondary'>Formatos permitidos *.jpeg, *.jpg, *.png</Typography>
+              <Typography color='textSecondary'>Limite de 5 MB ou 5 arquivos</Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      {files.length ? (
-        <>
-          <List>{fileList}</List>
-          <div className='buttons'>
-            <Button sx={{ marginRight: '5px' }} color='error' variant='outlined' onClick={handleRemoveAllFiles}>
-              Remover Todas
-            </Button>
-          </div>
-        </>
-      ) : null}
-    </DropzoneWrapper>
+        {files.length ? (
+          <>
+            <List>{fileList}</List>
+            <div className='buttons'>
+              <Button sx={{ marginRight: '5px' }} color='error' variant='outlined' onClick={handleRemoveAllFiles}>
+                Remover Todas
+              </Button>
+            </div>
+          </>
+        ) : null}
+      </DropzoneWrapper>
+      <Grid container spacing={5} mt={5}>
+        <FormStepControls activeStep={activeStep} handleBack={handleBack} />
+      </Grid>
+    </>
   )
 }
 
