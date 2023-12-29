@@ -1,12 +1,11 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { FormikValues } from 'formik'
-import { useEffect, useState } from 'react'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { HttpMethod, httpRequest } from 'src/utils/http'
-import { steps } from '../../../data/formSteps'
-import { states } from '../../../data/geolocation/states'
-import FormStepControls from '../../formStepsControls'
+import { states } from '../../../../data/geolocation/states'
+import FormStepHeader from '../../../formStepHeader'
+import FormStepControls from '../../../formStepsControls'
+import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 
 interface IProps {
   activeStep: number
@@ -15,36 +14,15 @@ interface IProps {
 }
 
 const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
-  const [selectedCities, setSelectedCities] = useState([])
-
-  useEffect(() => {
-    const getCitiesByState = async () => {
-      if (validation.values.state) {
-        await httpRequest<any, any>(HttpMethod.GET, `/v1/cities?stateId=${validation.values.state}`)
-          .then(res => {
-            setSelectedCities(res)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }
-    }
-
-    getCitiesByState()
-  }, [validation.values.state])
+  const { selectedCities } = useGetSelectedCities({ validation })
 
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-          {steps[activeStep].title}
-        </Typography>
-        <Typography variant='caption' component='p'>
-          {steps[activeStep].subtitle}
-        </Typography>
+        <FormStepHeader activeStep={activeStep} />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <ZipcodeInput
           inputIdentifier='zipcode'
           inputLabel='CEP'
@@ -58,7 +36,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='state'
           onChange={e => {
@@ -75,7 +53,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='city'
           onChange={e => {
@@ -118,7 +96,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <TextInput
           inputIdentifier='number'
           onChange={validation.handleChange}
@@ -131,7 +109,7 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={10}>
+      <Grid item xs={12} sm={10}>
         <TextInput
           inputIdentifier='complement'
           onChange={validation.handleChange}

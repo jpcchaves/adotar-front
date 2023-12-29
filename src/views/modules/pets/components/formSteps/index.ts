@@ -1,7 +1,7 @@
-import FifthStep from './fifthStep'
-import FirstStep from './firstStep'
-import FourthStep from './fourthStep'
-import SecondStep from './secondStep'
-import ThirdStep from './thirdStep'
+import FifthStep from './components/fifthStep'
+import FirstStep from './components/firstStep'
+import FourthStep from './components/fourthStep'
+import SecondStep from './components/secondStep'
+import ThirdStep from './components/thirdStep'
 
 export { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep }

@@ -1,13 +1,13 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { SelectInput, SelectMulti, TextInput } from 'src/@core/components/inputs'
 import AutocompleteInput from 'src/@core/components/inputs/components/autocomplete'
 import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { monthsAgeOptions, yearsAgeOptions } from '../../../data/age/ageOptions'
-import { petCharacteristics } from '../../../data/characteristics'
-import { steps } from '../../../data/formSteps'
-import { FormStepProps } from '../../../models/formStepsProps'
-import { getSelectedPetType } from '../../../utils/petBreeds/getSelectedPetType'
-import FormStepControls from '../../formStepsControls'
+import { monthsAgeOptions, yearsAgeOptions } from '../../../../data/age/ageOptions'
+import { petCharacteristics } from '../../../../data/characteristics'
+import { FormStepProps } from '../../../../models/formStepsProps'
+import { getSelectedPetType } from '../../../../utils/petBreeds/getSelectedPetType'
+import FormStepHeader from '../../../formStepHeader'
+import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
   activeStep: number
@@ -20,14 +20,9 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-          {steps[activeStep].title}
-        </Typography>
-        <Typography variant='caption' component='p'>
-          {steps[activeStep].subtitle}
-        </Typography>
+        <FormStepHeader activeStep={activeStep} />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <AutocompleteInput
           inputIdentifier='breedId'
           validation={validation}
@@ -39,7 +34,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           errorMessage={validation.errors.breedId?.value || validation.errors.breedId}
         />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6} sm={4}>
         <TextInput
           inputIdentifier='color'
           onChange={validation.handleChange}
@@ -52,7 +47,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
         />
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <SelectInput
           inputIdentifier='yearsAge'
           inputLabel={'Anos'}
@@ -67,7 +62,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           menuItems={yearsAgeOptions}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={6} sm={2}>
         <SelectInput
           inputIdentifier='monthsAge'
           inputLabel={'Meses'}
