@@ -17,8 +17,10 @@ import Icon from 'src/@core/components/icon'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+import { v4 as uuidv4 } from 'uuid'
 
 interface FileProp {
+  id: string
   name: string
   type: string
   size: number
@@ -48,7 +50,7 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 
 const FourthStep = () => {
   // ** State
-  const [files, setFiles] = useState<File[]>([])
+  const [files, setFiles] = useState<{ file: File; id: string }[]>([])
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -58,7 +60,11 @@ const FourthStep = () => {
       'image/*': ['.png', '.jpg', '.jpeg']
     },
     onDrop: (acceptedFiles: File[]) => {
-      setFiles(acceptedFiles.map((file: File) => Object.assign(file)))
+      const filesWithId = acceptedFiles.map((file: File) => ({
+        file,
+        id: uuidv4()
+      }))
+      setFiles(prevFiles => [...prevFiles, ...filesWithId])
     },
     onDropRejected: () => {
       toast.error('You can only upload 2 files & maximum size of 2 MB.', {
@@ -67,7 +73,7 @@ const FourthStep = () => {
     }
   })
 
-  const renderFilePreview = (file: FileProp) => {
+  const renderFilePreview = (file: File) => {
     if (file.type.startsWith('image')) {
       return <img width={38} height={38} alt={file.name} src={URL.createObjectURL(file as any)} />
     } else {
@@ -75,25 +81,24 @@ const FourthStep = () => {
     }
   }
 
-  const handleRemoveFile = (file: FileProp) => {
-    const uploadedFiles = files
-    const filtered = uploadedFiles.filter((i: FileProp) => i.name !== file.name)
-    setFiles([...filtered])
+  const onDelete = (fileId: string) => {
+    setFiles(prevFiles => prevFiles.filter(file => file.id !== fileId))
   }
-  const fileList = files.map((file: FileProp) => (
-    <ListItem key={file.name}>
+
+  const fileList = files.map((fileData: { file: File; id: string }, idx) => (
+    <ListItem key={`${fileData.id}-${idx}`}>
       <div className='file-details'>
-        <div className='file-preview'>{renderFilePreview(file)}</div>
+        <div className='file-preview'>{renderFilePreview(fileData.file)}</div>
         <div>
-          <Typography className='file-name'>{file.name}</Typography>
+          <Typography className='file-name'>{fileData.file.name}</Typography>
           <Typography className='file-size' variant='body2'>
-            {Math.round(file.size / 100) / 10 > 1000
-              ? `${(Math.round(file.size / 100) / 10000).toFixed(1)} mb`
-              : `${(Math.round(file.size / 100) / 10).toFixed(1)} kb`}
+            {Math.round(fileData.file.size / 100) / 10 > 1000
+              ? `${(Math.round(fileData.file.size / 100) / 10000).toFixed(1)} mb`
+              : `${(Math.round(fileData.file.size / 100) / 10).toFixed(1)} kb`}
           </Typography>
         </div>
       </div>
-      <IconButton onClick={() => handleRemoveFile(file)}>
+      <IconButton onClick={() => onDelete(fileData.id)}>
         <Icon icon='mdi:close' fontSize={20} />
       </IconButton>
     </ListItem>
