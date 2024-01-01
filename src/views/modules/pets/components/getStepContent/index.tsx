@@ -33,7 +33,7 @@ const getStepContent = (activeStep: number, handleBack: () => void, validation: 
     case 4:
       return (
         <>
-          <FifthStep />
+          <FifthStep activeStep={activeStep} validation={validation} />
         </>
       )
     default:
