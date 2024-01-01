@@ -39,15 +39,13 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
       <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='state'
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={!!((validation.errors.state?.label || validation.errors?.state) && validation.touched.state)}
+          errorMessage={validation.errors.state?.label || validation.errors?.state}
+          setFieldValue={validation.setFieldValue}
+          value={validation.values.state?.value}
           onBlur={validation.handleBlur}
-          value={validation.values.state}
           inputLabel='Estado'
           isRequired
-          isInvalid={!!(validation.errors.state && validation.touched.state)}
-          errorMessage={validation.errors.state || validation.errors.state}
           menuItems={states}
           disabled={!validation.values.zipcode}
         />
@@ -56,15 +54,13 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
       <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='city'
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={!!((validation.errors.city?.label || validation.errors?.city) && validation.touched.city)}
+          errorMessage={validation.errors.city?.label || validation.errors?.city}
+          setFieldValue={validation.setFieldValue}
+          value={validation.values.city?.value}
           onBlur={validation.handleBlur}
-          value={validation.values.city}
           inputLabel='Cidade'
           isRequired
-          isInvalid={!!(validation.errors.city && validation.touched.city)}
-          errorMessage={validation.errors.city || validation.errors.city}
           menuItems={generateCitiesMenuItems(selectedCities)}
           disabled={!validation.values.zipcode || !validation.values.state}
         />
