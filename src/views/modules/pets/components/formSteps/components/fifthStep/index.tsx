@@ -8,9 +8,10 @@ import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
   activeStep: number
+  handleBack: () => void
 }
 
-const FifthStep = ({ validation, activeStep }: IProps) => {
+const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
   const { name, typeId, gender, size, healthCondition } = validation.values
 
   const animalType = petTypeMenuItems.find(petType => petType.value == typeId)
@@ -61,7 +62,7 @@ const FifthStep = ({ validation, activeStep }: IProps) => {
           </Typography>
         </Grid>
 
-        <FormStepControls activeStep={activeStep} />
+        <FormStepControls activeStep={activeStep} handleBack={handleBack} />
       </Grid>
     </>
   )

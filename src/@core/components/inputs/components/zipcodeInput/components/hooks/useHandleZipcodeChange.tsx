@@ -49,10 +49,10 @@ const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue }: IP
           const state = states.find(state => state.uf === viaCepAddress.uf)
 
           if (state) {
-            setFieldValue('state', state.value)
+            setFieldValue('state', { value: state.value, label: state.label })
           }
 
-          setFieldValue('city', viaCepAddress.ibge || '')
+          setFieldValue('city', { value: viaCepAddress.ibge, label: viaCepAddress.localidade })
 
           setFieldValue('neighborhood', viaCepAddress.bairro || '')
 
