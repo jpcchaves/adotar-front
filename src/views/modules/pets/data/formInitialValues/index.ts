@@ -1,10 +1,10 @@
 export const stepOneInitialValues = () => {
   return {
-    typeId: '',
-    name: '',
-    gender: '',
-    size: '',
-    healthCondition: ''
+    typeId: '1',
+    name: 'Bidu',
+    gender: 'F',
+    size: 'S',
+    healthCondition: 'H'
   }
 }
 
