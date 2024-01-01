@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   SelectProps
 } from '@mui/material'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
 import FormFeedback from '../../../formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
 
@@ -26,7 +26,7 @@ interface IProps extends Omit<SelectProps, OmittedSelectProps> {
   errorMessage?: string | undefined
   helperText?: string | null
   menuItems: MenuItem[]
-  onChange: (event: SelectChangeEvent<unknown>) => void
+  setFieldValue?: (field: string, value: any) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
@@ -35,13 +35,19 @@ const SelectInput = ({
   isInvalid = false,
   inputLabel,
   errorMessage = '',
-  onChange,
+  setFieldValue,
   onBlur,
   isRequired = false,
   helperText = null,
   menuItems = [],
+  value,
   ...rest
 }: IProps) => {
+  const handleChange = (event: SelectChangeEvent<unknown>, child: ReactNode) => {
+    const selectedObject = menuItems.find(option => option.value === event.target.value)
+    if (setFieldValue) setFieldValue(inputIdentifier, selectedObject)
+  }
+
   return (
     <FormControl fullWidth error={isInvalid}>
       <InputLabel id={inputIdentifier}>{getInputLabel(inputLabel, isRequired)}</InputLabel>
@@ -50,8 +56,9 @@ const SelectInput = ({
         label={getInputLabel(inputLabel, isRequired)}
         id={inputIdentifier}
         name={inputIdentifier}
-        onChange={onChange}
+        onChange={handleChange}
         onBlur={onBlur}
+        value={value}
         labelId={inputIdentifier}
         MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
       >

@@ -12,7 +12,7 @@ const useGetSelectedCities = ({ validation }: IProps) => {
 
   const getCitiesByState = async () => {
     if (validation.values.state) {
-      await httpRequest<void, City[]>(HttpMethod.GET, `/v1/cities?stateId=${validation.values.state}`)
+      await httpRequest<void, City[]>(HttpMethod.GET, `/v1/cities?stateId=${validation.values.state?.value}`)
         .then(res => {
           setSelectedCities(res)
         })
@@ -24,7 +24,7 @@ const useGetSelectedCities = ({ validation }: IProps) => {
 
   useEffect(() => {
     getCitiesByState()
-  }, [validation.values.state])
+  }, [validation.values.state?.value])
 
   return { selectedCities }
 }

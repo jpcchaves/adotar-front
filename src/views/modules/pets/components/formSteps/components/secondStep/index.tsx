@@ -15,7 +15,7 @@ interface IProps extends FormStepProps {
 }
 
 const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
-  const breedsByPetType = getSelectedPetType(validation.values.typeId)
+  const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
 
   return (
     <Grid container spacing={5}>
@@ -52,13 +52,13 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           inputIdentifier='yearsAge'
           inputLabel={'Anos'}
           isRequired
-          isInvalid={!!(validation.errors.yearsAge && validation.touched.yearsAge)}
-          errorMessage={validation.errors.yearsAge}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={
+            !!((validation.errors.yearsAge?.label || validation.errors?.yearsAge) && validation.touched.yearsAge)
+          }
+          errorMessage={validation.errors.yearsAge?.label || validation.errors?.yearsAge}
+          setFieldValue={validation.setFieldValue}
+          value={validation.values.yearsAge?.value}
           onBlur={validation.handleBlur}
-          value={validation.values.yearsAge}
           menuItems={yearsAgeOptions}
         />
       </Grid>
@@ -67,13 +67,13 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           inputIdentifier='monthsAge'
           inputLabel={'Meses'}
           isRequired
-          isInvalid={!!(validation.errors.monthsAge && validation.touched.monthsAge)}
-          errorMessage={validation.errors.monthsAge}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={
+            !!((validation.errors.monthsAge?.label || validation.errors?.monthsAge) && validation.touched.monthsAge)
+          }
+          errorMessage={validation.errors.monthsAge?.label || validation.errors?.monthsAge}
+          setFieldValue={validation.setFieldValue}
+          value={validation.values.monthsAge?.value}
           onBlur={validation.handleBlur}
-          value={validation.values.monthsAge}
           menuItems={monthsAgeOptions}
         />
       </Grid>
