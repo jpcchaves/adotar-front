@@ -1,22 +1,56 @@
 export const stepOneInitialValues = () => {
   return {
-    typeId: '1',
-    name: 'Bidu',
-    gender: 'F',
-    size: 'S',
-    healthCondition: 'H'
+    typeId: {
+      value: '',
+      label: ''
+    },
+    name: '',
+    gender: {
+      value: '',
+      label: ''
+    },
+    size: {
+      value: '',
+      label: ''
+    },
+    healthCondition: {
+      value: '',
+      label: ''
+    }
   }
 }
 
 export const stepTwoInitialValues = () => {
-  return { breedId: '', color: '', yearsAge: '', monthsAge: '', description: '', characteristicsIds: [] }
+  return {
+    breedId: {
+      value: '',
+      label: ''
+    },
+    color: '',
+    yearsAge: {
+      value: '',
+      label: ''
+    },
+    monthsAge: {
+      value: '',
+      label: ''
+    },
+    description: '',
+    characteristicsIds: []
+  }
 }
 
 export const stepThreeInitialValues = () => {
   return {
     zipcode: '',
-    state: '',
-    city: '',
+    state: {
+      value: '',
+      label: ''
+    },
+    city: {
+      value: '',
+      label: ''
+    },
     street: '',
     number: '',
     complement: '',

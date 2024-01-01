@@ -35,13 +35,11 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='typeId'
           inputLabel={'Tipo'}
           isRequired
-          isInvalid={!!(validation.errors.typeId && validation.touched.typeId)}
-          errorMessage={validation.errors.typeId}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={!!((validation.errors.typeId?.label || validation.errors?.typeId) && validation.touched.typeId)}
+          errorMessage={validation.errors.typeId?.label || validation.errors?.typeId}
+          setFieldValue={validation.setFieldValue}
+          value={validation.values.typeId?.value}
           onBlur={validation.handleBlur}
-          value={validation.values.typeId}
           menuItems={petTypeMenuItems}
         />
       </Grid>
@@ -50,13 +48,11 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='gender'
           inputLabel={'Sexo'}
           isRequired
-          isInvalid={!!(validation.errors.gender && validation.touched.gender)}
-          errorMessage={validation.errors.gender}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={!!((validation.errors.gender?.label || validation.errors?.gender) && validation.touched.gender)}
+          errorMessage={validation.errors.gender?.label || validation.errors?.gender}
+          setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
-          value={validation.values.gender}
+          value={validation.values.gender?.value}
           menuItems={genderMenuItems}
         />
       </Grid>
@@ -65,13 +61,11 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='size'
           inputLabel={'Tamanho'}
           isRequired
-          isInvalid={!!(validation.errors.size && validation.touched.size)}
-          errorMessage={validation.errors.size}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={!!((validation.errors.size?.label || validation.errors?.size) && validation.touched.size)}
+          errorMessage={validation.errors.size?.label || validation.errors?.size}
+          setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
-          value={validation.values.size}
+          value={validation.values.size?.value}
           menuItems={petSizeMenuItems}
         />
       </Grid>
@@ -80,13 +74,16 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='healthCondition'
           inputLabel={'Estado de Saúde'}
           isRequired
-          isInvalid={!!(validation.errors.healthCondition && validation.touched.healthCondition)}
-          errorMessage={validation.errors.healthCondition}
-          onChange={e => {
-            validation.handleChange(e)
-          }}
+          isInvalid={
+            !!(
+              (validation.errors.healthCondition?.label || validation.errors?.healthCondition) &&
+              validation.touched.healthCondition
+            )
+          }
+          errorMessage={validation.errors.healthCondition?.label || validation.errors?.healthCondition}
+          setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
-          value={validation.values.healthCondition}
+          value={validation.values.healthCondition?.value}
           menuItems={petHealthConditionMenuItems}
         />
       </Grid>
