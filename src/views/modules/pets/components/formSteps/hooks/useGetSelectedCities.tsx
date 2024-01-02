@@ -11,7 +11,7 @@ const useGetSelectedCities = ({ validation }: IProps) => {
   const [selectedCities, setSelectedCities] = useState<City[]>([])
 
   const getCitiesByState = async () => {
-    if (validation.values.state) {
+    if (validation.values.state?.value) {
       await httpRequest<void, City[]>(HttpMethod.GET, `/v1/cities?stateId=${validation.values.state?.value}`)
         .then(res => {
           setSelectedCities(res)
