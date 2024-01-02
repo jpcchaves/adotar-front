@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   SelectProps
 } from '@mui/material'
-import { ChangeEvent, ReactNode } from 'react'
+import { ChangeEvent } from 'react'
 import FormFeedback from '../../../formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
 
@@ -43,7 +43,7 @@ const SelectInput = ({
   value,
   ...rest
 }: IProps) => {
-  const handleChange = (event: SelectChangeEvent<unknown>, child: ReactNode) => {
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
     const selectedObject = menuItems.find(option => option.value === event.target.value)
     if (setFieldValue) setFieldValue(inputIdentifier, selectedObject)
   }

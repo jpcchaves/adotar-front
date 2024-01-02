@@ -24,6 +24,7 @@ const useGetSelectedCities = ({ validation }: IProps) => {
 
   useEffect(() => {
     getCitiesByState()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validation.values.state?.value])
 
   return { selectedCities }

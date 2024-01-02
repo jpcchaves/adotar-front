@@ -6,6 +6,7 @@ import { states } from '../../../../data/geolocation/states'
 import FormStepHeader from '../../../formStepHeader'
 import FormStepControls from '../../../formStepsControls'
 import useGetSelectedCities from '../../hooks/useGetSelectedCities'
+import { clearCityInput } from '../../utils/clearCityInput'
 
 interface IProps {
   activeStep: number
@@ -42,6 +43,9 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
           isInvalid={!!((validation.errors.state?.label || validation.errors?.state) && validation.touched.state)}
           errorMessage={validation.errors.state?.label || validation.errors?.state}
           setFieldValue={validation.setFieldValue}
+          onClick={() => {
+            clearCityInput(validation)
+          }}
           value={validation.values.state?.value}
           onBlur={validation.handleBlur}
           inputLabel='Estado'
