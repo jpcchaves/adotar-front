@@ -1,4 +1,6 @@
 import { Grid, Typography } from '@mui/material'
+import React from 'react'
+import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItems'
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import FormStepControls from '../../../formStepsControls'
 import TextPreviewField from '../../../textPreviewField'
@@ -8,51 +10,31 @@ interface IProps extends FormStepProps {
   handleBack: () => void
 }
 
+const DataGridItem = ({ label, defaultValue }: { label: string; defaultValue: string }) => (
+  <Grid item xs={4}>
+    <Typography variant='overline'>{label}</Typography>
+    <TextPreviewField defaultValue={defaultValue} />
+  </Grid>
+)
+
 const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
-  const { name, typeId, gender, size, healthCondition } = validation.values
+  const dataItems = getPreviewDataItems(validation)
 
   return (
     <>
       <Grid container spacing={5}>
-        <Grid item xs={12}>
-          <Typography variant='h5' sx={{ fontWeight: 600, color: 'text.primary', textDecoration: 'underline' }}>
-            Dados
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='overline'>Nome</Typography>
-          <TextPreviewField defaultValue={name} />
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='overline'>Tipo</Typography>
-          <TextPreviewField defaultValue={typeId?.label} />
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='overline'>Sexo</Typography>
-          <TextPreviewField defaultValue={gender?.label} />
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='overline'>Tamanho</Typography>
-          <TextPreviewField defaultValue={size?.label} />
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='overline'>Estado de Saúde</Typography>
-          <TextPreviewField defaultValue={healthCondition?.label} />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography variant='h5' sx={{ fontWeight: 600, color: 'text.primary' }}>
-            Detalhes
-          </Typography>
-          <Typography variant='h5' sx={{ fontWeight: 600, color: 'text.primary' }}>
-            Endereço
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant='h5' sx={{ fontWeight: 600, color: 'text.primary' }}>
-            Fotos
-          </Typography>
-        </Grid>
+        {dataItems.map((item, index) => (
+          <React.Fragment key={index}>
+            <Grid item xs={12} pb={0} mb={0}>
+              <Typography variant='h6' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                {item.title}
+              </Typography>
+            </Grid>
+            {item?.items.map((dataItem, indexDataItem) => (
+              <DataGridItem key={indexDataItem} label={dataItem.label} defaultValue={dataItem.defaultValue} />
+            ))}
+          </React.Fragment>
+        ))}
 
         <FormStepControls activeStep={activeStep} handleBack={handleBack} />
       </Grid>
