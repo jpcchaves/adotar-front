@@ -25,19 +25,19 @@ const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Tipo</Typography>
-          <Typography>{typeId?.label}</Typography>
+          <TextPreviewField defaultValue={typeId?.label} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Sexo</Typography>
-          <Typography>{gender?.label}</Typography>
+          <TextPreviewField defaultValue={gender?.label} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Tamanho</Typography>
-          <Typography>{size?.label}</Typography>
+          <TextPreviewField defaultValue={size?.label} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Estado de Saúde</Typography>
-          <Typography>{healthCondition?.label}</Typography>
+          <TextPreviewField defaultValue={healthCondition?.label} />
         </Grid>
 
         <Grid item xs={12}>
