@@ -1,27 +1,18 @@
-import { Box, TextField } from '@mui/material'
+import { StyledPaper } from './style'
 
 interface IProps {
   defaultValue: string
 }
 
-const TextPreviewField = ({ defaultValue }: IProps) => {
+const TextPreviewField = ({ defaultValue = '' }: IProps) => {
   return (
-    <Box>
-      <TextField
-        fullWidth
-        variant='filled'
-        value={defaultValue}
-        InputProps={{
-          readOnly: true,
-          style: { textAlign: 'center', fontSize: '16px', paddingTop: '-12px' },
-          inputProps: {
-            style: {
-              lineHeight: 'unset'
-            }
-          }
-        }}
-      />
-    </Box>
+    <StyledPaper
+      elevation={3}
+      variant='outlined'
+      style={{ padding: '10px 0 10px 5px', borderRadius: '5px', userSelect: 'none' }}
+    >
+      {defaultValue}
+    </StyledPaper>
   )
 }
 

@@ -21,7 +21,7 @@ import { isActiveStepEqualsToIndex, shouldSetFormError } from '../../utils/shoul
 import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
 
 const PetsForm = () => {
-  const { activeStep, handleNext, handleBack } = useStepper(0)
+  const { activeStep, handleNext, handleBack } = useStepper(4)
 
   const validation = useFormik({
     enableReinitialize: true,
