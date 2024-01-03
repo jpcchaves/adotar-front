@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import FormStepControls from '../../../formStepsControls'
+import TextPreviewField from '../../../textPreviewField'
 
 interface IProps extends FormStepProps {
   activeStep: number
@@ -20,7 +21,7 @@ const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Nome</Typography>
-          <Typography>{name}</Typography>
+          <TextPreviewField defaultValue={name} />
         </Grid>
         <Grid item xs={4}>
           <Typography variant='overline'>Tipo</Typography>
