@@ -1,4 +1,5 @@
 import { FormikValues } from 'formik'
+import { formatZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
 
 const firstStepDataItems = (validation: FormikValues) => [
   {
@@ -31,7 +32,7 @@ const thirdStepDataItems = (validation: FormikValues) => [
   {
     title: 'Endereço',
     items: [
-      { label: 'CEP', defaultValue: validation.values.zipcode || '' },
+      { label: 'CEP', defaultValue: formatZipcode(validation.values.zipcode) || '' },
       { label: 'Estado', defaultValue: validation.values.state?.label || '' },
       { label: 'Cidade', defaultValue: validation.values.city?.label || '' },
       { label: 'Rua', defaultValue: validation.values.street || '' },
