@@ -58,14 +58,21 @@ export const stepThreeInitialValues = () => {
   }
 }
 
+export const stepFourInitialValues = () => {
+  return {
+    petPictures: []
+  }
+}
+
 export const getFormInitialValues = () => {
   return {
     ...stepOneInitialValues(),
     ...stepTwoInitialValues(),
-    ...stepThreeInitialValues()
+    ...stepThreeInitialValues(),
+    ...stepFourInitialValues()
   }
 }
 
 export const getFormInitialValuesArr = () => {
-  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues()]
+  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues(), stepFourInitialValues()]
 }

@@ -21,7 +21,14 @@ const FourthStep = ({ activeStep, validation, handleBack }: IProps) => {
         </Grid>
       </Grid>
 
-      <InputFile />
+      <InputFile
+        setFieldValue={validation.setFieldValue}
+        isInvalid={!!(validation.errors.petPictures && validation.touched.petPictures)}
+        errorMessage={validation.errors.petPictures}
+        petPictures={validation.values.petPictures}
+        name='petPictures'
+        id='petPictures'
+      />
 
       <Grid container spacing={5} mt={5}>
         <FormStepControls activeStep={activeStep} handleBack={handleBack} />
