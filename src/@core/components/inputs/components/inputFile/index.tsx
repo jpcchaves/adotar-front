@@ -60,7 +60,7 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
       })
     },
     onDropRejected: () => {
-      toast.error('You can only upload 2 files & maximum size of 2 MB.', {
+      toast.error('O tamanho máximo permitido é de 2 MB por arquivo.', {
         duration: 2000
       })
     }
