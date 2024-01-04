@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem'
 import Icon from 'src/@core/components/icon'
 
 // ** Third Party Components
-import { Typography } from '@mui/material'
+import { Alert, Typography } from '@mui/material'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
@@ -21,13 +21,14 @@ import { HeadingTypography, Img } from './style'
 
 interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   setFieldValue: (field: string, value: any) => void
+  isInvalid: boolean
+  errorMessage: string
+  petPictures: { file: File; id: string; imgUrl: string }[]
 }
 
-const InputFile = ({ setFieldValue, ...props }: IProps) => {
+const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...props }: IProps) => {
   // ** State
-  const [files, setFiles] = useState<{ file: File; id: string; imgUrl: string }[]>([])
-
-  console.log('files', files)
+  const [, setFiles] = useState<{ file: File; id: string; imgUrl: string }[]>([])
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -51,9 +52,12 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
         })
       )
 
-      setFiles(prevFiles => [...prevFiles, ...filesWithId])
-      const imgUrls = filesWithId.map(fileData => ({ imgUrl: fileData.imgUrl }))
-      setFieldValue('petPictures', imgUrls)
+      setFiles(prevFiles => {
+        const updatedValue = [...prevFiles, ...filesWithId]
+        setFieldValue('petPictures', updatedValue)
+
+        return updatedValue
+      })
     },
     onDropRejected: () => {
       toast.error('You can only upload 2 files & maximum size of 2 MB.', {
@@ -71,13 +75,15 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
   }
 
   const onDelete = (fileId: string) => {
-    setFiles(prevFiles => prevFiles.filter(file => file.id !== fileId))
+    setFiles(prevFiles => {
+      const filteredFiles = prevFiles.filter(file => file.id !== fileId)
+      setFieldValue('petPictures', filteredFiles)
 
-    const imgUrls = files.filter(fileData => fileData.id !== fileId).map(fileData => ({ imgUrl: fileData.imgUrl }))
-    setFieldValue('petPictures', imgUrls)
+      return filteredFiles
+    })
   }
 
-  const fileList = files.map((fileData: { file: File; id: string; imgUrl: string }, idx) => {
+  const fileList = petPictures.map((fileData: { file: File; id: string; imgUrl: string }, idx) => {
     return (
       <ListItem key={`${fileData.id}-${idx}`}>
         <div className='file-details'>
@@ -100,6 +106,7 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
 
   const handleRemoveAllFiles = () => {
     setFiles([])
+    setFieldValue('petPictures', [])
   }
 
   const readFileAsDataURL = (file: File): Promise<string> => {
@@ -112,7 +119,7 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
   }
 
   return (
-    <DropzoneWrapper>
+    <DropzoneWrapper isInvalid={isInvalid}>
       <Box {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} {...props} />
         <Box
@@ -136,7 +143,8 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
           </Box>
         </Box>
       </Box>
-      {files.length ? (
+
+      {petPictures.length ? (
         <>
           <List>{fileList}</List>
           <div className='buttons'>
@@ -146,6 +154,12 @@ const InputFile = ({ setFieldValue, ...props }: IProps) => {
           </div>
         </>
       ) : null}
+
+      {isInvalid && (
+        <Alert variant='outlined' severity='error' sx={{ my: 2 }}>
+          {errorMessage}
+        </Alert>
+      )}
     </DropzoneWrapper>
   )
 }
