@@ -86,5 +86,12 @@ export const petFormValidationSchema = [
       })
       .nullable()
       .required('O campo é obrigatório')
+  }),
+
+  // Step four
+  Yup.object({
+    petPictures: Yup.array()
+      .min(1, 'Pelo menos 1 foto do PET é necessária')
+      .max(5, 'Máximo de 5 fotos do PET permitido')
   })
 ]

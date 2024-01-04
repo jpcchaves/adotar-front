@@ -13,6 +13,8 @@ interface IProps {
 }
 
 const FourthStep = ({ activeStep, validation, handleBack }: IProps) => {
+  console.log(validation.values.petPictures)
+
   return (
     <>
       <Grid container spacing={5} mb={5}>
@@ -21,7 +23,7 @@ const FourthStep = ({ activeStep, validation, handleBack }: IProps) => {
         </Grid>
       </Grid>
 
-      <InputFile />
+      <InputFile setFieldValue={validation.setFieldValue} name='petPictures' />
 
       <Grid container spacing={5} mt={5}>
         <FormStepControls activeStep={activeStep} handleBack={handleBack} />

@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { DetailedHTMLProps, InputHTMLAttributes, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -19,9 +19,15 @@ import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 import { v4 as uuidv4 } from 'uuid'
 import { HeadingTypography, Img } from './style'
 
-const InputFile = () => {
+interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  setFieldValue: (field: string, value: any) => void
+}
+
+const InputFile = ({ setFieldValue, ...props }: IProps) => {
   // ** State
   const [files, setFiles] = useState<{ file: File; id: string; imgUrl: string }[]>([])
+
+  console.log('files', files)
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -46,6 +52,8 @@ const InputFile = () => {
       )
 
       setFiles(prevFiles => [...prevFiles, ...filesWithId])
+      const imgUrls = filesWithId.map(fileData => ({ imgUrl: fileData.imgUrl }))
+      setFieldValue('petPictures', imgUrls)
     },
     onDropRejected: () => {
       toast.error('You can only upload 2 files & maximum size of 2 MB.', {
@@ -64,6 +72,9 @@ const InputFile = () => {
 
   const onDelete = (fileId: string) => {
     setFiles(prevFiles => prevFiles.filter(file => file.id !== fileId))
+
+    const imgUrls = files.filter(fileData => fileData.id !== fileId).map(fileData => ({ imgUrl: fileData.imgUrl }))
+    setFieldValue('petPictures', imgUrls)
   }
 
   const fileList = files.map((fileData: { file: File; id: string; imgUrl: string }, idx) => {
@@ -103,7 +114,7 @@ const InputFile = () => {
   return (
     <DropzoneWrapper>
       <Box {...getRootProps({ className: 'dropzone' })}>
-        <input id='pet-dropzone' {...getInputProps()} />
+        <input {...getInputProps()} {...props} />
         <Box
           sx={{
             display: 'flex',
