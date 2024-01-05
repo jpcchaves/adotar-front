@@ -6,11 +6,11 @@ const firstStepDataItems = (validation: FormikValues) => [
   {
     title: 'Dados',
     items: [
-      { label: 'Nome', defaultValue: validation.values.name },
-      { label: 'Tipo', defaultValue: validation.values.typeId?.label },
-      { label: 'Sexo', defaultValue: validation.values.gender?.label },
-      { label: 'Tamanho', defaultValue: validation.values.size?.label },
-      { label: 'Estado de Saúde', defaultValue: validation.values.healthCondition?.label }
+      { label: 'Nome', key: 'name', defaultValue: validation.values.name },
+      { label: 'Tipo', key: 'typeId', defaultValue: validation.values.typeId?.label },
+      { label: 'Sexo', key: 'gender', defaultValue: validation.values.gender?.label },
+      { label: 'Tamanho', key: 'size', defaultValue: validation.values.size?.label },
+      { label: 'Estado de Saúde', key: 'healthCondition', defaultValue: validation.values.healthCondition?.label }
     ]
   }
 ]
@@ -19,13 +19,14 @@ const secondStepDataItems = (validation: FormikValues) => [
   {
     title: 'Detalhes',
     items: [
-      { label: 'Raça', defaultValue: validation.values.breedId?.label || '' },
-      { label: 'Cor', defaultValue: validation.values.color || '' },
-      { label: 'Anos', defaultValue: validation.values.yearsAge?.label || '' },
-      { label: 'Meses', defaultValue: validation.values.monthsAge?.label || '' },
-      { label: 'Descrição', defaultValue: validation.values.description || '' },
+      { label: 'Raça', key: 'breedId', defaultValue: validation.values.breedId?.label || '' },
+      { label: 'Cor', key: 'color', defaultValue: validation.values.color || '' },
+      { label: 'Anos', key: 'yearsAge', defaultValue: validation.values.yearsAge?.label || '' },
+      { label: 'Meses', key: 'monthsAge', defaultValue: validation.values.monthsAge?.label || '' },
+      { label: 'Descrição', key: 'description', defaultValue: validation.values.description || '' },
       {
         label: 'Características',
+        key: 'characteristicsIds',
         defaultValue: getCharacteristics(validation.values.characteristicsIds || []).join(', ')
       }
     ]
@@ -36,13 +37,13 @@ const thirdStepDataItems = (validation: FormikValues) => [
   {
     title: 'Endereço',
     items: [
-      { label: 'CEP', defaultValue: formatZipcode(validation.values.zipcode) || '' },
-      { label: 'Estado', defaultValue: validation.values.state?.label || '' },
-      { label: 'Cidade', defaultValue: validation.values.city?.label || '' },
-      { label: 'Rua', defaultValue: validation.values.street || '' },
-      { label: 'Número', defaultValue: validation.values.number || '' },
-      { label: 'Complemento', defaultValue: validation.values.complement || '' },
-      { label: 'Bairro', defaultValue: validation.values.neighborhood || '' }
+      { label: 'CEP', key: 'zipcode', defaultValue: formatZipcode(validation.values.zipcode) || '' },
+      { label: 'Estado', key: 'state', defaultValue: validation.values.state?.label || '' },
+      { label: 'Cidade', key: 'city', defaultValue: validation.values.city?.label || '' },
+      { label: 'Rua', key: 'street', defaultValue: validation.values.street || '' },
+      { label: 'Número', key: 'number', defaultValue: validation.values.number || '' },
+      { label: 'Bairro', key: 'neighborhood', defaultValue: validation.values.neighborhood || '' },
+      { label: 'Complemento', key: 'complement', defaultValue: validation.values.complement || '' }
     ]
   }
 ]
