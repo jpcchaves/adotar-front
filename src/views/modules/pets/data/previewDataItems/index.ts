@@ -1,5 +1,6 @@
 import { FormikValues } from 'formik'
 import { formatZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
+import { getCharacteristics } from './getCharacteristics'
 
 const firstStepDataItems = (validation: FormikValues) => [
   {
@@ -23,7 +24,10 @@ const secondStepDataItems = (validation: FormikValues) => [
       { label: 'Anos', defaultValue: validation.values.yearsAge?.label || '' },
       { label: 'Meses', defaultValue: validation.values.monthsAge?.label || '' },
       { label: 'Descrição', defaultValue: validation.values.description || '' },
-      { label: 'Características', defaultValue: (validation.values.characteristicsIds || []).join(', ') }
+      {
+        label: 'Características',
+        defaultValue: getCharacteristics(validation.values.characteristicsIds || []).join(', ')
+      }
     ]
   }
 ]
