@@ -1,16 +1,21 @@
 import { FormikValues } from 'formik'
 import { formatZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
+import { PetFormKeys } from '../../components/formSteps/Enum/PetFormKeys'
 import { getCharacteristics } from './getCharacteristics'
 
 const firstStepDataItems = (validation: FormikValues) => [
   {
     title: 'Dados',
     items: [
-      { label: 'Nome', key: 'name', defaultValue: validation.values.name },
-      { label: 'Tipo', key: 'typeId', defaultValue: validation.values.typeId?.label },
-      { label: 'Sexo', key: 'gender', defaultValue: validation.values.gender?.label },
-      { label: 'Tamanho', key: 'size', defaultValue: validation.values.size?.label },
-      { label: 'Estado de Saúde', key: 'healthCondition', defaultValue: validation.values.healthCondition?.label }
+      { label: 'Nome', key: PetFormKeys.Name, defaultValue: validation.values[PetFormKeys.Name] },
+      { label: 'Tipo', key: PetFormKeys.TypeId, defaultValue: validation.values[PetFormKeys.TypeId]?.label },
+      { label: 'Sexo', key: PetFormKeys.Gender, defaultValue: validation.values[PetFormKeys.Gender]?.label },
+      { label: 'Tamanho', key: PetFormKeys.Size, defaultValue: validation.values[PetFormKeys.Size]?.label },
+      {
+        label: 'Estado de Saúde',
+        key: PetFormKeys.HealthCondition,
+        defaultValue: validation.values[PetFormKeys.HealthCondition]?.label
+      }
     ]
   }
 ]
@@ -19,15 +24,23 @@ const secondStepDataItems = (validation: FormikValues) => [
   {
     title: 'Detalhes',
     items: [
-      { label: 'Raça', key: 'breedId', defaultValue: validation.values.breedId?.label || '' },
-      { label: 'Cor', key: 'color', defaultValue: validation.values.color || '' },
-      { label: 'Anos', key: 'yearsAge', defaultValue: validation.values.yearsAge?.label || '' },
-      { label: 'Meses', key: 'monthsAge', defaultValue: validation.values.monthsAge?.label || '' },
-      { label: 'Descrição', key: 'description', defaultValue: validation.values.description || '' },
+      { label: 'Raça', key: PetFormKeys.BreedId, defaultValue: validation.values[PetFormKeys.BreedId]?.label || '' },
+      { label: 'Cor', key: PetFormKeys.Color, defaultValue: validation.values[PetFormKeys.Color] || '' },
+      { label: 'Anos', key: PetFormKeys.YearsAge, defaultValue: validation.values[PetFormKeys.YearsAge]?.label || '' },
+      {
+        label: 'Meses',
+        key: PetFormKeys.MonthsAge,
+        defaultValue: validation.values[PetFormKeys.MonthsAge]?.label || ''
+      },
+      {
+        label: 'Descrição',
+        key: PetFormKeys.Description,
+        defaultValue: validation.values[PetFormKeys.Description] || ''
+      },
       {
         label: 'Características',
-        key: 'characteristicsIds',
-        defaultValue: getCharacteristics(validation.values.characteristicsIds || []).join(', ')
+        key: PetFormKeys.CharacteristicsIds,
+        defaultValue: getCharacteristics(validation.values[PetFormKeys.CharacteristicsIds || []]).join(', ')
       }
     ]
   }
@@ -37,13 +50,25 @@ const thirdStepDataItems = (validation: FormikValues) => [
   {
     title: 'Endereço',
     items: [
-      { label: 'CEP', key: 'zipcode', defaultValue: formatZipcode(validation.values.zipcode) || '' },
-      { label: 'Estado', key: 'state', defaultValue: validation.values.state?.label || '' },
-      { label: 'Cidade', key: 'city', defaultValue: validation.values.city?.label || '' },
-      { label: 'Rua', key: 'street', defaultValue: validation.values.street || '' },
-      { label: 'Número', key: 'number', defaultValue: validation.values.number || '' },
-      { label: 'Bairro', key: 'neighborhood', defaultValue: validation.values.neighborhood || '' },
-      { label: 'Complemento', key: 'complement', defaultValue: validation.values.complement || '' }
+      {
+        label: 'CEP',
+        key: PetFormKeys.Zipcode,
+        defaultValue: formatZipcode(validation.values[PetFormKeys.Zipcode]) || ''
+      },
+      { label: 'Estado', key: PetFormKeys.State, defaultValue: validation.values[PetFormKeys.State]?.label || '' },
+      { label: 'Cidade', key: PetFormKeys.City, defaultValue: validation.values[PetFormKeys.City]?.label || '' },
+      { label: 'Rua', key: PetFormKeys.Street, defaultValue: validation.values[PetFormKeys.Street] || '' },
+      { label: 'Número', key: PetFormKeys.Number, defaultValue: validation.values[PetFormKeys.Number] || '' },
+      {
+        label: 'Bairro',
+        key: PetFormKeys.Neighborhood,
+        defaultValue: validation.values[PetFormKeys.Neighborhood] || ''
+      },
+      {
+        label: 'Complemento',
+        key: PetFormKeys.Complement,
+        defaultValue: validation.values[PetFormKeys.Complement] || ''
+      }
     ]
   }
 ]

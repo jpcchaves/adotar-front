@@ -4,14 +4,15 @@ import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItem
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import FormStepControls from '../../../formStepsControls'
 import TextPreviewField from '../../../textPreviewField'
+import { defineDataGridItemSize } from '../../utils/defineDataGridItemSize'
 
 interface IProps extends FormStepProps {
   activeStep: number
   handleBack: () => void
 }
 
-const DataGridItem = ({ label, defaultValue }: { label: string; defaultValue: string }) => (
-  <Grid item xs={4}>
+const DataGridItem = ({ label, defaultValue, gridKey }: { label: string; defaultValue: string; gridKey: string }) => (
+  <Grid item xs={defineDataGridItemSize(gridKey)}>
     <Typography variant='overline'>{label}</Typography>
     <TextPreviewField defaultValue={defaultValue} />
   </Grid>
@@ -30,8 +31,13 @@ const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
                 {item.title}
               </Typography>
             </Grid>
-            {item?.items.map((dataItem, indexDataItem) => (
-              <DataGridItem key={indexDataItem} label={dataItem.label} defaultValue={dataItem.defaultValue} />
+            {item?.items.map((dataItem, dataItemIdx) => (
+              <DataGridItem
+                key={`${dataItem.key}-${dataItemIdx}`}
+                gridKey={dataItem.key}
+                label={dataItem.label}
+                defaultValue={dataItem.defaultValue}
+              />
             ))}
           </React.Fragment>
         ))}
