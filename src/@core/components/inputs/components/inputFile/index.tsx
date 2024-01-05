@@ -19,16 +19,22 @@ import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 import { v4 as uuidv4 } from 'uuid'
 import { HeadingTypography, Img } from './style'
 
+type PictureModel = {
+  file: File
+  id: string
+  imgUrl: string
+}
+
 interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   setFieldValue: (field: string, value: any) => void
   isInvalid: boolean
   errorMessage: string
-  petPictures: { file: File; id: string; imgUrl: string }[]
+  petPictures: PictureModel[]
 }
 
 const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...props }: IProps) => {
   // ** State
-  const [, setFiles] = useState<{ file: File; id: string; imgUrl: string }[]>([])
+  const [, setFiles] = useState<PictureModel[]>([])
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -54,7 +60,7 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
 
       setFiles(prevFiles => {
         const updatedValue = [...prevFiles, ...filesWithId]
-        setFieldValue('petPictures', updatedValue)
+        handlePetPicuresValueChange(updatedValue)
 
         return updatedValue
       })
@@ -77,13 +83,13 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
   const onDelete = (fileId: string) => {
     setFiles(prevFiles => {
       const filteredFiles = prevFiles.filter(file => file.id !== fileId)
-      setFieldValue('petPictures', filteredFiles)
+      handlePetPicuresValueChange(filteredFiles)
 
       return filteredFiles
     })
   }
 
-  const fileList = petPictures.map((fileData: { file: File; id: string; imgUrl: string }, idx) => {
+  const fileList = petPictures.map((fileData: PictureModel, idx) => {
     return (
       <ListItem key={`${fileData.id}-${idx}`}>
         <div className='file-details'>
@@ -106,7 +112,11 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
 
   const handleRemoveAllFiles = () => {
     setFiles([])
-    setFieldValue('petPictures', [])
+    handlePetPicuresValueChange([])
+  }
+
+  const handlePetPicuresValueChange = (newValue: PictureModel[]) => {
+    setFieldValue('petPictures', newValue)
   }
 
   const readFileAsDataURL = (file: File): Promise<string> => {
