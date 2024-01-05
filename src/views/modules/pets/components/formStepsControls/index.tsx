@@ -1,4 +1,5 @@
-import { Button, Grid } from '@mui/material'
+import { Box, Button, Grid } from '@mui/material'
+import { useRouter } from 'next/router'
 import { steps } from '../../data/formSteps'
 
 interface IProps {
@@ -8,6 +9,8 @@ interface IProps {
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 const FormStepControls = ({ activeStep, handleBack = () => {} }: IProps) => {
+  const router = useRouter()
+
   const firstStepIndex = 0
   const lastStepIndex = steps.length - 1
 
@@ -22,9 +25,14 @@ const FormStepControls = ({ activeStep, handleBack = () => {} }: IProps) => {
           Voltar
         </Button>
       )}
-      <Button size='large' type='submit' variant='contained'>
-        {isLastStep ? 'Enviar' : 'Próximo'}
-      </Button>
+      <Box>
+        <Button size='large' type='button' variant='text' onClick={() => router.back()} sx={{ marginRight: '10px' }}>
+          Cancelar
+        </Button>
+        <Button size='large' type='submit' variant='contained'>
+          {isLastStep ? 'Enviar' : 'Próximo'}
+        </Button>
+      </Box>
     </Grid>
   )
 }
