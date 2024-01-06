@@ -2,28 +2,13 @@ import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItems'
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
+import DataGridItem from '../../../dataGridItem'
 import FormStepControls from '../../../formStepsControls'
-import TextPreviewField from '../../../textPreviewField'
-import { PetFormKeys } from '../../Enum/PetFormKeys'
-import { defineDataGridItemSize } from '../../utils/defineDataGridItemSize'
 
 interface IProps extends FormStepProps {
   activeStep: number
   handleBack: () => void
 }
-
-interface IDataGridItemProps {
-  label: string
-  defaultValue: string
-  gridKey: PetFormKeys
-}
-
-const DataGridItem = ({ label, defaultValue, gridKey }: IDataGridItemProps) => (
-  <Grid item xs={defineDataGridItemSize(gridKey)}>
-    <Typography variant='overline'>{label}</Typography>
-    <TextPreviewField defaultValue={defaultValue} />
-  </Grid>
-)
 
 const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
   const dataItems = getPreviewDataItems(validation)
