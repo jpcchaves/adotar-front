@@ -1,8 +1,8 @@
 // ** MUI imports
-import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
 
-const DropzoneWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+const DropzoneWrapper = styled(Box)<BoxProps & { isInvalid?: boolean }>(({ theme, isInvalid }) => ({
   '&.dropzone, & .dropzone': {
     minHeight: 300,
     display: 'flex',
@@ -13,7 +13,13 @@ const DropzoneWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     justifyContent: 'center',
     padding: theme.spacing(4),
     borderRadius: theme.shape.borderRadius,
-    border: `2px dashed ${theme.palette.mode === 'light' ? 'rgba(93, 89, 98, 0.22)' : 'rgba(247, 244, 254, 0.14)'}`,
+    border: `2px dashed ${
+      isInvalid
+        ? theme.palette.error.main
+        : theme.palette.mode === 'light'
+        ? 'rgba(93, 89, 98, 0.22)'
+        : 'rgba(247, 244, 254, 0.14)'
+    }`,
     [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     },

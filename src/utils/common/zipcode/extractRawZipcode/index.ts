@@ -6,3 +6,7 @@
 export const extractZipcode = (maskedZipcode: string): string | null => {
   return maskedZipcode.replace(/\D/g, '')
 }
+
+export const formatZipcode = (rawZipcode: string): string => {
+  return rawZipcode.slice(0, 2) + '.' + rawZipcode.slice(2, 5) + '-' + rawZipcode.slice(5)
+}
