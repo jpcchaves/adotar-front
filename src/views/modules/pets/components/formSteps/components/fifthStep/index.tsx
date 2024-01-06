@@ -4,6 +4,7 @@ import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItem
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import DataGridItem from '../../../dataGridItem'
 import FormStepControls from '../../../formStepsControls'
+import PetPicturesPreview from '../../../picPicturesPreview'
 
 interface IProps extends FormStepProps {
   activeStep: number
@@ -15,6 +16,14 @@ const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
 
   return (
     <>
+      <Grid item xs={12} pb={0} mb={0}>
+        <Typography variant='h6' sx={{ fontWeight: 600, color: 'text.primary' }}>
+          Fotos
+        </Typography>
+      </Grid>
+
+      <PetPicturesPreview petPictures={validation.values.petPictures} />
+
       <Grid container spacing={5}>
         {dataItems.map((item, index) => (
           <React.Fragment key={index}>

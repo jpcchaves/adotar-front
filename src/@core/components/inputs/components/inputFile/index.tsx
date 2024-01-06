@@ -17,13 +17,8 @@ import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 import { v4 as uuidv4 } from 'uuid'
+import { PictureModel } from '../../models/picture/PictureModel'
 import { HeadingTypography, Img } from './style'
-
-type PictureModel = {
-  file: File
-  id: string
-  imgUrl: string
-}
 
 interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   setFieldValue: (field: string, value: any) => void
