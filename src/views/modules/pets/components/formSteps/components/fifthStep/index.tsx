@@ -4,6 +4,7 @@ import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItem
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import FormStepControls from '../../../formStepsControls'
 import TextPreviewField from '../../../textPreviewField'
+import { PetFormKeys } from '../../Enum/PetFormKeys'
 import { defineDataGridItemSize } from '../../utils/defineDataGridItemSize'
 
 interface IProps extends FormStepProps {
@@ -11,7 +12,13 @@ interface IProps extends FormStepProps {
   handleBack: () => void
 }
 
-const DataGridItem = ({ label, defaultValue, gridKey }: { label: string; defaultValue: string; gridKey: string }) => (
+interface IDataGridItemProps {
+  label: string
+  defaultValue: string
+  gridKey: PetFormKeys
+}
+
+const DataGridItem = ({ label, defaultValue, gridKey }: IDataGridItemProps) => (
   <Grid item xs={defineDataGridItemSize(gridKey)}>
     <Typography variant='overline'>{label}</Typography>
     <TextPreviewField defaultValue={defaultValue} />
