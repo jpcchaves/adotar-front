@@ -3,7 +3,9 @@ import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
+import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
+import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
@@ -16,6 +18,7 @@ const NOT_FAVORITE = false
 export type toggleSavedPetAction = 'ADD' | 'REMOVE'
 
 const usePets = () => {
+  const router = useRouter()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -24,7 +27,7 @@ const usePets = () => {
     setLoading(true)
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
-      `${petsRoutes.petsEndpoint}?page=${page}&size=6`
+      `${petsRoutes.petsEndpoint}?page=${page}&size=6&sort=createdAt,desc`
     )
       .then(res => {
         handlePetListPagination(res)
@@ -34,6 +37,19 @@ const usePets = () => {
       })
       .finally(() => {
         setLoading(false)
+      })
+  }
+
+  const createPet = async (data: PetCreateDTO) => {
+    await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+      .then(res => {
+        router.back()
+        toast.success(res.message)
+        console.log(res)
+      })
+      .catch(err => {
+        toast.error(err.message)
+        console.log(err)
       })
   }
 
@@ -97,7 +113,7 @@ const usePets = () => {
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
   }
 
-  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
+  return { getListPets, createPet, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
 }
 
 export default usePets

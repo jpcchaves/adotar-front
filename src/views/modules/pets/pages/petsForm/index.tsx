@@ -12,28 +12,53 @@ import FormWizardStepper from '../../components/formWizardStepper'
 
 // ** Styled Components
 import { useFormik } from 'formik'
+import { PictureModel } from 'src/@core/components/inputs/models/picture/PictureModel'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
+import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import renderContent from '../../components/getStepContent'
 import { getFormInitialValues } from '../../data/formInitialValues'
 import { steps } from '../../data/formSteps'
+import usePets from '../../hooks/usePets'
 import useStepper from '../../hooks/useStepper'
 import { isActiveStepEqualsToIndex, shouldSetFormError } from '../../utils/shouldSetFormError'
 import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
 
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
+  const { createPet } = usePets()
 
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: getFormInitialValues(),
     validationSchema: petFormValidationSchema[activeStep],
     onSubmit: (values, { setErrors, setTouched }) => {
-      handleNext()
+      const isLastStep = !!(activeStep === steps.length - 1)
+
+      if (!isLastStep) handleNext()
+
       setErrors({})
       setTouched({})
 
-      if (activeStep === steps.length - 1) {
-        console.log(values)
+      const petPicturesToSubmit = (values.petPictures || []).map((p: PictureModel) => ({
+        imgUrl: p.imgUrl
+      }))
+
+      const valuesToSubmit: PetCreateDTO = {
+        ...values,
+        typeId: values.typeId.value,
+        size: values.size.value,
+        monthsAge: values.monthsAge.value,
+        yearsAge: values.yearsAge.value,
+        healthCondition: values.healthCondition.value,
+        gender: values.gender.value,
+        cityId: '3224',
+        state: values.state.value,
+        breedId: values.breedId.value,
+        petPictures: petPicturesToSubmit
+      }
+
+      if (isLastStep) {
+        createPet(valuesToSubmit)
       }
     }
   })
