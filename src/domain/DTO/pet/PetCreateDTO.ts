@@ -1,7 +1,7 @@
 export interface PetCreateDTO {
   breedId: string
   characteristicsIds: string[]
-  cityId: string
+  cityIbge: string
   color: string
   complement: string
   description: string

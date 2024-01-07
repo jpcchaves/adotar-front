@@ -47,7 +47,7 @@ export const stepThreeInitialValues = () => {
       value: '',
       label: ''
     },
-    cityId: {
+    city: {
       value: '',
       label: ''
     },

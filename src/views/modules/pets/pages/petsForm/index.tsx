@@ -51,7 +51,7 @@ const PetsForm = () => {
         yearsAge: values.yearsAge.value,
         healthCondition: values.healthCondition.value,
         gender: values.gender.value,
-        cityId: '3224',
+        cityIbge: values.city.value,
         state: values.state.value,
         breedId: values.breedId.value,
         petPictures: petPicturesToSubmit
