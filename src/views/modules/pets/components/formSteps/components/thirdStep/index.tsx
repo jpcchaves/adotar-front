@@ -57,11 +57,11 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
 
       <Grid item xs={6} sm={4}>
         <SelectInput
-          inputIdentifier='city'
-          isInvalid={!!((validation.errors.city?.label || validation.errors?.city) && validation.touched.city)}
-          errorMessage={validation.errors.city?.label || validation.errors?.city}
+          inputIdentifier='cityId'
+          isInvalid={!!((validation.errors.cityId?.label || validation.errors?.cityId) && validation.touched.cityId)}
+          errorMessage={validation.errors.cityId?.label || validation.errors?.cityId}
           setFieldValue={validation.setFieldValue}
-          value={validation.values.city?.value}
+          value={validation.values.cityId?.value}
           onBlur={validation.handleBlur}
           inputLabel='Cidade'
           isRequired
