@@ -52,7 +52,7 @@ const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue }: IP
             setFieldValue('state', { value: state.value, label: state.label })
           }
 
-          setFieldValue('city', { value: viaCepAddress.ibge, label: viaCepAddress.localidade })
+          setFieldValue('cityId', { value: viaCepAddress.ibge, label: viaCepAddress.localidade })
 
           setFieldValue('neighborhood', viaCepAddress.bairro || '')
 
