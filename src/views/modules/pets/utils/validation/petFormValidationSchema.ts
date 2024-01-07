@@ -72,7 +72,7 @@ export const petFormValidationSchema = [
     number: Yup.string().required('O campo é obrigatório'),
     complement: Yup.string().required('O campo é obrigatório'),
     neighborhood: Yup.string().required('O campo é obrigatório'),
-    city: Yup.object()
+    cityId: Yup.object()
       .shape({
         label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
