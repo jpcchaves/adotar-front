@@ -16,6 +16,8 @@ interface IProps extends FormStepProps {
 
 const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
+  const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length
+  const DESCRIPTION_CHAR_LIMIT = 250
 
   return (
     <Grid container spacing={5}>
@@ -81,7 +83,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
       <Grid item xs={12}>
         <TextInput
           multiline
-          rows={6}
+          rows={4}
           inputIdentifier='description'
           inputLabel={'Descrição'}
           placeholder='Forneça informações sobre o Pet. Sua personalidade, comportamento, necessidades especiais (se houver), e qualquer outra informação relevante que possa ajudar a entender melhor as necessidades do animal.'
@@ -91,6 +93,7 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           onChange={validation.handleChange}
           onBlur={validation.handleBlur}
           value={validation.values.description}
+          characterLimit={`${DESCRIPTION_CHAR_COUNT}/${DESCRIPTION_CHAR_LIMIT}`}
         />
       </Grid>
 
