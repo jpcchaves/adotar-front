@@ -8,5 +8,5 @@ export const getPetFavPicture = (petPictures: PetPicture[]) => {
     }
   })
 
-  return favoritePic
+  return favoritePic ? favoritePic : petPictures[0]?.imgUrl
 }

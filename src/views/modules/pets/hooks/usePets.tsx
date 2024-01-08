@@ -4,7 +4,9 @@ import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
+import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
+import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import petsRoutes from '../../../../configs/routes/pets'
@@ -13,9 +15,12 @@ import useLoading from '../../../../hooks/loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
+const ONE_SECOND_IN_MILLIS = 1000
+
 export type toggleSavedPetAction = 'ADD' | 'REMOVE'
 
 const usePets = () => {
+  const { navigateBackDelayed } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -24,13 +29,29 @@ const usePets = () => {
     setLoading(true)
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
-      `${petsRoutes.petsEndpoint}?page=${page}&size=6`
+      `${petsRoutes.petsEndpoint}?page=${page}&size=6&sort=createdAt,desc`
     )
       .then(res => {
         handlePetListPagination(res)
       })
       .catch(() => {
         // console.log(err);
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  const createPet = async (data: PetCreateDTO) => {
+    setLoading(true)
+    await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+      .then(res => {
+        toast.success(res.message)
+        navigateBackDelayed(ONE_SECOND_IN_MILLIS)
+      })
+      .catch(err => {
+        toast.error(err)
+        console.log(err)
       })
       .finally(() => {
         setLoading(false)
@@ -97,7 +118,7 @@ const usePets = () => {
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
   }
 
-  return { getListPets, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
+  return { getListPets, createPet, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
 }
 
 export default usePets

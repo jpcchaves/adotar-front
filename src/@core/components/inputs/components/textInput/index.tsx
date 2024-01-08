@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, OutlinedInput, OutlinedInputProps } from '@mui/material'
+import { Box, FormControl, FormHelperText, InputLabel, OutlinedInput, OutlinedInputProps } from '@mui/material'
 import { ChangeEvent } from 'react'
 import FormFeedback from '../../../formFeedback'
 import { getInputLabel } from '../../helpers/getInputLabel'
@@ -13,6 +13,7 @@ interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   errorMessage?: string | undefined
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  characterLimit?: string
 }
 
 const TextInput = ({
@@ -23,6 +24,7 @@ const TextInput = ({
   onChange,
   onBlur,
   isRequired = false,
+  characterLimit = '',
   ...rest
 }: IProps) => {
   return (
@@ -36,7 +38,10 @@ const TextInput = ({
         onChange={onChange}
         onBlur={onBlur}
       />
-      {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
+      <Box display={'flex'} justifyContent={isInvalid ? 'space-between' : 'end'} alignItems={'center'}>
+        {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
+        {characterLimit && <FormHelperText sx={{ mr: '4px', my: '5px' }}>{characterLimit}</FormHelperText>}
+      </Box>
     </FormControl>
   )
 }

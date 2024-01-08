@@ -1,22 +1,56 @@
 export const stepOneInitialValues = () => {
   return {
-    typeId: '',
+    typeId: {
+      value: '',
+      label: ''
+    },
     name: '',
-    gender: '',
-    size: '',
-    healthCondition: ''
+    gender: {
+      value: '',
+      label: ''
+    },
+    size: {
+      value: '',
+      label: ''
+    },
+    healthCondition: {
+      value: '',
+      label: ''
+    }
   }
 }
 
 export const stepTwoInitialValues = () => {
-  return { breedId: '', color: '', yearsAge: '', monthsAge: '', description: '', characteristicsIds: [] }
+  return {
+    breedId: {
+      value: '',
+      label: ''
+    },
+    color: '',
+    yearsAge: {
+      value: '',
+      label: ''
+    },
+    monthsAge: {
+      value: '',
+      label: ''
+    },
+    description: '',
+    characteristicsIds: []
+  }
 }
 
 export const stepThreeInitialValues = () => {
   return {
     zipcode: '',
-    state: '',
-    city: '',
+    state: {
+      value: '',
+      label: ''
+    },
+    city: {
+      value: '',
+      label: ''
+    },
     street: '',
     number: '',
     complement: '',
@@ -24,14 +58,21 @@ export const stepThreeInitialValues = () => {
   }
 }
 
+export const stepFourInitialValues = () => {
+  return {
+    petPictures: []
+  }
+}
+
 export const getFormInitialValues = () => {
   return {
     ...stepOneInitialValues(),
     ...stepTwoInitialValues(),
-    ...stepThreeInitialValues()
+    ...stepThreeInitialValues(),
+    ...stepFourInitialValues()
   }
 }
 
 export const getFormInitialValuesArr = () => {
-  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues()]
+  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues(), stepFourInitialValues()]
 }
