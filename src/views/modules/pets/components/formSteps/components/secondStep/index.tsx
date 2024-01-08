@@ -7,14 +7,12 @@ import { petCharacteristics } from '../../../../data/characteristics'
 import { FormStepProps } from '../../../../models/formStepsProps'
 import { getSelectedPetType } from '../../../../utils/petBreeds/getSelectedPetType'
 import FormStepHeader from '../../../formStepHeader'
-import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
   activeStep: number
-  handleBack: () => void
 }
 
-const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
+const SecondStep = ({ validation, activeStep }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
   const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length
   const DESCRIPTION_CHAR_LIMIT = 250
@@ -109,8 +107,6 @@ const SecondStep = ({ validation, activeStep, handleBack }: IProps) => {
           errorMessage={validation.errors.characteristicsIds}
         />
       </Grid>
-
-      <FormStepControls activeStep={activeStep} handleBack={handleBack} />
     </Grid>
   )
 }

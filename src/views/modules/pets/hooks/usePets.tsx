@@ -43,6 +43,7 @@ const usePets = () => {
   }
 
   const createPet = async (data: PetCreateDTO) => {
+    setLoading(true)
     await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
       .then(res => {
         toast.success(res.message)
@@ -51,6 +52,9 @@ const usePets = () => {
       .catch(err => {
         toast.error(err)
         console.log(err)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 

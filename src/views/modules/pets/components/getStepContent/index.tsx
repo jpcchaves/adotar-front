@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { steps } from '../../data/formSteps'
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from '../formSteps'
 
-const getStepContent = (activeStep: number, handleBack: () => void, validation: FormikValues) => {
+const getStepContent = (activeStep: number, validation: FormikValues) => {
   switch (activeStep) {
     case 0:
       return (
@@ -15,25 +15,25 @@ const getStepContent = (activeStep: number, handleBack: () => void, validation: 
     case 1:
       return (
         <>
-          <SecondStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
+          <SecondStep activeStep={activeStep} validation={validation} />
         </>
       )
     case 2:
       return (
         <>
-          <ThirdStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
+          <ThirdStep activeStep={activeStep} validation={validation} />
         </>
       )
     case 3:
       return (
         <>
-          <FourthStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
+          <FourthStep activeStep={activeStep} validation={validation} />
         </>
       )
     case 4:
       return (
         <>
-          <FifthStep activeStep={activeStep} validation={validation} handleBack={handleBack} />
+          <FifthStep activeStep={activeStep} validation={validation} />
         </>
       )
     default:
@@ -41,7 +41,7 @@ const getStepContent = (activeStep: number, handleBack: () => void, validation: 
   }
 }
 
-const renderContent = (activeStep: number, handleBack: () => void, validation: FormikValues) => {
+const renderContent = (activeStep: number, validation: FormikValues) => {
   if (activeStep === steps.length) {
     return (
       <Fragment>
@@ -49,7 +49,7 @@ const renderContent = (activeStep: number, handleBack: () => void, validation: F
       </Fragment>
     )
   } else {
-    return getStepContent(activeStep, handleBack, validation)
+    return getStepContent(activeStep, validation)
   }
 }
 

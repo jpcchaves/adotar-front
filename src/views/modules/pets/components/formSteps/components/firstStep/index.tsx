@@ -6,7 +6,6 @@ import { petSizeMenuItems } from '../../../../data/petSizeMenuItems'
 import { petTypeMenuItems } from '../../../../data/petTypeMenuItems'
 import { FormStepProps } from '../../../../models/formStepsProps'
 import FormStepHeader from '../../../formStepHeader'
-import FormStepControls from '../../../formStepsControls'
 
 interface IProps extends FormStepProps {
   activeStep: number
@@ -87,7 +86,6 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           menuItems={petHealthConditionMenuItems}
         />
       </Grid>
-      <FormStepControls activeStep={activeStep} />
     </Grid>
   )
 }

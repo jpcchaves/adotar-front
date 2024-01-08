@@ -15,6 +15,7 @@ import { useFormik } from 'formik'
 import { PictureModel } from 'src/@core/components/inputs/models/picture/PictureModel'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
+import FormStepControls from '../../components/formStepsControls'
 import renderContent from '../../components/getStepContent'
 import { getFormInitialValues } from '../../data/formInitialValues'
 import { steps } from '../../data/formSteps'
@@ -25,7 +26,7 @@ import { petFormValidationSchema } from '../../utils/validation/petFormValidatio
 
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
-  const { createPet } = usePets()
+  const { createPet, isLoading } = usePets()
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -104,7 +105,8 @@ const PetsForm = () => {
             validation.handleSubmit(e)
           }}
         >
-          {renderContent(activeStep, handleBack, validation)}
+          {renderContent(activeStep, validation)}
+          <FormStepControls activeStep={activeStep} handleBack={handleBack} isLoading={isLoading} />
         </form>
       </CardContent>
     </Card>

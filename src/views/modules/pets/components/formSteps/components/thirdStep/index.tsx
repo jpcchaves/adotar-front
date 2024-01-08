@@ -4,17 +4,15 @@ import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/input
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import { states } from '../../../../data/geolocation/states'
 import FormStepHeader from '../../../formStepHeader'
-import FormStepControls from '../../../formStepsControls'
 import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 import { clearCityInput } from '../../utils/clearCityInput'
 
 interface IProps {
   activeStep: number
   validation: FormikValues
-  handleBack: () => void
 }
 
-const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
+const ThirdStep = ({ activeStep, validation }: IProps) => {
   const { selectedCities } = useGetSelectedCities({ validation })
 
   return (
@@ -121,8 +119,6 @@ const ThirdStep = ({ activeStep, validation, handleBack }: IProps) => {
           errorMessage={validation.errors.complement || validation.errors.complement}
         />
       </Grid>
-
-      <FormStepControls activeStep={activeStep} handleBack={handleBack} />
     </Grid>
   )
 }

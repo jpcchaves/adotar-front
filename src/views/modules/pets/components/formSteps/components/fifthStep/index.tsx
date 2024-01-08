@@ -3,15 +3,13 @@ import React from 'react'
 import { getPreviewDataItems } from 'src/views/modules/pets/data/previewDataItems'
 import { FormStepProps } from 'src/views/modules/pets/models/formStepsProps'
 import DataGridItem from '../../../dataGridItem'
-import FormStepControls from '../../../formStepsControls'
 import PetPicturesPreview from '../../../picPicturesPreview'
 
 interface IProps extends FormStepProps {
   activeStep: number
-  handleBack: () => void
 }
 
-const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
+const FifthStep = ({ validation }: IProps) => {
   const dataItems = getPreviewDataItems(validation)
 
   return (
@@ -42,8 +40,6 @@ const FifthStep = ({ validation, activeStep, handleBack }: IProps) => {
             ))}
           </React.Fragment>
         ))}
-
-        <FormStepControls activeStep={activeStep} handleBack={handleBack} />
       </Grid>
     </>
   )
