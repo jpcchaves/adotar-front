@@ -59,7 +59,7 @@ export const petFormValidationSchema = [
       })
       .nullable()
       .required('O campo é obrigatório'),
-    description: Yup.string().required('O campo é obrigatório'),
+    description: Yup.string().max(250, 'Você ultrapassou o limite de palavras').required('O campo é obrigatório'),
     characteristicsIds: Yup.array()
       .min(1, 'Selecione no mínimo 1 caracteristica')
       .max(5, 'Selecione no máximo 5 caracteristicas')
