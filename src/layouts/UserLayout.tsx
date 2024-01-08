@@ -10,18 +10,21 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import Layout from 'src/@core/layouts/Layout'
 
 // ** Navigation Imports
-import VerticalNavItems from 'src/navigation/vertical'
 import HorizontalNavItems from 'src/navigation/horizontal'
+import VerticalNavItems from 'src/navigation/vertical'
 
 // ** Component Import
 // Uncomment the below line (according to the layout type) when using server-side menu
 // import ServerSideVerticalNavItems from './components/vertical/ServerSideNavItems'
 // import ServerSideHorizontalNavItems from './components/horizontal/ServerSideNavItems'
 
-import VerticalAppBarContent from './components/vertical/AppBarContent'
 import HorizontalAppBarContent from './components/horizontal/AppBarContent'
+import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
+import { Box, Breadcrumbs, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 interface Props {
@@ -32,6 +35,15 @@ interface Props {
 const UserLayout = ({ children, contentHeightFixed }: Props) => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
+
+  const { pathname } = useRouter()
+
+  const pathnames = pathname.split('/').filter(x => x)
+
+  const breadcumbsMap: { [key: string]: string } = {
+    '/pets': 'Pets',
+    '/pets/novo': 'Novo'
+  }
 
   // ** Vars for server side navigation
   // const { menuItems: verticalMenuItems } = ServerSideVerticalNavItems()
@@ -89,8 +101,38 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
         }
       })}
     >
-      {children}
+      <Box pl={2} mb={5}>
+        <Breadcrumbs aria-label='breadcrumb' maxItems={2}>
+          {pathnames.map((_, index) => {
+            const last = index === pathnames.length - 1
+            const to = `/${pathnames.slice(0, index + 1).join('/')}`
 
+            return last ? (
+              <Typography style={{ color: 'white' }} key={to}>
+                {breadcumbsMap[to]}
+              </Typography>
+            ) : (
+              <Link
+                style={{ color: 'rgba(255, 255, 255, 0.7)', padding: '0', textDecoration: 'none' }}
+                href={to}
+                key={to}
+                onMouseOver={e => {
+                  e.currentTarget.style.color = '#fff'
+                  e.currentTarget.style.textDecoration = 'underline'
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'
+                  e.currentTarget.style.textDecoration = 'none'
+                }}
+              >
+                {breadcumbsMap[to]}
+              </Link>
+            )
+          })}
+        </Breadcrumbs>
+      </Box>
+
+      {children}
     </Layout>
   )
 }
