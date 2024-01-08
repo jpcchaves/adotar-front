@@ -15,12 +15,12 @@ import useLoading from '../../../../hooks/loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
-const ONE_SECONDS_IN_MILLIS = 1000
+const ONE_SECOND_IN_MILLIS = 1000
 
 export type toggleSavedPetAction = 'ADD' | 'REMOVE'
 
 const usePets = () => {
-  const { navigateWithTime } = useNavigation()
+  const { navigateBackDelayed } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -46,7 +46,7 @@ const usePets = () => {
     await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
       .then(res => {
         toast.success(res.message)
-        navigateWithTime('pets', ONE_SECONDS_IN_MILLIS)
+        navigateBackDelayed(ONE_SECOND_IN_MILLIS)
       })
       .catch(err => {
         toast.error(err)
