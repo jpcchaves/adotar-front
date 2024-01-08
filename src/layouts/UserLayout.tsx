@@ -22,6 +22,7 @@ import HorizontalAppBarContent from './components/horizontal/AppBarContent'
 import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
+import styled from '@emotion/styled'
 import { Box, Breadcrumbs, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -31,6 +32,16 @@ interface Props {
   children: ReactNode
   contentHeightFixed?: boolean
 }
+
+const StyledLink = styled(Link)<{}>`
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 'normal';
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: #fff;
+  }
+`
 
 const UserLayout = ({ children, contentHeightFixed }: Props) => {
   // ** Hooks
@@ -112,21 +123,9 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
                 {breadcumbsMap[to]}
               </Typography>
             ) : (
-              <Link
-                style={{ color: 'rgba(255, 255, 255, 0.7)', padding: '0', textDecoration: 'none' }}
-                href={to}
-                key={to}
-                onMouseOver={e => {
-                  e.currentTarget.style.color = '#fff'
-                  e.currentTarget.style.textDecoration = 'underline'
-                }}
-                onMouseOut={e => {
-                  e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'
-                  e.currentTarget.style.textDecoration = 'none'
-                }}
-              >
+              <StyledLink href={to} key={to}>
                 {breadcumbsMap[to]}
-              </Link>
+              </StyledLink>
             )
           })}
         </Breadcrumbs>
