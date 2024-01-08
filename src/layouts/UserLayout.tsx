@@ -22,39 +22,17 @@ import HorizontalAppBarContent from './components/horizontal/AppBarContent'
 import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
-import styled from '@emotion/styled'
-import { Box, Breadcrumbs, Typography } from '@mui/material'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useSettings } from 'src/@core/hooks/useSettings'
+import Breadcrumb from './components/Breadcrumb'
 
 interface Props {
   children: ReactNode
   contentHeightFixed?: boolean
 }
 
-const StyledLink = styled(Link)<{}>`
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 'normal';
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    color: #fff;
-  }
-`
-
 const UserLayout = ({ children, contentHeightFixed }: Props) => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
-
-  const { pathname } = useRouter()
-
-  const pathnames = pathname.split('/').filter(x => x)
-
-  const breadcumbsMap: { [key: string]: string } = {
-    '/pets': 'Pets',
-    '/pets/novo': 'Novo'
-  }
 
   // ** Vars for server side navigation
   // const { menuItems: verticalMenuItems } = ServerSideVerticalNavItems()
@@ -112,25 +90,7 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
         }
       })}
     >
-      <Box pl={2} mb={5}>
-        <Breadcrumbs aria-label='breadcrumb' maxItems={2}>
-          {pathnames.map((_, index) => {
-            const last = index === pathnames.length - 1
-            const to = `/${pathnames.slice(0, index + 1).join('/')}`
-
-            return last ? (
-              <Typography style={{ color: 'white' }} key={to}>
-                {breadcumbsMap[to]}
-              </Typography>
-            ) : (
-              <StyledLink href={to} key={to}>
-                {breadcumbsMap[to]}
-              </StyledLink>
-            )
-          })}
-        </Breadcrumbs>
-      </Box>
-
+      <Breadcrumb />
       {children}
     </Layout>
   )
