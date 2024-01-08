@@ -3,10 +3,10 @@ import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
-import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
+import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import petsRoutes from '../../../../configs/routes/pets'
@@ -15,10 +15,12 @@ import useLoading from '../../../../hooks/loading/useLoading'
 const FAVORITE = true
 const NOT_FAVORITE = false
 
+const ONE_SECONDS_IN_MILLIS = 1000
+
 export type toggleSavedPetAction = 'ADD' | 'REMOVE'
 
 const usePets = () => {
-  const router = useRouter()
+  const { navigateWithTime } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -43,12 +45,11 @@ const usePets = () => {
   const createPet = async (data: PetCreateDTO) => {
     await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
       .then(res => {
-        router.back()
         toast.success(res.message)
-        console.log(res)
+        navigateWithTime('pets', ONE_SECONDS_IN_MILLIS)
       })
       .catch(err => {
-        toast.error(err.message)
+        toast.error(err)
         console.log(err)
       })
   }
