@@ -9,8 +9,8 @@ import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
-import petsRoutes from '../../../../configs/routes/pets'
 import useLoading from '../../../../hooks/loading/useLoading'
+import { petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
 
 const FAVORITE = true
 const NOT_FAVORITE = false
@@ -29,7 +29,7 @@ const usePets = () => {
     setLoading(true)
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
-      `${petsRoutes.petsEndpoint}?page=${page}&size=6&sort=createdAt,desc`
+      `${petsEndpointV2}?page=${page}&size=6&sort=createdAt,desc`
     )
       .then(res => {
         handlePetListPagination(res)
@@ -59,7 +59,7 @@ const usePets = () => {
   }
 
   const addSavedPet = async (petId: string) => {
-    await httpRequest<void, ApiMessageResponse>(HttpMethod.POST, `${petsRoutes.savedPetsEndpoint}/${petId}`)
+    await httpRequest<void, ApiMessageResponse>(HttpMethod.POST, `${savedPetsEndpointV1}/${petId}`)
       .then(({ message }) => {
         toast.success(message)
         handleUpdatePetFavorite(petId, FAVORITE)
@@ -72,7 +72,7 @@ const usePets = () => {
   }
 
   const removeSavedPet = async (petId: string) => {
-    await httpRequest<void, ApiMessageResponse>(HttpMethod.DELETE, `${petsRoutes.savedPetsEndpoint}/${petId}`)
+    await httpRequest<void, ApiMessageResponse>(HttpMethod.DELETE, `${savedPetsEndpointV1}/${petId}`)
       .then(({ message }) => {
         toast.success(message)
         handleUpdatePetFavorite(petId, NOT_FAVORITE)
