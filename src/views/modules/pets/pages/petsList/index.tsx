@@ -20,7 +20,7 @@ const PetsList = () => {
   }, [])
 
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={5}>
       {(pets || []).map(pet => (
         <Grid item xs={12} sm={6} md={4} key={`petCard-${pet.id}`}>
           <PetCard pet={pet} toggleSavedPet={toggleSavedPet} />

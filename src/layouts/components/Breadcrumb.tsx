@@ -19,7 +19,8 @@ const Breadcrumb = () => {
 
   const breadcumbsMap: { [key: string]: string } = {
     '/pets': 'Pets',
-    '/pets/novo': 'Novo'
+    '/pets/novo': 'Novo',
+    '/pets/meus-pets': 'Meus Pets'
   }
 
   return (
