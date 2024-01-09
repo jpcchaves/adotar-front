@@ -1,5 +1,11 @@
+import PetHorizontalCard from '../../components/petHorizontalCard'
+
 const MyPets = () => {
-  return <div>MyPetsView</div>
+  return (
+    <>
+      <PetHorizontalCard />
+    </>
+  )
 }
 
 export default MyPets
