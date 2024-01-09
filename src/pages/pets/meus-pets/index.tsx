@@ -1,5 +1,7 @@
+import MyPets from 'src/views/modules/pets/pages/myPets'
+
 const MyPetsPage = () => {
-  return <div>index</div>
+  return <MyPets />
 }
 
 MyPetsPage.acl = {
