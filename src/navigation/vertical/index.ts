@@ -8,7 +8,23 @@ const navigation = (): VerticalNavItemsType => {
       path: '/pets',
       icon: 'mdi:paw-outline',
       action: 'manage',
-      subject: 'pets'
+      children: [
+        {
+          title: 'Pets Disponíveis',
+          path: '/pets',
+          subject: 'pets'
+        },
+        {
+          title: 'Novo',
+          path: '/pets/novo',
+          subject: 'pets'
+        },
+        {
+          title: 'Meus Pets',
+          path: '/pets/meus-pets',
+          subject: 'pets'
+        }
+      ]
     },
     {
       title: 'Second Page',

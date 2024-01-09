@@ -8,7 +8,7 @@ const PetsFormPage = () => {
 
 PetsFormPage.acl = {
   action: 'manage',
-  subject: 'pets'
+  subject: 'meus-pets'
 }
 
 export default PetsFormPage
