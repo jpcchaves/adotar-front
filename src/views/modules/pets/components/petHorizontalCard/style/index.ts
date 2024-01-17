@@ -6,18 +6,17 @@ import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 const CustomHorizontalPetCard = styled(Card)<CardProps>(({}) => ({
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: 2,
   position: 'relative'
 }))
 
 const CustomCardMedia = styled(CardMedia)<CardMediaProps>(() => ({
-  width: '35%',
-  objectFit: 'contain',
-  height: 250
+  width: '100%',
+  objectFit: 'cover',
+  height: 150
 }))
 
 const CustomCardContent = styled(CardContent)(() => ({
-  width: '65%',
+  width: '75%',
   display: 'flex',
   flexDirection: 'column'
 }))
@@ -25,8 +24,8 @@ const CustomCardContent = styled(CardContent)(() => ({
 const CardButtonsContainer = styled(Box)<BoxProps>(() => ({
   height: '100%',
   position: 'absolute',
-  right: 8,
-  top: 8
+  right: 6,
+  top: 6
 }))
 
 const Menu = styled(MuiMenu)<MenuProps>(({ theme }) => ({
