@@ -92,6 +92,8 @@ const usePets = () => {
       case 'REMOVE':
         removeSavedPet(petId)
         break
+      default:
+        return
     }
   }
 
