@@ -1,12 +1,11 @@
 import { Icon } from '@iconify/react'
 import { CardMedia, IconButton } from '@mui/material'
 import { Slide } from 'react-slideshow-image'
-import { PetPicture } from 'src/domain/models/pet/PetPicture'
-import { fallbackPetImage } from '../../contants/petFallbackImage/petFallbackImage'
 import 'react-slideshow-image/dist/styles.css'
+import { fallbackPetImage } from '../../contants/petFallbackImage/petFallbackImage'
 
 interface IProps {
-  petPictures: PetPicture[]
+  petPictures: string[]
   petFavoritePicture: string
 }
 
@@ -28,7 +27,7 @@ const CardImageSlider = ({ petPictures, petFavoritePicture }: IProps) => {
   return (
     <Slide {...slideProperties}>
       {petPictures.length ? (
-        petPictures.map(({ imgUrl }, idx) => <CardMedia key={`${imgUrl}-${idx}`} sx={{ height: 300 }} image={imgUrl} />)
+        petPictures.map((imgUrl, idx) => <CardMedia key={`${imgUrl}-${idx}`} sx={{ height: 300 }} image={imgUrl} />)
       ) : (
         <CardMedia sx={{ height: 300 }} image={petFavoritePicture || fallbackPetImage} />
       )}
