@@ -1,4 +1,4 @@
-import { petDetailsEndpointV1, petsEndpointV2 } from 'src/configs/routes'
+import { petDetailsEndpointV1, petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
@@ -43,6 +43,34 @@ class PetServiceImpl implements PetService {
         })
         .catch(err => {
           reject(err)
+        })
+    })
+  }
+
+  addSavedPet = async (petId: string): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<void, ApiMessageResponse>(HttpMethod.POST, `${savedPetsEndpointV1}/${petId}`)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+
+          // console.log(err);
+        })
+    })
+  }
+
+  removeSavedPet = async (petId: string): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<void, ApiMessageResponse>(HttpMethod.DELETE, `${savedPetsEndpointV1}/${petId}`)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+
+          // console.log(err);
         })
     })
   }

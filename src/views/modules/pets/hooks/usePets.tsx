@@ -1,12 +1,9 @@
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
-import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
-import { savedPetsEndpointV1 } from 'src/configs/routes'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
-import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
@@ -62,7 +59,8 @@ const usePets = () => {
   }
 
   const addSavedPet = async (petId: string) => {
-    await httpRequest<void, ApiMessageResponse>(HttpMethod.POST, `${savedPetsEndpointV1}/${petId}`)
+    await petService
+      .addSavedPet(petId)
       .then(({ message }) => {
         toast.success(message)
         handleUpdatePetFavorite(petId, FAVORITE)
@@ -75,7 +73,8 @@ const usePets = () => {
   }
 
   const removeSavedPet = async (petId: string) => {
-    await httpRequest<void, ApiMessageResponse>(HttpMethod.DELETE, `${savedPetsEndpointV1}/${petId}`)
+    await petService
+      .removeSavedPet(petId)
       .then(({ message }) => {
         toast.success(message)
         handleUpdatePetFavorite(petId, NOT_FAVORITE)

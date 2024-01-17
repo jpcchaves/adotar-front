@@ -8,4 +8,6 @@ export interface PetService {
   getListPets: (page?: number) => Promise<ApiResponsePaginated<PetModelMin>>
   getById: (id: string) => Promise<PetDetailsDTO>
   createPet: (data: PetCreateDTO) => Promise<ApiMessageResponse>
+  addSavedPet: (petId: string) => Promise<ApiMessageResponse>
+  removeSavedPet: (petId: string) => Promise<ApiMessageResponse>
 }
