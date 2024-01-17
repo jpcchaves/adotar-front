@@ -1,17 +1,14 @@
 import { petDetailsEndpointV1, petsEndpointV2 } from 'src/configs/routes'
+import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
+import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { HttpMethod, httpRequest } from 'src/utils/http'
 import { PetService } from '../PetService'
 
 class PetServiceImpl implements PetService {
-  getListPets = (
-    setLoading: (value: boolean) => void,
-    page?: number | undefined
-  ): Promise<ApiResponsePaginated<PetModelMin>> => {
-    setLoading(true)
-
+  getListPets = (page?: number | undefined): Promise<ApiResponsePaginated<PetModelMin>> => {
     return new Promise((resolve, reject) => {
       httpRequest<void, ApiResponsePaginated<PetModelMin>>(
         HttpMethod.GET,
@@ -23,15 +20,10 @@ class PetServiceImpl implements PetService {
         .catch(err => {
           reject(err)
         })
-        .finally(() => {
-          setLoading(false)
-        })
     })
   }
 
-  getById = async (id: string, setLoading: (value: boolean) => void): Promise<PetDetailsDTO> => {
-    setLoading(true)
-
+  getById = async (id: string): Promise<PetDetailsDTO> => {
     return new Promise((resolve, reject) => {
       httpRequest<void, PetDetailsDTO>(HttpMethod.GET, `${petDetailsEndpointV1}/${id}`)
         .then(res => {
@@ -40,8 +32,17 @@ class PetServiceImpl implements PetService {
         .catch((err: string) => {
           reject(err)
         })
-        .finally(() => {
-          setLoading(false)
+    })
+  }
+
+  createPet = async (data: PetCreateDTO): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
         })
     })
   }

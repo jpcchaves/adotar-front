@@ -30,16 +30,19 @@ const usePets = () => {
     setLoading(true)
 
     await petService
-      .getListPets(setLoading, page)
+      .getListPets(page)
       .then(res => {
         handlePetListPagination(res)
       })
       .catch(err => toast.error(err))
+      .finally(() => setLoading(false))
   }
 
   const createPet = async (data: PetCreateDTO) => {
     setLoading(true)
-    await httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+
+    await petService
+      .createPet(data)
       .then(res => {
         toast.success(res.message)
         navigateBackDelayed(ONE_SECOND_IN_MILLIS)
@@ -54,10 +57,13 @@ const usePets = () => {
   }
 
   const getPetById = async (id: string) => {
+    setLoading(true)
+
     await petService
-      .getById(id, setLoading)
+      .getById(id)
       .then(res => console.log(res))
       .catch(err => toast.error(err))
+      .finally(() => setLoading(false))
   }
 
   const addSavedPet = async (petId: string) => {
