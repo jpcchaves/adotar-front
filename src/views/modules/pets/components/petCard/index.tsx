@@ -5,7 +5,7 @@ import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { toggleSavedPetAction } from '../../hooks/usePets'
 import { CardImageSlider } from './components'
 import CardOverlay from './components/cardOverlay'
-import { gendersColors, getPetFavPicture } from './utils'
+import { gendersColors } from './utils'
 
 interface IProps {
   pet: PetModelMin
@@ -15,13 +15,11 @@ interface IProps {
 const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }, toggleSavedPet }: IProps) => {
   const isMale = gender === Gender.M
 
-  const petFavoritePicture = getPetFavPicture(petPictures)
-
   return (
     <Card>
       <Box style={{ position: 'relative' }}>
-        <CardImageSlider petPictures={petPictures} petFavoritePicture={petFavoritePicture} />
-        <CardOverlay petFavoritePicture={petFavoritePicture} name={name} />
+        <CardImageSlider petPictures={petPictures} petFavoritePicture={petPictures[0]} />
+        <CardOverlay petFavoritePicture={petPictures[0]} name={name} />
       </Box>
       <CardContent sx={{ pt: 4 }}>
         <Box display='flex' justifyContent={'space-between'}>

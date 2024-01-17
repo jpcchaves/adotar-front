@@ -12,7 +12,7 @@ export type PetModelMin = {
   favorite: boolean
   type: string
   breed: string
-  petPictures: PetPicture[]
+  petPictures: string[]
   address: PetAddress
 }
 
