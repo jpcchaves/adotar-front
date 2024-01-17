@@ -1,6 +1,9 @@
 import { Icon } from '@iconify/react'
 import { IconButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import { MouseEvent, useState } from 'react'
+import { PetModelMin } from 'src/domain/models/pet/PetModel'
+import { getGenderString } from '../../utils/gender/getGenderString'
+import { fallbackPetImage } from '../petCard/contants'
 import {
   CardButtonsContainer,
   CustomCardContent,
@@ -10,7 +13,11 @@ import {
   MenuItem
 } from './style'
 
-const PetHorizontalCard = () => {
+interface IProps {
+  pet: PetModelMin
+}
+
+const PetHorizontalCard = ({ pet: { name, gender, petPictures } }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -23,27 +30,26 @@ const PetHorizontalCard = () => {
 
   return (
     <CustomHorizontalPetCard>
-      <CustomCardMedia image='https://www.diariodepernambuco.com.br/static/app/foto_127989356258/2012/06/20/1955/20120620153018612649e.jpg' />
+      <CustomCardMedia image={petPictures.length ? petPictures[0] : fallbackPetImage} />
       <CustomCardContent>
         <Typography variant='h5' mb={5}>
-          Pet Name
+          {name}
         </Typography>
-        <Typography variant='body2'>Sexo: Macho ou Femea</Typography>
-        <Typography variant='body2'>Idade: 1 ano e 6 meses</Typography>
+        <Typography variant='body2'>Sexo: {getGenderString(gender)}</Typography>
 
         <CardButtonsContainer>
           <IconButton aria-controls='menu' aria-haspopup='true' onClick={handleClick}>
             <Icon icon={'mdi:dots-vertical'} />
           </IconButton>
           <Menu id='menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem>
-              <ListItemIcon onClick={() => window.alert('edit')}>
+            <MenuItem onClick={() => window.alert('edit')}>
+              <ListItemIcon>
                 <Icon icon={'mdi:edit'} />
               </ListItemIcon>
               <ListItemText primary='Editar' />
             </MenuItem>
-            <MenuItem>
-              <ListItemIcon onClick={() => window.alert('delete')}>
+            <MenuItem onClick={() => window.alert('delete')}>
+              <ListItemIcon>
                 <Icon icon={'mdi:trash'} />
               </ListItemIcon>
               <ListItemText primary='Deletar' />

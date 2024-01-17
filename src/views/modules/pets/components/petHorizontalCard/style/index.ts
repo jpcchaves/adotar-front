@@ -11,13 +11,13 @@ const CustomHorizontalPetCard = styled(Card)<CardProps>(({}) => ({
 }))
 
 const CustomCardMedia = styled(CardMedia)<CardMediaProps>(() => ({
-  width: '30%',
+  width: '35%',
   objectFit: 'contain',
-  height: 200
+  height: 250
 }))
 
 const CustomCardContent = styled(CardContent)(() => ({
-  width: '70%',
+  width: '65%',
   display: 'flex',
   flexDirection: 'column'
 }))
