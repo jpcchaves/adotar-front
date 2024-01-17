@@ -4,7 +4,7 @@ import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
-import { petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
+import { savedPetsEndpointV1 } from 'src/configs/routes'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import useNavigation from 'src/hooks/navigation/useNavigation'
@@ -28,19 +28,13 @@ const usePets = () => {
 
   const getListPets = async (page = 0) => {
     setLoading(true)
-    await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
-      HttpMethod.GET,
-      `${petsEndpointV2}?page=${page}&size=6&sort=createdAt,desc`
-    )
+
+    await petService
+      .getListPets(setLoading, page)
       .then(res => {
         handlePetListPagination(res)
       })
-      .catch(() => {
-        // console.log(err);
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+      .catch(err => toast.error(err))
   }
 
   const createPet = async (data: PetCreateDTO) => {
