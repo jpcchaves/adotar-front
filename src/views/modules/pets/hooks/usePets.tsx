@@ -4,13 +4,13 @@ import { HttpMethod, httpRequest } from 'src/utils/http'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
+import { petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import useLoading from '../../../../hooks/loading/useLoading'
-import { petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
 
 const FAVORITE = true
 const NOT_FAVORITE = false
@@ -98,7 +98,9 @@ const usePets = () => {
   }
 
   const handlePetListPagination = (petsPaginated: ApiResponsePaginated<PetModelMin>) => {
-    if (pets && petsPaginated.pageNo > 0) {
+    const FIRST_PAGE_NO = 0
+
+    if (pets && petsPaginated.pageNo > FIRST_PAGE_NO) {
       const newData = pets.concat(petsPaginated.content)
       dispatch(
         loadPetsPaginated({
