@@ -40,9 +40,7 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const petPicturesToSubmit = (values.petPictures || []).map((p: PictureModel) => ({
-        imgUrl: p.imgUrl
-      }))
+      const petPicturesToSubmit = (values.petPictures || []).map((p: PictureModel) => p.imgUrl)
 
       const valuesToSubmit: PetCreateDTO = {
         ...values,
@@ -52,8 +50,15 @@ const PetsForm = () => {
         yearsAge: values.yearsAge.value,
         healthCondition: values.healthCondition.value,
         gender: values.gender.value,
-        cityIbge: values.city.value,
-        state: values.state.value,
+        address: {
+          number: values.number,
+          neighborhood: values.neighborhood,
+          cityIbge: values.city.value,
+          state: values.state.value,
+          street: values.street,
+          complement: values.complement,
+          zipcode: values.zipcode
+        },
         breedId: values.breedId.value,
         petPictures: petPicturesToSubmit
       }
