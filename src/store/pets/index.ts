@@ -4,6 +4,7 @@ import { PetModelMin } from 'src/domain/models/pet/PetModel'
 
 export interface PetsState {
   pets: PetModelMin[] | null
+  myPets: PetModelMin[] | null
   pageNo: number
   totalElements: number
   totalPages: number
@@ -16,6 +17,7 @@ type PayloadPets = PayloadAction<PetModelMin[]>
 
 const initialState: PetsState = {
   pets: null,
+  myPets: null,
   pageNo: 0,
   last: true,
   pageSize: 0,
@@ -40,10 +42,13 @@ export const petsSlice = createSlice({
     },
     loadPets: (state, action: PayloadPets) => {
       state.pets = action.payload
+    },
+    loadMyPets: (state, action: PayloadPets) => {
+      state.myPets = action.payload
     }
   }
 })
 
-export const { loadPetsPaginated, loadPets } = petsSlice.actions
+export const { loadPetsPaginated, loadPets, loadMyPets } = petsSlice.actions
 
 export default petsSlice.reducer
