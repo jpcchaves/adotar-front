@@ -11,6 +11,7 @@ import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import useLoading from '../../../../hooks/loading/useLoading'
+import { petService } from '../service/impl/PetServiceImpl'
 
 const FAVORITE = true
 const NOT_FAVORITE = false
@@ -56,6 +57,13 @@ const usePets = () => {
       .finally(() => {
         setLoading(false)
       })
+  }
+
+  const getPetById = async (id: string) => {
+    await petService
+      .getById(id, setLoading)
+      .then(res => console.log(res))
+      .catch(err => toast.error(err))
   }
 
   const addSavedPet = async (petId: string) => {
@@ -122,7 +130,16 @@ const usePets = () => {
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
   }
 
-  return { getListPets, createPet, addSavedPet, removeSavedPet, handlePetListPagination, toggleSavedPet, isLoading }
+  return {
+    getListPets,
+    createPet,
+    getPetById,
+    addSavedPet,
+    removeSavedPet,
+    handlePetListPagination,
+    toggleSavedPet,
+    isLoading
+  }
 }
 
 export default usePets

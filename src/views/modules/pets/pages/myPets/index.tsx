@@ -3,9 +3,11 @@ import { useEffect } from 'react'
 import { useAppSelector } from 'src/hooks/useRedux'
 import PetHorizontalCard from '../../components/petHorizontalCard'
 import useMyPets from '../../hooks/useMyPets'
+import usePets from '../../hooks/usePets'
 
 const MyPets = () => {
   const { getMyPets } = useMyPets()
+  const { getPetById } = usePets()
   const { myPets } = useAppSelector(state => state.pets)
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const MyPets = () => {
     <Grid container spacing={5}>
       {(myPets || []).map((pet, idx) => (
         <Grid item xs={12} key={idx}>
-          <PetHorizontalCard pet={pet} />
+          <PetHorizontalCard pet={pet} getPetById={getPetById} />
         </Grid>
       ))}
     </Grid>
