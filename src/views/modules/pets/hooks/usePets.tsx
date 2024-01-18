@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 import toast from 'react-hot-toast'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import useNavigation from 'src/hooks/navigation/useNavigation'
-import { loadPets, loadPetsPaginated } from 'src/store/pets'
+import { loadPetDetails, loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import useLoading from '../../../../hooks/loading/useLoading'
 import { FAVORITE, NOT_FAVORITE, ONE_SECOND_IN_MILLIS } from '../contants'
@@ -13,7 +13,7 @@ import { toggleSavedPetAction } from '../models/savedPetActions'
 import { petService } from '../service/impl/PetServiceImpl'
 
 const usePets = () => {
-  const { navigateWithTime } = useNavigation()
+  const { navigateWithTime, navigate } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -48,12 +48,15 @@ const usePets = () => {
       })
   }
 
-  const getPetById = async (id: string) => {
+  const getPetDetails = async (id: string) => {
     setLoading(true)
 
     await petService
-      .getById(id)
-      .then(res => console.log(res))
+      .getPetDetails(id)
+      .then(res => {
+        dispatch(loadPetDetails(res))
+        navigate(`/pets/editar/${id}`)
+      })
       .catch(err => toast.error(err))
       .finally(() => setLoading(false))
   }
@@ -127,7 +130,7 @@ const usePets = () => {
   return {
     getListPets,
     createPet,
-    getPetById,
+    getPetDetails,
     addSavedPet,
     removeSavedPet,
     handlePetListPagination,

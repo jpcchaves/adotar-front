@@ -7,7 +7,7 @@ import usePets from '../../hooks/usePets'
 
 const MyPets = () => {
   const { getMyPets } = useMyPets()
-  const { getPetById } = usePets()
+  const { getPetDetails } = usePets()
   const { myPets } = useAppSelector(state => state.pets)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const MyPets = () => {
     <Grid container spacing={5}>
       {(myPets || []).map((pet, idx) => (
         <Grid item xs={12} key={idx}>
-          <PetHorizontalCard pet={pet} getPetById={getPetById} />
+          <PetHorizontalCard pet={pet} getPetDetails={getPetDetails} />
         </Grid>
       ))}
     </Grid>

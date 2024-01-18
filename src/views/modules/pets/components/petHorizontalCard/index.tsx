@@ -14,10 +14,10 @@ import {
 
 interface IProps {
   pet: PetModelMin
-  getPetById: (id: string) => Promise<void>
+  getPetDetails: (id: string) => Promise<void>
 }
 
-const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPetById }: IProps) => {
+const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPetDetails }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -44,7 +44,7 @@ const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPet
             <Icon icon={'mdi:dots-vertical'} />
           </IconButton>
           <Menu id='menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => getPetById(id)}>
+            <MenuItem onClick={() => getPetDetails(id)}>
               <ListItemIcon>
                 <Icon icon={'mdi:edit'} />
               </ListItemIcon>

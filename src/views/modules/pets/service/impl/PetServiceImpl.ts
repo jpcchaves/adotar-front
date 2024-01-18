@@ -23,7 +23,7 @@ class PetServiceImpl implements PetService {
     })
   }
 
-  getById = async (id: string): Promise<PetDetailsDTO> => {
+  getPetDetails = async (id: string): Promise<PetDetailsDTO> => {
     return new Promise((resolve, reject) => {
       httpRequest<void, PetDetailsDTO>(HttpMethod.GET, `${petDetailsEndpointV1}/${id}`)
         .then(res => {
