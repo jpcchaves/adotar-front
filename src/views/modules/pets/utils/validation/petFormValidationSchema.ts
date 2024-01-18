@@ -6,7 +6,6 @@ export const petFormValidationSchema = [
   Yup.object({
     typeId: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
@@ -14,21 +13,18 @@ export const petFormValidationSchema = [
     name: Yup.string().required('O campo é obrigatório'),
     gender: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
       .required('O campo é obrigatório'),
     size: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
       .required('O campo é obrigatório'),
     healthCondition: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
@@ -39,22 +35,19 @@ export const petFormValidationSchema = [
   Yup.object({
     breedId: Yup.object()
       .shape({
-        value: Yup.string().required('O campo é obrigatório'),
-        label: Yup.string().required('O campo é obrigatório')
+        value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
       .required('O campo é obrigatório'),
     color: Yup.string().required('O campo é obrigatório'),
     yearsAge: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
       .required('O campo é obrigatório'),
     monthsAge: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
@@ -74,14 +67,12 @@ export const petFormValidationSchema = [
     neighborhood: Yup.string().required('O campo é obrigatório'),
     city: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
       .required('O campo é obrigatório'),
     state: Yup.object()
       .shape({
-        label: Yup.string().required('O campo é obrigatório'),
         value: Yup.string().required('O campo é obrigatório')
       })
       .nullable()
