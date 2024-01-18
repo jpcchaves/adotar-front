@@ -12,9 +12,9 @@ import FormWizardStepper from '../../components/formWizardStepper'
 
 // ** Styled Components
 import { useFormik } from 'formik'
-import { PictureModel } from 'src/@core/components/inputs/models/picture/PictureModel'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
 import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
+import { useAppSelector } from 'src/hooks/useRedux'
 import FormStepControls from '../../components/formStepsControls'
 import renderContent from '../../components/getStepContent'
 import { getFormInitialValues } from '../../data/formInitialValues'
@@ -27,10 +27,11 @@ import { petFormValidationSchema } from '../../utils/validation/petFormValidatio
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
   const { createPet, isLoading } = usePets()
+  const { petDetails } = useAppSelector(state => state.pets)
 
   const validation = useFormik({
     enableReinitialize: true,
-    initialValues: getFormInitialValues(),
+    initialValues: getFormInitialValues(petDetails!),
     validationSchema: petFormValidationSchema[activeStep],
     onSubmit: (values, { setErrors, setTouched }) => {
       const isLastStep = !!(activeStep === steps.length - 1)
@@ -40,7 +41,7 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const petPicturesToSubmit = (values.petPictures || []).map((p: PictureModel) => p.imgUrl)
+      const petPicturesToSubmit = (values.petPictures || []).map(p => p)
 
       const valuesToSubmit: PetCreateDTO = {
         ...values,
