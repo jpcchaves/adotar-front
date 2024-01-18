@@ -1,8 +1,11 @@
+import { PetBreedDTO } from './PetBreedDTO'
+import { PetTypeDTO } from './PetTypeDTO'
+
 export type PetDetailsDTO = {
   id: number
   name: string
-  yearsAge: number
-  monthsAge: number
+  yearsAge: string
+  monthsAge: string
   gender: string
   size: string
   healthCondition: string
@@ -11,10 +14,21 @@ export type PetDetailsDTO = {
   visualizations: number
   adoptionDate: null
   active: boolean
-  characteristics: number[]
-  type: string
-  breed: string
+  characteristics: string[]
+  type: PetTypeDTO
+  breed: PetBreedDTO
   petPictures: string[]
   available: boolean
   favorite: boolean
+  address: PetAddressDTO
+}
+
+type PetAddressDTO = {
+  zipcode: string
+  street: string
+  number: string
+  complement: string
+  neighborhood: string
+  city: string
+  state: string
 }
