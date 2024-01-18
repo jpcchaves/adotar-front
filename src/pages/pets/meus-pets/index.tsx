@@ -6,7 +6,7 @@ const MyPetsPage = () => {
 
 MyPetsPage.acl = {
   action: 'manage',
-  subject: 'my-pets'
+  subject: 'meus-pets'
 }
 
 export default MyPetsPage
