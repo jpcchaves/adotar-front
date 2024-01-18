@@ -12,6 +12,8 @@ const StyledLink = styled(Link)<{}>`
   }
 `
 
+const DYNAMIC_ROUTE_IDENTIFIER = '['
+
 const Breadcrumb = () => {
   const { pathname } = useRouter()
 
@@ -20,26 +22,30 @@ const Breadcrumb = () => {
   const breadcumbsMap: { [key: string]: string } = {
     '/pets': 'Pets',
     '/pets/novo': 'Novo',
-    '/pets/meus-pets': 'Meus Pets'
+    '/pets/meus-pets': 'Meus Pets',
+    '/pets/editar': 'Editar'
   }
 
   return (
     <Box pl={2} mb={5}>
       <Breadcrumbs aria-label='breadcrumb' maxItems={2}>
-        {pathnames.map((_, index) => {
-          const last = index === pathnames.length - 1
-          const to = `/${pathnames.slice(0, index + 1).join('/')}`
+        {pathnames.length > 0 &&
+          pathnames.map((path, index) => {
+            const last = index === pathnames.length - 1
+            const to = `/${pathnames.slice(0, index + 1).join('/')}`
 
-          return last ? (
-            <Typography style={{ color: 'white' }} key={to}>
-              {breadcumbsMap[to]}
-            </Typography>
-          ) : (
-            <StyledLink href={to} key={to}>
-              {breadcumbsMap[to]}
-            </StyledLink>
-          )
-        })}
+            if (path.startsWith(DYNAMIC_ROUTE_IDENTIFIER)) return
+
+            return last ? (
+              <Typography style={{ color: 'white' }} key={to}>
+                {breadcumbsMap[to]}
+              </Typography>
+            ) : (
+              <StyledLink href={to} key={to}>
+                {breadcumbsMap[to]}
+              </StyledLink>
+            )
+          })}
       </Breadcrumbs>
     </Box>
   )
