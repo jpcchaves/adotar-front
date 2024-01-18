@@ -38,8 +38,8 @@ const ThirdStep = ({ activeStep, validation }: IProps) => {
       <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='state'
-          isInvalid={!!((validation.errors.state?.label || validation.errors?.state) && validation.touched.state)}
-          errorMessage={validation.errors.state?.label || validation.errors?.state}
+          isInvalid={!!((validation.errors.state?.value || validation.errors?.state) && validation.touched.state)}
+          errorMessage={validation.errors.state?.value || validation.errors?.state}
           setFieldValue={validation.setFieldValue}
           onClick={() => {
             clearCityInput(validation)
@@ -56,8 +56,8 @@ const ThirdStep = ({ activeStep, validation }: IProps) => {
       <Grid item xs={6} sm={4}>
         <SelectInput
           inputIdentifier='city'
-          isInvalid={!!((validation.errors.city?.label || validation.errors?.city) && validation.touched.city)}
-          errorMessage={validation.errors.city?.label || validation.errors?.city}
+          isInvalid={!!((validation.errors.city?.value || validation.errors?.city) && validation.touched.city)}
+          errorMessage={validation.errors.city?.value || validation.errors?.city}
           setFieldValue={validation.setFieldValue}
           value={validation.values.city?.value}
           onBlur={validation.handleBlur}

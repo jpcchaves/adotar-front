@@ -34,8 +34,8 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='typeId'
           inputLabel={'Tipo'}
           isRequired
-          isInvalid={!!((validation.errors.typeId?.label || validation.errors?.typeId) && validation.touched.typeId)}
-          errorMessage={validation.errors.typeId?.label || validation.errors?.typeId}
+          isInvalid={!!((validation.errors.typeId?.value || validation.errors?.typeId) && validation.touched.typeId)}
+          errorMessage={validation.errors.typeId?.value || validation.errors?.typeId}
           setFieldValue={validation.setFieldValue}
           value={validation.values.typeId?.value}
           onBlur={validation.handleBlur}
@@ -47,8 +47,8 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='gender'
           inputLabel={'Sexo'}
           isRequired
-          isInvalid={!!((validation.errors.gender?.label || validation.errors?.gender) && validation.touched.gender)}
-          errorMessage={validation.errors.gender?.label || validation.errors?.gender}
+          isInvalid={!!((validation.errors.gender?.value || validation.errors?.gender) && validation.touched.gender)}
+          errorMessage={validation.errors.gender?.value || validation.errors?.gender}
           setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
           value={validation.values.gender?.value}
@@ -60,8 +60,8 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           inputIdentifier='size'
           inputLabel={'Tamanho'}
           isRequired
-          isInvalid={!!((validation.errors.size?.label || validation.errors?.size) && validation.touched.size)}
-          errorMessage={validation.errors.size?.label || validation.errors?.size}
+          isInvalid={!!((validation.errors.size?.value || validation.errors?.size) && validation.touched.size)}
+          errorMessage={validation.errors.size?.value || validation.errors?.size}
           setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
           value={validation.values.size?.value}
@@ -75,11 +75,11 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           isRequired
           isInvalid={
             !!(
-              (validation.errors.healthCondition?.label || validation.errors?.healthCondition) &&
+              (validation.errors.healthCondition?.value || validation.errors?.healthCondition) &&
               validation.touched.healthCondition
             )
           }
-          errorMessage={validation.errors.healthCondition?.label || validation.errors?.healthCondition}
+          errorMessage={validation.errors.healthCondition?.value || validation.errors?.healthCondition}
           setFieldValue={validation.setFieldValue}
           onBlur={validation.handleBlur}
           value={validation.values.healthCondition?.value}
