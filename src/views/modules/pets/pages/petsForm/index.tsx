@@ -41,7 +41,7 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const petPicturesToSubmit = (values.petPictures || []).map(p => p)
+      const petPicturesToSubmit = (values.petPictures || []).map((p: any) => (p.imgUrl ? p.imgUrl : p))
 
       const valuesToSubmit: PetCreateDTO = {
         ...values,

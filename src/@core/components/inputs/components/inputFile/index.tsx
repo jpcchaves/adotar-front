@@ -68,8 +68,8 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
   })
 
   const renderFilePreview = (fileData: { file: File; id: string; imgUrl: string }) => {
-    if (fileData.file.type.startsWith('image')) {
-      return <img width={38} height={38} alt={fileData.file.name} src={fileData.imgUrl} />
+    if (fileData?.file?.type.startsWith('image')) {
+      return <img width={38} height={38} alt={fileData?.file?.name} src={fileData?.imgUrl} />
     } else {
       return <Icon icon='mdi:file-document-outline' />
     }
@@ -90,11 +90,11 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
         <div className='file-details'>
           <div className='file-preview'>{renderFilePreview(fileData)}</div>
           <div>
-            <Typography className='file-name'>{fileData.file.name}</Typography>
+            <Typography className='file-name'>{fileData?.file?.name}</Typography>
             <Typography className='file-size' variant='body2'>
-              {Math.round(fileData.file.size / 100) / 10 > 1000
-                ? `${(Math.round(fileData.file.size / 100) / 10000).toFixed(1)} mb`
-                : `${(Math.round(fileData.file.size / 100) / 10).toFixed(1)} kb`}
+              {Math.round(fileData.file?.size / 100) / 10 > 1000
+                ? `${(Math.round(fileData.file?.size / 100) / 10000).toFixed(1)} mb`
+                : `${(Math.round(fileData.file?.size / 100) / 10).toFixed(1)} kb`}
             </Typography>
           </div>
         </div>
