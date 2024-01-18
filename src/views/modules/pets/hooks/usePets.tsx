@@ -13,7 +13,7 @@ import { toggleSavedPetAction } from '../models/savedPetActions'
 import { petService } from '../service/impl/PetServiceImpl'
 
 const usePets = () => {
-  const { navigateBackDelayed } = useNavigation()
+  const { navigateWithTime } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
   const { pets } = useAppSelector(state => state.pets)
@@ -37,7 +37,7 @@ const usePets = () => {
       .createPet(data)
       .then(res => {
         toast.success(res.message)
-        navigateBackDelayed(ONE_SECOND_IN_MILLIS)
+        navigateWithTime('/pets', ONE_SECOND_IN_MILLIS)
       })
       .catch(err => {
         toast.error(err)
