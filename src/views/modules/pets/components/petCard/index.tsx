@@ -18,8 +18,8 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
   return (
     <Card>
       <Box style={{ position: 'relative' }}>
-        <CardImageSlider petPictures={petPictures} petFavoritePicture={petPictures[0]} />
-        <CardOverlay petFavoritePicture={petPictures[0]} name={name} />
+        <CardImageSlider petPictures={petPictures} petFavoritePicture={petPictures[0]?.imgUrl} />
+        <CardOverlay petFavoritePicture={petPictures[0]?.imgUrl} name={name} />
       </Box>
       <CardContent sx={{ pt: 4 }}>
         <Box display='flex' justifyContent={'space-between'}>
