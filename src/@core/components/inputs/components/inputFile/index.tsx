@@ -29,7 +29,7 @@ interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>
 
 const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...props }: IProps) => {
   // ** State
-  const [, setFiles] = useState<PetPictureDTO[]>([])
+  const [, setFiles] = useState<PetPictureDTO[]>(petPictures || [])
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -63,8 +63,6 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
       })
     }
   })
-
-  console.log(petPictures)
 
   const renderFilePreview = (fileData: PetPictureDTO) => {
     if (fileData?.type.startsWith('image')) {
