@@ -68,7 +68,7 @@ export const stepThreeInitialValues = (petDetails: PetDetailsDTO) => {
 
 export const stepFourInitialValues = (petDetails: PetDetailsDTO) => {
   return {
-    petPictures: petDetails ? petDetails.petPictures : []
+    petPictures: petDetails ? (petDetails.petPictures as []) : []
   }
 }
 
