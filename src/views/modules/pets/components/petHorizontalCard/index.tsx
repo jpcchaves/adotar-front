@@ -31,7 +31,7 @@ const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPet
   return (
     <CustomHorizontalPetCard>
       <Box padding={4} width={'25%'}>
-        <CustomCardMedia sx={{ width: '100%' }} image={petPictures.length ? petPictures[0] : fallbackPetImage} />
+        <CustomCardMedia sx={{ width: '100%' }} image={petPictures.length ? petPictures[0].imgUrl : fallbackPetImage} />
       </Box>
       <CustomCardContent>
         <Typography variant='h5' mb={5}>
