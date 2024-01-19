@@ -41,8 +41,6 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const petPicturesToSubmit = (values.petPictures || []).map((p: any) => (p.imgUrl ? p.imgUrl : p))
-
       const valuesToSubmit: PetCreateDTO = {
         ...values,
         typeId: values.typeId.value,
@@ -61,7 +59,7 @@ const PetsForm = () => {
           zipcode: values.zipcode
         },
         breedId: values.breedId.value,
-        petPictures: petPicturesToSubmit
+        petPictures: values.petPictures
       }
 
       if (isLastStep) {
@@ -69,6 +67,8 @@ const PetsForm = () => {
       }
     }
   })
+
+  console.log(validation.values.petPictures)
 
   return (
     <Card>
