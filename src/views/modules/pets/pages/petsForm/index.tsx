@@ -42,13 +42,17 @@ const PetsForm = () => {
       setTouched({})
 
       const valuesToSubmit: PetCreateDTO = {
-        ...values,
-        typeId: values.typeId.value,
-        size: values.size.value,
-        monthsAge: values.monthsAge.value,
+        name: values.name,
         yearsAge: values.yearsAge.value,
-        healthCondition: values.healthCondition.value,
+        monthsAge: values.monthsAge.value,
         gender: values.gender.value,
+        size: values.size.value,
+        healthCondition: values.healthCondition.value,
+        color: values.color,
+        description: values.description,
+        characteristicsIds: values.characteristicsIds,
+        typeId: values.typeId.value,
+        breedId: values.breedId.value,
         address: {
           number: values.number,
           neighborhood: values.neighborhood,
@@ -58,7 +62,6 @@ const PetsForm = () => {
           complement: values.complement,
           zipcode: values.zipcode
         },
-        breedId: values.breedId.value,
         petPictures: values.petPictures
       }
 
