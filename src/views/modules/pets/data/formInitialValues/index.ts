@@ -1,17 +1,28 @@
 import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
+import { Gender } from 'src/domain/enum/pet/Gender'
+import { monthsAgeOptions, yearsAgeOptions } from '../age/ageOptions'
+import { petHealthConditionMenuItems } from '../petHealthConditionMenuItems'
+import { petSizeMenuItems } from '../petSizeMenuItems'
+import { petTypeMenuItems } from '../petTypeMenuItems'
 
 export const stepOneInitialValues = (petDetails: PetDetailsDTO) => {
   return {
-    typeId: { value: petDetails ? String(petDetails.type.id) : '' },
+    typeId: {
+      value: petDetails ? String(petDetails.type.id) : '',
+      label: petTypeMenuItems.find(p => p.value == petDetails?.type.id)?.label || ''
+    },
     name: petDetails ? petDetails?.name : '',
     gender: {
-      value: petDetails ? petDetails.gender : ''
+      value: petDetails ? petDetails.gender : '',
+      label: petDetails?.gender === Gender.M ? 'Macho' : 'Fêmea'
     },
     size: {
-      value: petDetails ? petDetails?.size : ''
+      value: petDetails ? petDetails?.size : '',
+      label: petSizeMenuItems.find(p => p.value == petDetails?.size)?.label || ''
     },
     healthCondition: {
-      value: petDetails ? petDetails.healthCondition : ''
+      value: petDetails ? petDetails.healthCondition : '',
+      label: petHealthConditionMenuItems.find(h => h.value == petDetails?.healthCondition)?.label || ''
     }
   }
 }
@@ -24,10 +35,12 @@ export const stepTwoInitialValues = (petDetails: PetDetailsDTO) => {
     },
     color: petDetails ? petDetails.color : '',
     yearsAge: {
-      value: petDetails ? petDetails.yearsAge : ''
+      value: petDetails ? petDetails.yearsAge : '',
+      label: yearsAgeOptions.find(ya => ya.value == petDetails?.yearsAge)?.label || ''
     },
     monthsAge: {
-      value: petDetails ? petDetails.monthsAge : ''
+      value: petDetails ? petDetails.monthsAge : '',
+      label: monthsAgeOptions.find(ma => ma.value == petDetails?.monthsAge)?.label || ''
     },
     description: petDetails ? petDetails.description : '',
     characteristicsIds: petDetails ? petDetails.characteristics.map(c => String(c)) : []
