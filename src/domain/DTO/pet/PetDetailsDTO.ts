@@ -1,4 +1,5 @@
 import { PetBreedDTO } from './PetBreedDTO'
+import { PetPictureDTO } from './PetPictureDTO'
 import { PetTypeDTO } from './PetTypeDTO'
 
 export type PetDetailsDTO = {
@@ -17,7 +18,7 @@ export type PetDetailsDTO = {
   characteristics: string[]
   type: PetTypeDTO
   breed: PetBreedDTO
-  petPictures: string[]
+  petPictures: PetPictureDTO[]
   available: boolean
   favorite: boolean
   address: PetAddressDTO

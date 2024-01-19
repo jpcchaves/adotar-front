@@ -1,3 +1,5 @@
+import { PetPictureDTO } from './PetPictureDTO'
+
 export interface PetCreateDTO {
   breedId: string
   characteristicsIds: string[]
@@ -16,7 +18,7 @@ export interface PetCreateDTO {
     state: string
     zipcode: string
   }
-  petPictures: string[]
+  petPictures: PetPictureDTO[]
   size: string
   typeId: string
   yearsAge: string
