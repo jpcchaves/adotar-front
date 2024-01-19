@@ -52,10 +52,12 @@ export const stepThreeInitialValues = (petDetails: PetDetailsDTO) => {
     zipcode: petDetails ? petDetails.address.zipcode : '',
 
     state: {
-      value: petDetails ? petDetails.address.state : ''
+      value: petDetails ? petDetails.address.state : '',
+      label: ''
     },
     city: {
-      value: petDetails ? petDetails.address.city : ''
+      value: petDetails ? petDetails.address.city : '',
+      label: ''
     },
     street: petDetails ? petDetails.address.street : '',
     number: petDetails ? petDetails.address.number : '',
@@ -79,11 +81,11 @@ export const getFormInitialValues = (petDetails: PetDetailsDTO) => {
   }
 }
 
-export const getFormInitialValuesArr = (petDetails: PetDetailsDTO) => {
+export const getFormInitialValuesArr = (petDetails?: PetDetailsDTO) => {
   return [
-    stepOneInitialValues(petDetails),
-    stepTwoInitialValues(petDetails),
-    stepThreeInitialValues(petDetails),
-    stepFourInitialValues(petDetails)
+    stepOneInitialValues(petDetails!),
+    stepTwoInitialValues(petDetails!),
+    stepThreeInitialValues(petDetails!),
+    stepFourInitialValues(petDetails!)
   ]
 }

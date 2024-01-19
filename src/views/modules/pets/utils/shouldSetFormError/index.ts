@@ -17,6 +17,7 @@ export const shouldSetFormError = (
 ) => {
   const { errors, touched } = validation
 
+  // @ts-ignore
   const currentStepErrors = commonKeysObject(errors, getFormInitialValuesArr()[activeStep])
 
   if (
