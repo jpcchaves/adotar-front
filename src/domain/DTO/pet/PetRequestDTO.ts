@@ -1,6 +1,6 @@
 import { PetPictureDTO } from './PetPictureDTO'
 
-export interface PetCreateDTO {
+export interface PetRequestDTO {
   breedId: string
   characteristicsIds: string[]
   color: string
