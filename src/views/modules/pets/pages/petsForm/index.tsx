@@ -35,9 +35,12 @@ const PetsForm = () => {
     initialValues: getFormInitialValues(petDetails!),
     validationSchema: petFormValidationSchema[activeStep],
     onSubmit: (values, { setErrors, setTouched }) => {
-      const isLastStep = !!(activeStep === steps.length - 1)
+      const lastStepIndex = steps.length - 1
+      const isLastStep = activeStep === lastStepIndex
 
-      if (!isLastStep) handleNext()
+      if (!isLastStep) {
+        handleNext()
+      }
 
       setErrors({})
       setTouched({})
