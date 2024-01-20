@@ -1,6 +1,6 @@
 import { petDetailsEndpointV1, petsEndpointV2, savedPetsEndpointV1 } from 'src/configs/routes'
-import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
 import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
+import { PetRequestDTO } from 'src/domain/DTO/pet/PetRequestDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
@@ -35,9 +35,21 @@ class PetServiceImpl implements PetService {
     })
   }
 
-  createPet = async (data: PetCreateDTO): Promise<ApiMessageResponse> => {
+  createPet = async (data: PetRequestDTO): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
-      httpRequest<PetCreateDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+      httpRequest<PetRequestDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/pets', data)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  updatePet = async (id: string, data: PetRequestDTO): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<PetRequestDTO, ApiMessageResponse>(HttpMethod.PUT, '/v1/pets', data)
         .then(res => {
           resolve(res)
         })
