@@ -37,6 +37,9 @@ const FirstStep = ({ validation, activeStep }: IProps) => {
           isInvalid={!!((validation.errors.typeId?.value || validation.errors?.typeId) && validation.touched.typeId)}
           errorMessage={validation.errors.typeId?.value || validation.errors?.typeId}
           setFieldValue={validation.setFieldValue}
+          onClick={() => {
+            validation.setFieldValue('breedId', '')
+          }}
           value={validation.values.typeId?.value}
           onBlur={validation.handleBlur}
           menuItems={petTypeMenuItems}
