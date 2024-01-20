@@ -43,12 +43,15 @@ export const petsSlice = createSlice({
       state.pageSize = pageSize
       state.totalPages = totalPages
       state.totalElements = totalElements
+      state.petDetails = null
     },
     loadPets: (state, action: PayloadPets) => {
       state.pets = action.payload
+      state.petDetails = null
     },
     loadMyPets: (state, action: PayloadPets) => {
       state.myPets = action.payload
+      state.petDetails = null
     },
     loadPetDetails: (state, action: PayloadPetDetails) => {
       state.petDetails = action.payload
