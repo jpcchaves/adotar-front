@@ -5,7 +5,6 @@ const navigation = (): VerticalNavItemsType => {
   return [
     {
       title: 'Pets',
-      path: '/pets',
       icon: 'mdi:paw-outline',
       action: 'manage',
       children: [
@@ -15,14 +14,9 @@ const navigation = (): VerticalNavItemsType => {
           subject: 'pets'
         },
         {
-          title: 'Novo',
-          path: '/pets/novo',
-          subject: 'pets'
-        },
-        {
           title: 'Meus Pets',
           path: '/pets/meus-pets',
-          subject: 'pets'
+          subject: 'meus-pets'
         }
       ]
     },
