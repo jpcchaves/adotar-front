@@ -8,7 +8,7 @@ const PetsEditFormPage = () => {
 
 PetsEditFormPage.acl = {
   action: 'manage',
-  subject: 'editar'
+  subject: 'pets'
 }
 
 export default PetsEditFormPage
