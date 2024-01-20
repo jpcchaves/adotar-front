@@ -49,7 +49,7 @@ class PetServiceImpl implements PetService {
 
   updatePet = async (id: string, data: PetRequestDTO): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
-      httpRequest<PetRequestDTO, ApiMessageResponse>(HttpMethod.PUT, '/v1/pets', data)
+      httpRequest<PetRequestDTO, ApiMessageResponse>(HttpMethod.PUT, `/v1/pets/${id}`, data)
         .then(res => {
           resolve(res)
         })
