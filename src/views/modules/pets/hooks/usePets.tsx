@@ -48,6 +48,24 @@ const usePets = () => {
       })
   }
 
+  const updatePet = async (id: string, data: PetRequestDTO) => {
+    setLoading(true)
+
+    await petService
+      .updatePet(id, data)
+      .then(res => {
+        toast.success(res.message)
+        navigateWithTime('/pets', ONE_SECOND_IN_MILLIS)
+      })
+      .catch(err => {
+        toast.error(err)
+        console.log(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
   const getPetDetails = async (id: string) => {
     setLoading(true)
 
@@ -130,6 +148,7 @@ const usePets = () => {
   return {
     getListPets,
     createPet,
+    updatePet,
     getPetDetails,
     addSavedPet,
     removeSavedPet,
