@@ -46,6 +46,7 @@ const ZipcodeInput = ({
         onBlur={onBlur}
         onChange={handleZipcodeChange}
         inputComponent={ZipcodeMask as any}
+        value={value}
       />
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>
