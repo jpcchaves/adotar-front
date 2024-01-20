@@ -13,7 +13,7 @@ import FormWizardStepper from '../../components/formWizardStepper'
 // ** Styled Components
 import { useFormik } from 'formik'
 import StepperWrapper from 'src/@core/styles/mui/stepper'
-import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
+import { PetRequestDTO } from 'src/domain/DTO/pet/PetRequestDTO'
 import { useAppSelector } from 'src/hooks/useRedux'
 import FormStepControls from '../../components/formStepsControls'
 import renderContent from '../../components/getStepContent'
@@ -41,7 +41,7 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const valuesToSubmit: PetCreateDTO = {
+      const valuesToSubmit: PetRequestDTO = {
         name: values.name,
         yearsAge: values.yearsAge.value,
         monthsAge: values.monthsAge.value,

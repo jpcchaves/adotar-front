@@ -3,7 +3,7 @@ import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
-import { PetCreateDTO } from 'src/domain/DTO/pet/PetCreateDTO'
+import { PetRequestDTO } from 'src/domain/DTO/pet/PetRequestDTO'
 import useNavigation from 'src/hooks/navigation/useNavigation'
 import { loadPetDetails, loadPets, loadPetsPaginated } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
@@ -30,7 +30,7 @@ const usePets = () => {
       .finally(() => setLoading(false))
   }
 
-  const createPet = async (data: PetCreateDTO) => {
+  const createPet = async (data: PetRequestDTO) => {
     setLoading(true)
 
     await petService
