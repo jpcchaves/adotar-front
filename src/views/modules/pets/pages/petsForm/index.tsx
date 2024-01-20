@@ -21,12 +21,13 @@ import { getFormInitialValues } from '../../data/formInitialValues'
 import { steps } from '../../data/formSteps'
 import usePets from '../../hooks/usePets'
 import useStepper from '../../hooks/useStepper'
+import { prepareValuesToSubmit } from '../../utils/prepareValuesToSubmit'
 import { isActiveStepEqualsToIndex, shouldSetFormError } from '../../utils/shouldSetFormError'
 import { petFormValidationSchema } from '../../utils/validation/petFormValidationSchema'
 
 const PetsForm = () => {
   const { activeStep, handleNext, handleBack } = useStepper(0)
-  const { createPet, isLoading } = usePets()
+  const { createPet, updatePet, isLoading } = usePets()
   const { petDetails } = useAppSelector(state => state.pets)
 
   const validation = useFormik({
@@ -41,32 +42,14 @@ const PetsForm = () => {
       setErrors({})
       setTouched({})
 
-      const valuesToSubmit: PetRequestDTO = {
-        name: values.name,
-        yearsAge: values.yearsAge.value,
-        monthsAge: values.monthsAge.value,
-        gender: values.gender.value,
-        size: values.size.value,
-        healthCondition: values.healthCondition.value,
-        color: values.color,
-        description: values.description,
-        characteristicsIds: values.characteristicsIds,
-        typeId: values.typeId.value,
-        breedId: values.breedId.value,
-        address: {
-          number: values.number,
-          neighborhood: values.neighborhood,
-          cityIbge: values.city.value,
-          state: values.state.value,
-          street: values.street,
-          complement: values.complement,
-          zipcode: values.zipcode
-        },
-        petPictures: values.petPictures
-      }
+      const valuesToSubmit: PetRequestDTO = prepareValuesToSubmit(values)
 
       if (isLastStep) {
-        createPet(valuesToSubmit)
+        if (petDetails?.id) {
+          updatePet(String(petDetails.id), valuesToSubmit)
+        } else {
+          createPet(valuesToSubmit)
+        }
       }
     }
   })
