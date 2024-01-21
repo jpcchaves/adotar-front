@@ -1,7 +1,6 @@
-import React from 'react'
-import Lottie from 'lottie-react'
-import trashcamAnimation from 'public/images/animation/trashcam-animation.json'
 import { Box } from '@mui/material'
+import Lottie from 'lottie-react'
+import trashcamAnimation from '../animation/trashcam-animation.json'
 
 const TrashcamAnimation = () => {
   return (
