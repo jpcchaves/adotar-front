@@ -53,11 +53,11 @@ export const stepThreeInitialValues = (petDetails: PetDetailsDTO) => {
 
     state: {
       value: petDetails ? petDetails.address.state : '',
-      label: ''
+      label: petDetails ? petDetails.address.stateName : ''
     },
     city: {
       value: petDetails ? petDetails.address.city : '',
-      label: ''
+      label: petDetails ? petDetails.address.cityName : ''
     },
     street: petDetails ? petDetails.address.street : '',
     number: petDetails ? petDetails.address.number : '',

@@ -31,5 +31,7 @@ type PetAddressDTO = {
   complement: string
   neighborhood: string
   city: string
+  cityName: string
   state: string
+  stateName: string
 }
