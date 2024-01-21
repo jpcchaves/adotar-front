@@ -11,11 +11,12 @@ import TrashcamAnimation from './components/trashcamAnimation'
 interface IProps {
   isOpen: boolean
   toggleModal: () => void
+  handleDelete: () => void
 }
 
-const ModalDelete = ({ isOpen, toggleModal }: IProps) => {
+const ModalDelete = ({ isOpen, toggleModal, handleDelete }: IProps) => {
   return (
-    <Dialog onClose={toggleModal} aria-labelledby='modal delete' open={isOpen} maxWidth='xs'>
+    <Dialog onClose={toggleModal} keepMounted={false} aria-labelledby='modal delete' open={isOpen} maxWidth='xs'>
       <DialogTitle id='modal delete' sx={{ p: 4 }}>
         <Typography variant='h6' component='span'>
           Atenção!
@@ -40,7 +41,7 @@ const ModalDelete = ({ isOpen, toggleModal }: IProps) => {
           Cancelar
         </Button>
 
-        <Button onClick={() => console.log('call delete method and passes the id')} color='error' variant='outlined'>
+        <Button onClick={handleDelete} color='error' variant='outlined'>
           Deletar
         </Button>
       </DialogActions>
