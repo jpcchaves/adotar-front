@@ -15,9 +15,16 @@ import {
 interface IProps {
   pet: PetModelMin
   getPetDetails: (id: string) => Promise<void>
+  setSelectedPetId: (prevState: string) => void
+  toggleDeleteModal: () => void
 }
 
-const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPetDetails }: IProps) => {
+const PetHorizontalCard = ({
+  pet: { id, name, petPictures, description },
+  getPetDetails,
+  setSelectedPetId,
+  toggleDeleteModal
+}: IProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -43,14 +50,25 @@ const PetHorizontalCard = ({ pet: { id, name, petPictures, description }, getPet
           <IconButton aria-controls='menu' aria-haspopup='true' onClick={handleClick}>
             <Icon icon={'mdi:dots-vertical'} />
           </IconButton>
-          <Menu id='menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => getPetDetails(id)}>
+          <Menu id='menu' anchorEl={anchorEl} keepMounted={false} open={Boolean(anchorEl)} onClose={handleClose}>
+            <MenuItem
+              onClick={() => {
+                getPetDetails(id)
+                handleClose()
+              }}
+            >
               <ListItemIcon>
                 <Icon icon={'mdi:edit'} />
               </ListItemIcon>
               <ListItemText primary='Editar' />
             </MenuItem>
-            <MenuItem onClick={() => window.alert('delete')}>
+            <MenuItem
+              onClick={() => {
+                toggleDeleteModal()
+                setSelectedPetId(id)
+                handleClose()
+              }}
+            >
               <ListItemIcon>
                 <Icon icon={'mdi:trash'} />
               </ListItemIcon>
