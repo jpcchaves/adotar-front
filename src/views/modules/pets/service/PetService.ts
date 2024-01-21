@@ -9,6 +9,7 @@ export interface PetService {
   getPetDetails: (id: string) => Promise<PetDetailsDTO>
   createPet: (data: PetRequestDTO) => Promise<ApiMessageResponse>
   updatePet: (id: string, data: PetRequestDTO) => Promise<ApiMessageResponse>
+  deletePet: (id: string) => Promise<ApiMessageResponse>
   addSavedPet: (petId: string) => Promise<ApiMessageResponse>
   removeSavedPet: (petId: string) => Promise<ApiMessageResponse>
 }

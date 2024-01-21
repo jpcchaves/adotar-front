@@ -59,6 +59,18 @@ class PetServiceImpl implements PetService {
     })
   }
 
+  deletePet = async (id: string): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<void, ApiMessageResponse>(HttpMethod.DELETE, `/v1/pets/${id}`)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
   addSavedPet = async (petId: string): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
       httpRequest<void, ApiMessageResponse>(HttpMethod.POST, `${savedPetsEndpointV1}/${petId}`)
