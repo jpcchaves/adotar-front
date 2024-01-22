@@ -1,21 +1,10 @@
-import { Box, Breadcrumbs, Typography, styled } from '@mui/material'
-import Link from 'next/link'
+import { Box, Breadcrumbs, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
-
-const StyledLink = styled(Link)<{}>`
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 'normal';
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    color: #fff;
-  }
-`
 
 const DYNAMIC_ROUTE_IDENTIFIER = '['
 
 const Breadcrumb = () => {
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
 
   const pathnames = pathname.split('/').filter(x => !x.includes(DYNAMIC_ROUTE_IDENTIFIER) && x)
 
@@ -28,20 +17,33 @@ const Breadcrumb = () => {
 
   return (
     <Box pl={2} mb={5}>
-      <Breadcrumbs aria-label='breadcrumb' maxItems={2}>
+      <Breadcrumbs aria-label='breadcrumb' maxItems={2} sx={{ fontSize: '16px' }}>
         {pathnames.length &&
           pathnames.map((_, index) => {
             const last = index === pathnames.length - 1
             const to = `/${pathnames.slice(0, index + 1).join('/')}`
 
             return last ? (
-              <Typography style={{ color: 'white' }} key={to}>
+              <Typography variant='overline' fontWeight={'bolder'} fontSize='12px' key={to}>
                 {breadcumbsMap[to]}
               </Typography>
             ) : (
-              <StyledLink href={to} key={to}>
+              <Typography
+                onClick={() => push(to)}
+                variant='overline'
+                sx={{
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  opacity: '0.7',
+
+                  ':hover': { opacity: 1 },
+                  transition: '0.2s ease-in-out'
+                }}
+                fontWeight={'bold'}
+                fontSize='12px'
+              >
                 {breadcumbsMap[to]}
-              </StyledLink>
+              </Typography>
             )
           })}
       </Breadcrumbs>
