@@ -23,7 +23,16 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
       </Box>
       <CardContent sx={{ pt: 4 }}>
         <Box display='flex' justifyContent={'space-between'}>
-          <Typography variant='h6' sx={{ mb: 2 }}>
+          <Typography
+            variant='h6'
+            sx={{
+              mb: 2,
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
             {name}
           </Typography>
           <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap={1}>
@@ -46,7 +55,17 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
           </Box>
         </Box>
         <Box>
-          <Typography variant='body2'>{description}</Typography>
+          <Typography
+            variant='body2'
+            sx={{
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
+            {description}
+          </Typography>
         </Box>
       </CardContent>
       <CardActions>
