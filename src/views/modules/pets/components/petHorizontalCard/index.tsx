@@ -46,6 +46,7 @@ const PetHorizontalCard = ({
         </Typography>
 
         <Typography variant='subtitle2'>{description}</Typography>
+
         <CardButtonsContainer>
           <IconButton aria-controls='menu' aria-haspopup='true' onClick={handleClick}>
             <Icon icon={'mdi:dots-vertical'} />
