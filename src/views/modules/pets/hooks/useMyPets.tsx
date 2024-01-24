@@ -1,12 +1,11 @@
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
-import {} from 'src/configs/routes/pets'
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import useLoading from 'src/hooks/loading/useLoading'
-import { loadMyPets } from 'src/store/pets'
+import { useAppSelector } from 'src/hooks/useRedux'
 import { HttpMethod, httpRequest } from 'src/utils/http'
 import { petService } from '../service/impl/PetServiceImpl'
+import useHandlePetsPagination from './useHandlePetsPagination'
 
 interface IProps {
   toggleDeleteModal: () => void
@@ -14,17 +13,19 @@ interface IProps {
 }
 
 const useMyPets = ({ toggleDeleteModal, setSelectedPetId }: IProps) => {
-  const dispatch = useDispatch()
+  const { myPets } = useAppSelector(state => state.pets)
+  const { handleMyPetsListPagination } = useHandlePetsPagination({ pets: myPets })
   const { setLoading, isLoading } = useLoading()
-  const getMyPets = async () => {
+
+  const getMyPets = async (page = 0) => {
     setLoading(true)
 
     await httpRequest<void, ApiResponsePaginated<PetModelMin>>(
       HttpMethod.GET,
-      '/v1/pets/by-user?size=10&page=0&sort=id,desc'
+      `/v1/pets/by-user?size=6&page=${page}&sort=createdAt,desc`
     )
       .then(res => {
-        dispatch(loadMyPets(res.content))
+        handleMyPetsListPagination(res)
         setSelectedPetId('')
       })
       .catch(err => {
