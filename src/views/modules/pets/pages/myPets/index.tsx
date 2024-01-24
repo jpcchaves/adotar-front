@@ -4,6 +4,7 @@ import ModalDelete from 'src/@core/components/deleteModal'
 import useModalControls from 'src/hooks/modalControls/useModalControls'
 import { useAppSelector } from 'src/hooks/useRedux'
 import PetHorizontalCard from '../../components/petHorizontalCard'
+import useHandleInfiniteScroll from '../../hooks/useHandleInfiniteScroll'
 import useMyPets from '../../hooks/useMyPets'
 import usePets from '../../hooks/usePets'
 
@@ -14,6 +15,8 @@ const MyPets = () => {
   const { getMyPets, deletePet } = useMyPets({ toggleDeleteModal, setSelectedPetId })
   const { getPetDetails } = usePets()
   const { myPets } = useAppSelector(state => state.pets)
+
+  useHandleInfiniteScroll({ getListPets: getMyPets })
 
   useEffect(() => {
     getMyPets()
