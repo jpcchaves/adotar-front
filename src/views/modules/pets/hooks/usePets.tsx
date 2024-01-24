@@ -1,22 +1,22 @@
-import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
-import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux'
 
 import toast from 'react-hot-toast'
 import { PetRequestDTO } from 'src/domain/DTO/pet/PetRequestDTO'
 import useNavigation from 'src/hooks/navigation/useNavigation'
-import { loadPetDetails, loadPets, loadPetsPaginated } from 'src/store/pets'
+import { loadPetDetails, loadPets } from 'src/store/pets'
 import { updatePetFavorite } from 'src/utils/pet/updatePetFavorite'
 import useLoading from '../../../../hooks/loading/useLoading'
 import { FAVORITE, NOT_FAVORITE, ONE_SECOND_IN_MILLIS } from '../contants'
 import { toggleSavedPetAction } from '../models/savedPetActions'
 import { petService } from '../service/impl/PetServiceImpl'
+import useHandlePetsPagination from './useHandlePetsPagination'
 
 const usePets = () => {
+  const { pets } = useAppSelector(state => state.pets)
+  const { handlePetListPagination } = useHandlePetsPagination({ pets })
   const { navigateWithTime, navigate } = useNavigation()
   const dispatch = useAppDispatch()
   const { isLoading, setLoading } = useLoading()
-  const { pets } = useAppSelector(state => state.pets)
 
   const getListPets = async (page = 0) => {
     setLoading(true)
@@ -120,26 +120,6 @@ const usePets = () => {
     }
   }
 
-  const handlePetListPagination = (petsPaginated: ApiResponsePaginated<PetModelMin>) => {
-    const FIRST_PAGE_NO = 0
-
-    if (pets && petsPaginated.pageNo > FIRST_PAGE_NO) {
-      const newData = pets.concat(petsPaginated.content)
-      dispatch(
-        loadPetsPaginated({
-          content: newData,
-          last: petsPaginated.last,
-          totalElements: petsPaginated.totalElements,
-          pageSize: petsPaginated.pageSize,
-          pageNo: petsPaginated.pageNo,
-          totalPages: petsPaginated.totalPages
-        })
-      )
-    } else {
-      dispatch(loadPetsPaginated(petsPaginated))
-    }
-  }
-
   const handleUpdatePetFavorite = (petId: string, newFavoriteValue: boolean) => {
     updatePetFavorite(pets!, petId, newFavoriteValue)
     dispatch(loadPets(updatePetFavorite(pets!, petId, newFavoriteValue)))
@@ -152,7 +132,6 @@ const usePets = () => {
     getPetDetails,
     addSavedPet,
     removeSavedPet,
-    handlePetListPagination,
     toggleSavedPet,
     isLoading
   }
