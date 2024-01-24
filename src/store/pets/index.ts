@@ -45,6 +45,18 @@ export const petsSlice = createSlice({
       state.totalElements = totalElements
       state.petDetails = null
     },
+    loadMyPetsPaginated: (
+      state,
+      { payload: { totalPages, totalElements, pageNo, pageSize, last, content } }: PayloadPetsPaginated
+    ) => {
+      state.myPets = content
+      state.pageNo = pageNo
+      state.last = last
+      state.pageSize = pageSize
+      state.totalPages = totalPages
+      state.totalElements = totalElements
+      state.petDetails = null
+    },
     loadPets: (state, action: PayloadPets) => {
       state.pets = action.payload
       state.petDetails = null
@@ -59,6 +71,6 @@ export const petsSlice = createSlice({
   }
 })
 
-export const { loadPetsPaginated, loadPets, loadMyPets, loadPetDetails } = petsSlice.actions
+export const { loadPetsPaginated, loadMyPetsPaginated, loadPets, loadMyPets, loadPetDetails } = petsSlice.actions
 
 export default petsSlice.reducer
