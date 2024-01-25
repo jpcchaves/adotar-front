@@ -12,7 +12,7 @@ interface IProps {
   toggleSavedPet: (petId: string, action: toggleSavedPetAction) => void
 }
 
-const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }, toggleSavedPet }: IProps) => {
+const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id, breed }, toggleSavedPet }: IProps) => {
   const isMale = gender === Gender.M
 
   return (
@@ -22,11 +22,10 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
         <CardOverlay petFavoritePicture={petPictures[0]?.imgUrl} name={name} />
       </Box>
       <CardContent sx={{ pt: 4 }}>
-        <Box display='flex' justifyContent={'space-between'}>
+        <Box display='flex' justifyContent={'space-between'} mb={5}>
           <Typography
             variant='h6'
             sx={{
-              mb: 2,
               maxWidth: '100%',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
@@ -53,6 +52,19 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
               <Icon icon={isMale ? 'mdi:gender-male' : 'mdi:gender-female'} />
             </IconButton>
           </Box>
+        </Box>
+        <Box mb={2}>
+          <Typography
+            variant='body2'
+            sx={{
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
+            {breed}
+          </Typography>
         </Box>
         <Box>
           <Typography
