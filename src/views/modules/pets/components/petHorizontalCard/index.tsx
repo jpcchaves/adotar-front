@@ -51,7 +51,7 @@ const PetHorizontalCard = ({
 
         <Box position='absolute' bottom={10} right={10} sx={{ userSelect: 'none' }}>
           <Typography variant='subtitle2' fontStyle='italic' fontWeight='lighter' fontSize={'10px'}>
-            Adicionado em {new Date(createdAt).toLocaleDateString()}
+            Adicionado em {new Date(createdAt).toLocaleDateString('pt-BR')}
           </Typography>
         </Box>
 
