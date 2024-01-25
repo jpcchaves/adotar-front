@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box, BoxProps, Card, CardContent, CardMedia, CardMediaProps, CardProps, MenuProps } from '@mui/material'
+import { Card, CardContent, CardMedia, CardMediaProps, CardProps, MenuProps } from '@mui/material'
 import MuiMenu from '@mui/material/Menu'
 import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 
@@ -12,20 +12,13 @@ const CustomHorizontalPetCard = styled(Card)<CardProps>(({}) => ({
 const CustomCardMedia = styled(CardMedia)<CardMediaProps>(() => ({
   width: '100%',
   objectFit: 'cover',
-  height: 150
+  height: 230
 }))
 
 const CustomCardContent = styled(CardContent)(() => ({
-  width: '75%',
+  width: '60%',
   display: 'flex',
   flexDirection: 'column'
-}))
-
-const CardButtonsContainer = styled(Box)<BoxProps>(() => ({
-  height: '100%',
-  position: 'absolute',
-  right: 6,
-  top: 6
 }))
 
 const Menu = styled(MuiMenu)<MenuProps>(({ theme }) => ({
@@ -46,4 +39,4 @@ const MenuItem = styled(MuiMenuItem)<MenuItemProps>(({ theme }) => ({
   }
 }))
 
-export { CardButtonsContainer, CustomCardContent, CustomCardMedia, CustomHorizontalPetCard, Menu, MenuItem }
+export { CustomCardContent, CustomCardMedia, CustomHorizontalPetCard, Menu, MenuItem }

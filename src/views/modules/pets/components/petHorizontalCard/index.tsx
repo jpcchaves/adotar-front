@@ -1,16 +1,8 @@
-import { Icon } from '@iconify/react'
-import { Box, IconButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import { MouseEvent, useState } from 'react'
+import { Box, Typography } from '@mui/material'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
 import { fallbackPetImage } from '../petCard/contants'
-import {
-  CardButtonsContainer,
-  CustomCardContent,
-  CustomCardMedia,
-  CustomHorizontalPetCard,
-  Menu,
-  MenuItem
-} from './style'
+import CardMenu from './components/cardMenu'
+import { CustomCardContent, CustomCardMedia, CustomHorizontalPetCard } from './style'
 
 interface IProps {
   pet: PetModelMin
@@ -25,19 +17,9 @@ const PetHorizontalCard = ({
   setSelectedPetId,
   toggleDeleteModal
 }: IProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
   return (
     <CustomHorizontalPetCard>
-      <Box padding={4} width={'25%'}>
+      <Box padding={4} width={'40%'}>
         <CustomCardMedia sx={{ width: '100%' }} image={petPictures.length ? petPictures[0].imgUrl : fallbackPetImage} />
       </Box>
       <CustomCardContent>
@@ -47,36 +29,12 @@ const PetHorizontalCard = ({
 
         <Typography variant='subtitle2'>{description}</Typography>
 
-        <CardButtonsContainer>
-          <IconButton aria-controls='menu' aria-haspopup='true' onClick={handleClick}>
-            <Icon icon={'mdi:dots-vertical'} />
-          </IconButton>
-          <Menu id='menu' anchorEl={anchorEl} keepMounted={false} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem
-              onClick={() => {
-                getPetDetails(id)
-                handleClose()
-              }}
-            >
-              <ListItemIcon>
-                <Icon icon={'mdi:edit'} />
-              </ListItemIcon>
-              <ListItemText primary='Editar' />
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                toggleDeleteModal()
-                setSelectedPetId(id)
-                handleClose()
-              }}
-            >
-              <ListItemIcon>
-                <Icon icon={'mdi:trash'} />
-              </ListItemIcon>
-              <ListItemText primary='Deletar' />
-            </MenuItem>
-          </Menu>
-        </CardButtonsContainer>
+        <CardMenu
+          id={id}
+          getPetDetails={getPetDetails}
+          setSelectedPetId={setSelectedPetId}
+          toggleDeleteModal={toggleDeleteModal}
+        />
       </CustomCardContent>
     </CustomHorizontalPetCard>
   )
