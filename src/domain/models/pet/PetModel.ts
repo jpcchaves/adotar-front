@@ -15,6 +15,7 @@ export type PetModelMin = {
   breed: string
   petPictures: PetPictureDTO[]
   address: PetAddress
+  createdAt: Date
 }
 
 export type PetModel = {
