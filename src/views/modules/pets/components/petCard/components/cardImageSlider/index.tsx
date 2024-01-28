@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react'
 import { CardMedia, IconButton } from '@mui/material'
 import { Slide } from 'react-slideshow-image'
-import { PetPicture } from 'src/domain/models/pet/PetPicture'
-import { fallbackPetImage } from '../../contants/petFallbackImage/petFallbackImage'
 import 'react-slideshow-image/dist/styles.css'
+import { PetPictureDTO } from 'src/domain/DTO/pet/PetPictureDTO'
+import { fallbackPetImage } from '../../contants/petFallbackImage/petFallbackImage'
 
 interface IProps {
-  petPictures: PetPicture[]
+  petPictures: PetPictureDTO[]
   petFavoritePicture: string
 }
 

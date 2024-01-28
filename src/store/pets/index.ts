@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
 import { ApiResponsePaginated } from 'src/domain/models/ApiResponsePaginated'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
 
 export interface PetsState {
   pets: PetModelMin[] | null
+  myPets: PetModelMin[] | null
+  petDetails: PetDetailsDTO | null
   pageNo: number
   totalElements: number
   totalPages: number
@@ -13,9 +16,12 @@ export interface PetsState {
 
 type PayloadPetsPaginated = PayloadAction<ApiResponsePaginated<PetModelMin>>
 type PayloadPets = PayloadAction<PetModelMin[]>
+type PayloadPetDetails = PayloadAction<PetDetailsDTO>
 
 const initialState: PetsState = {
   pets: null,
+  myPets: null,
+  petDetails: null,
   pageNo: 0,
   last: true,
   pageSize: 0,
@@ -37,13 +43,34 @@ export const petsSlice = createSlice({
       state.pageSize = pageSize
       state.totalPages = totalPages
       state.totalElements = totalElements
+      state.petDetails = null
+    },
+    loadMyPetsPaginated: (
+      state,
+      { payload: { totalPages, totalElements, pageNo, pageSize, last, content } }: PayloadPetsPaginated
+    ) => {
+      state.myPets = content
+      state.pageNo = pageNo
+      state.last = last
+      state.pageSize = pageSize
+      state.totalPages = totalPages
+      state.totalElements = totalElements
+      state.petDetails = null
     },
     loadPets: (state, action: PayloadPets) => {
       state.pets = action.payload
+      state.petDetails = null
+    },
+    loadMyPets: (state, action: PayloadPets) => {
+      state.myPets = action.payload
+      state.petDetails = null
+    },
+    loadPetDetails: (state, action: PayloadPetDetails) => {
+      state.petDetails = action.payload
     }
   }
 })
 
-export const { loadPetsPaginated, loadPets } = petsSlice.actions
+export const { loadPetsPaginated, loadMyPetsPaginated, loadPets, loadMyPets, loadPetDetails } = petsSlice.actions
 
 export default petsSlice.reducer

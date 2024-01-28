@@ -1,5 +1,5 @@
 import { FormikErrors, FormikValues } from 'formik'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useMemo } from 'react'
 import { extractZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
 import { states } from 'src/views/modules/pets/data/geolocation/states'
 
@@ -20,15 +20,21 @@ interface IProps {
   inputIdentifier: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<FormikValues>>
+  value: string
 }
 
-const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue }: IProps) => {
+const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue, value }: IProps) => {
   const VIA_CEP_ENDPOINT = process.env.NEXT_PUBLIC_VIA_CEP_ENDPOINT
   const ZIPCODE_MAX_LENGTH = 8
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const initialValue = useMemo(() => value, [])
+  const initialValueHasChanged = !!(initialValue !== value)
 
   const handleZipcodeChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value: maskedValue } = e.target
     const unmaskedValue = extractZipcode(maskedValue)
+
     const event = {
       ...e,
       target: {
@@ -38,6 +44,8 @@ const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue }: IP
     }
 
     onChange(event as ChangeEvent<HTMLInputElement>)
+
+    if (!initialValueHasChanged) return
 
     if (unmaskedValue?.length === ZIPCODE_MAX_LENGTH) {
       try {

@@ -17,6 +17,7 @@ interface IProps extends Omit<OutlinedInputProps, OmittedInputProps> {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<FormikValues>>
+  value: string
 }
 
 const ZipcodeInput = ({
@@ -28,9 +29,10 @@ const ZipcodeInput = ({
   onBlur,
   isRequired = false,
   setFieldValue,
+  value,
   ...rest
 }: IProps) => {
-  const { handleZipcodeChange } = useHandleZipcodeChange({ inputIdentifier, onChange, setFieldValue })
+  const { handleZipcodeChange } = useHandleZipcodeChange({ inputIdentifier, onChange, setFieldValue, value })
 
   return (
     <FormControl fullWidth error={isInvalid}>
@@ -44,6 +46,7 @@ const ZipcodeInput = ({
         onBlur={onBlur}
         onChange={handleZipcodeChange}
         inputComponent={ZipcodeMask as any}
+        value={value}
       />
       {isInvalid && errorMessage && <FormFeedback errorMessage={errorMessage} />}
     </FormControl>

@@ -26,7 +26,7 @@ const defineRulesFor = (roles: UserRoleModel[], subject: string) => {
         can('manage', 'all')
         break
       case 'ROLE_USER':
-        can('manage', ['acl-page', 'second-page', 'pets', 'second-page'])
+        can('manage', ['acl-page', 'second-page', 'pets', 'second-page', 'meus-pets', 'editar'])
         break
       default:
         can(['read', 'create', 'update', 'delete'], subject)

@@ -2,13 +2,13 @@
 
 import PetsForm from 'src/views/modules/pets/pages/petsForm'
 
-const PetsFormPage = () => {
+const PetsCreateFormPage = () => {
   return <PetsForm />
 }
 
-PetsFormPage.acl = {
+PetsCreateFormPage.acl = {
   action: 'manage',
   subject: 'pets'
 }
 
-export default PetsFormPage
+export default PetsCreateFormPage

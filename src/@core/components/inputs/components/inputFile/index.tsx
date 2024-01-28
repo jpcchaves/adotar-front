@@ -16,20 +16,20 @@ import { Alert, Typography } from '@mui/material'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+import { PetPictureDTO } from 'src/domain/DTO/pet/PetPictureDTO'
 import { v4 as uuidv4 } from 'uuid'
-import { PictureModel } from '../../models/picture/PictureModel'
 import { HeadingTypography, Img } from './style'
 
 interface IProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   setFieldValue: (field: string, value: any) => void
   isInvalid: boolean
   errorMessage: string
-  petPictures: PictureModel[]
+  petPictures: PetPictureDTO[]
 }
 
 const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...props }: IProps) => {
   // ** State
-  const [, setFiles] = useState<PictureModel[]>([])
+  const [, setFiles] = useState<PetPictureDTO[]>(petPictures || [])
 
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
@@ -40,17 +40,14 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
       'image/*': ['.png', '.jpg', '.jpeg']
     },
     onDrop: async (acceptedFiles: File[]) => {
-      const filesWithId = acceptedFiles.map((file: File) => ({
-        file,
-        id: uuidv4(),
-        imgUrl: ''
-      }))
-
-      await Promise.all(
-        filesWithId.map(async fileData => {
-          const imgUrl = await readFileAsDataURL(fileData.file)
-          fileData.imgUrl = imgUrl
-        })
+      const filesWithId = await Promise.all(
+        acceptedFiles.map(async (file: File) => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          imgUrl: await readFileAsDataURL(file),
+          id: uuidv4()
+        }))
       )
 
       setFiles(prevFiles => {
@@ -67,9 +64,9 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
     }
   })
 
-  const renderFilePreview = (fileData: { file: File; id: string; imgUrl: string }) => {
-    if (fileData.file.type.startsWith('image')) {
-      return <img width={38} height={38} alt={fileData.file.name} src={fileData.imgUrl} />
+  const renderFilePreview = (fileData: PetPictureDTO) => {
+    if (fileData?.type.startsWith('image')) {
+      return <img width={38} height={38} alt={fileData?.name} src={fileData?.imgUrl} />
     } else {
       return <Icon icon='mdi:file-document-outline' />
     }
@@ -77,28 +74,28 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
 
   const onDelete = (fileId: string) => {
     setFiles(prevFiles => {
-      const filteredFiles = prevFiles.filter(file => file.id !== fileId)
+      const filteredFiles = prevFiles.filter(file => file?.id !== fileId)
       handlePetPicuresValueChange(filteredFiles)
 
       return filteredFiles
     })
   }
 
-  const fileList = petPictures.map((fileData: PictureModel, idx) => {
+  const fileList = petPictures.map((fileData: PetPictureDTO, idx) => {
     return (
       <ListItem key={`${fileData.id}-${idx}`}>
         <div className='file-details'>
           <div className='file-preview'>{renderFilePreview(fileData)}</div>
           <div>
-            <Typography className='file-name'>{fileData.file.name}</Typography>
+            <Typography className='file-name'>{fileData?.name}</Typography>
             <Typography className='file-size' variant='body2'>
-              {Math.round(fileData.file.size / 100) / 10 > 1000
-                ? `${(Math.round(fileData.file.size / 100) / 10000).toFixed(1)} mb`
-                : `${(Math.round(fileData.file.size / 100) / 10).toFixed(1)} kb`}
+              {Math.round(fileData?.size / 100) / 10 > 1000
+                ? `${(Math.round(fileData?.size / 100) / 10000).toFixed(1)} mb`
+                : `${(Math.round(fileData?.size / 100) / 10).toFixed(1)} kb`}
             </Typography>
           </div>
         </div>
-        <IconButton onClick={() => onDelete(fileData.id)}>
+        <IconButton onClick={() => onDelete(fileData.id!)}>
           <Icon icon='mdi:close' fontSize={20} />
         </IconButton>
       </ListItem>
@@ -110,7 +107,7 @@ const InputFile = ({ setFieldValue, isInvalid, errorMessage, petPictures, ...pro
     handlePetPicuresValueChange([])
   }
 
-  const handlePetPicuresValueChange = (newValue: PictureModel[]) => {
+  const handlePetPicuresValueChange = (newValue: PetPictureDTO[]) => {
     setFieldValue('petPictures', newValue)
   }
 

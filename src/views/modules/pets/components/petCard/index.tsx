@@ -2,30 +2,38 @@ import { Box, Button, Card, CardActions, CardContent, IconButton, Typography } f
 import Icon from 'src/@core/components/icon'
 import { Gender } from 'src/domain/enum/pet/Gender'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
-import { toggleSavedPetAction } from '../../hooks/usePets'
+import useNavigation from 'src/hooks/navigation/useNavigation'
+import { toggleSavedPetAction } from '../../models/savedPetActions'
 import { CardImageSlider } from './components'
 import CardOverlay from './components/cardOverlay'
-import { gendersColors, getPetFavPicture } from './utils'
+import { gendersColors } from './utils'
 
 interface IProps {
   pet: PetModelMin
   toggleSavedPet: (petId: string, action: toggleSavedPetAction) => void
 }
 
-const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }, toggleSavedPet }: IProps) => {
+const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id, breed }, toggleSavedPet }: IProps) => {
+  const { navigate } = useNavigation()
   const isMale = gender === Gender.M
-
-  const petFavoritePicture = getPetFavPicture(petPictures)
 
   return (
     <Card>
       <Box style={{ position: 'relative' }}>
-        <CardImageSlider petPictures={petPictures} petFavoritePicture={petFavoritePicture} />
-        <CardOverlay petFavoritePicture={petFavoritePicture} name={name} />
+        <CardImageSlider petPictures={petPictures} petFavoritePicture={petPictures[0]?.imgUrl} />
+        <CardOverlay petFavoritePicture={petPictures[0]?.imgUrl} name={name} />
       </Box>
       <CardContent sx={{ pt: 4 }}>
-        <Box display='flex' justifyContent={'space-between'}>
-          <Typography variant='h6' sx={{ mb: 2 }}>
+        <Box display='flex' justifyContent={'space-between'} mb={5}>
+          <Typography
+            variant='h6'
+            sx={{
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
             {name}
           </Typography>
           <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap={1}>
@@ -47,12 +55,35 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id }
             </IconButton>
           </Box>
         </Box>
+        <Box mb={2}>
+          <Typography
+            variant='body2'
+            sx={{
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
+            {breed}
+          </Typography>
+        </Box>
         <Box>
-          <Typography variant='body2'>{description}</Typography>
+          <Typography
+            variant='body2'
+            sx={{
+              maxWidth: '100%',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis'
+            }}
+          >
+            {description}
+          </Typography>
         </Box>
       </CardContent>
       <CardActions>
-        <Button fullWidth variant='contained'>
+        <Button fullWidth variant='contained' onClick={() => navigate(`/pets/detalhes/${id}`)}>
           Ver Detalhes
         </Button>
       </CardActions>

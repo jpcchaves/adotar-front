@@ -1,3 +1,4 @@
+import { PetPictureDTO } from 'src/domain/DTO/pet/PetPictureDTO'
 import { Gender } from 'src/domain/enum/pet/Gender'
 import { PetAddress } from './PetAddress'
 import { PetCharacteristic } from './PetCharacteristic'
@@ -12,8 +13,9 @@ export type PetModelMin = {
   favorite: boolean
   type: string
   breed: string
-  petPictures: PetPicture[]
+  petPictures: PetPictureDTO[]
   address: PetAddress
+  createdAt: Date
 }
 
 export type PetModel = {

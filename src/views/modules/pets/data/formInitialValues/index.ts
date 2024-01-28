@@ -1,78 +1,91 @@
-export const stepOneInitialValues = () => {
+import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
+import { Gender } from 'src/domain/enum/pet/Gender'
+import { monthsAgeOptions, yearsAgeOptions } from '../age/ageOptions'
+import { petHealthConditionMenuItems } from '../petHealthConditionMenuItems'
+import { petSizeMenuItems } from '../petSizeMenuItems'
+import { petTypeMenuItems } from '../petTypeMenuItems'
+
+export const stepOneInitialValues = (petDetails: PetDetailsDTO) => {
   return {
     typeId: {
-      value: '',
-      label: ''
+      value: petDetails ? String(petDetails.type.id) : '',
+      label: petTypeMenuItems.find(p => p.value == petDetails?.type.id)?.label || ''
     },
-    name: '',
+    name: petDetails ? petDetails?.name : '',
     gender: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.gender : '',
+      label: petDetails?.gender === Gender.M ? 'Macho' : 'Fêmea'
     },
     size: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails?.size : '',
+      label: petSizeMenuItems.find(p => p.value == petDetails?.size)?.label || ''
     },
     healthCondition: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.healthCondition : '',
+      label: petHealthConditionMenuItems.find(h => h.value == petDetails?.healthCondition)?.label || ''
     }
   }
 }
 
-export const stepTwoInitialValues = () => {
+export const stepTwoInitialValues = (petDetails: PetDetailsDTO) => {
   return {
     breedId: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.breed.id : '',
+      label: petDetails ? petDetails.breed.name : ''
     },
-    color: '',
+    color: petDetails ? petDetails.color : '',
     yearsAge: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.yearsAge : '',
+      label: yearsAgeOptions.find(ya => ya.value == petDetails?.yearsAge)?.label || ''
     },
     monthsAge: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.monthsAge : '',
+      label: monthsAgeOptions.find(ma => ma.value == petDetails?.monthsAge)?.label || ''
     },
-    description: '',
-    characteristicsIds: []
+    description: petDetails ? petDetails.description : '',
+    characteristicsIds: petDetails ? petDetails.characteristics.map(c => String(c)) : []
   }
 }
 
-export const stepThreeInitialValues = () => {
+export const stepThreeInitialValues = (petDetails: PetDetailsDTO) => {
   return {
-    zipcode: '',
+    zipcode: petDetails ? petDetails.address.zipcode : '',
+
     state: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.address.state : '',
+      label: petDetails ? petDetails.address.stateName : ''
     },
     city: {
-      value: '',
-      label: ''
+      value: petDetails ? petDetails.address.city : '',
+      label: petDetails ? petDetails.address.cityName : ''
     },
-    street: '',
-    number: '',
-    complement: '',
-    neighborhood: ''
+    street: petDetails ? petDetails.address.street : '',
+    number: petDetails ? petDetails.address.number : '',
+    complement: petDetails ? petDetails.address.complement : '',
+    neighborhood: petDetails ? petDetails.address.neighborhood : ''
   }
 }
 
-export const stepFourInitialValues = () => {
+export const stepFourInitialValues = (petDetails: PetDetailsDTO) => {
   return {
-    petPictures: []
+    petPictures: petDetails ? (petDetails.petPictures as []) : []
   }
 }
 
-export const getFormInitialValues = () => {
+export const getFormInitialValues = (petDetails: PetDetailsDTO) => {
   return {
-    ...stepOneInitialValues(),
-    ...stepTwoInitialValues(),
-    ...stepThreeInitialValues(),
-    ...stepFourInitialValues()
+    ...stepOneInitialValues(petDetails),
+    ...stepTwoInitialValues(petDetails),
+    ...stepThreeInitialValues(petDetails),
+    ...stepFourInitialValues(petDetails)
   }
 }
 
-export const getFormInitialValuesArr = () => {
-  return [stepOneInitialValues(), stepTwoInitialValues(), stepThreeInitialValues(), stepFourInitialValues()]
+export const getFormInitialValuesArr = (petDetails?: PetDetailsDTO) => {
+  return [
+    stepOneInitialValues(petDetails!),
+    stepTwoInitialValues(petDetails!),
+    stepThreeInitialValues(petDetails!),
+    stepFourInitialValues(petDetails!)
+  ]
 }

@@ -14,7 +14,7 @@ interface IProps extends FormStepProps {
 
 const SecondStep = ({ validation, activeStep }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
-  const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length
+  const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length || 0
   const DESCRIPTION_CHAR_LIMIT = 250
 
   return (
@@ -53,9 +53,9 @@ const SecondStep = ({ validation, activeStep }: IProps) => {
           inputLabel={'Anos'}
           isRequired
           isInvalid={
-            !!((validation.errors.yearsAge?.label || validation.errors?.yearsAge) && validation.touched.yearsAge)
+            !!((validation.errors.yearsAge?.value || validation.errors?.yearsAge) && validation.touched.yearsAge)
           }
-          errorMessage={validation.errors.yearsAge?.label || validation.errors?.yearsAge}
+          errorMessage={validation.errors.yearsAge?.value || validation.errors?.yearsAge}
           setFieldValue={validation.setFieldValue}
           value={validation.values.yearsAge?.value}
           onBlur={validation.handleBlur}
@@ -68,9 +68,9 @@ const SecondStep = ({ validation, activeStep }: IProps) => {
           inputLabel={'Meses'}
           isRequired
           isInvalid={
-            !!((validation.errors.monthsAge?.label || validation.errors?.monthsAge) && validation.touched.monthsAge)
+            !!((validation.errors.monthsAge?.value || validation.errors?.monthsAge) && validation.touched.monthsAge)
           }
-          errorMessage={validation.errors.monthsAge?.label || validation.errors?.monthsAge}
+          errorMessage={validation.errors.monthsAge?.value || validation.errors?.monthsAge}
           setFieldValue={validation.setFieldValue}
           value={validation.values.monthsAge?.value}
           onBlur={validation.handleBlur}

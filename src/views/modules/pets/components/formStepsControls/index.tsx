@@ -21,7 +21,7 @@ const FormStepControls = ({ activeStep, handleBack = () => {}, isLoading }: IPro
   const isLastStep = currentStepIndex === lastStepIndex
 
   return (
-    <Grid container>
+    <Grid container mt={10}>
       <Grid
         item
         xs={12}
