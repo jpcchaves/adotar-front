@@ -2,6 +2,7 @@ import { Box, Button, Card, CardActions, CardContent, IconButton, Typography } f
 import Icon from 'src/@core/components/icon'
 import { Gender } from 'src/domain/enum/pet/Gender'
 import { PetModelMin } from 'src/domain/models/pet/PetModel'
+import useNavigation from 'src/hooks/navigation/useNavigation'
 import { toggleSavedPetAction } from '../../models/savedPetActions'
 import { CardImageSlider } from './components'
 import CardOverlay from './components/cardOverlay'
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id, breed }, toggleSavedPet }: IProps) => {
+  const { navigate } = useNavigation()
   const isMale = gender === Gender.M
 
   return (
@@ -81,7 +83,7 @@ const PetCard = ({ pet: { petPictures, name, description, favorite, gender, id, 
         </Box>
       </CardContent>
       <CardActions>
-        <Button fullWidth variant='contained'>
+        <Button fullWidth variant='contained' onClick={() => navigate(`/pets/detalhes/${id}`)}>
           Ver Detalhes
         </Button>
       </CardActions>
