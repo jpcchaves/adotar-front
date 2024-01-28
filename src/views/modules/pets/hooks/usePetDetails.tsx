@@ -1,7 +1,8 @@
+import { useCallback } from 'react'
 import { petDetailsService } from '../service/impl/PetDetailsServiceImpl'
 
 const usePetDetails = () => {
-  const getPetDetailedInfo = async (petId: string) => {
+  const getPetDetailedInfo = useCallback(async (petId: string) => {
     await petDetailsService
       .getPetDetailedInfo(petId)
       .then(res => {
@@ -10,7 +11,7 @@ const usePetDetails = () => {
       .catch(err => {
         console.log(err)
       })
-  }
+  }, [])
 
   return { getPetDetailedInfo }
 }
