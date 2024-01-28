@@ -97,9 +97,11 @@ const PetDetailsAbout = () => {
               '&:not(:last-of-type)': { mb: 4 }
             }}
           >
-            <Icon icon='mdi:circle-medium' />
+            <Box display='flex' alignItems='center'>
+              <Icon icon='mdi:circle-medium' />
 
-            <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Característica(s):</Typography>
+              <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Característica(s):</Typography>
+            </Box>
             <Typography sx={{ color: 'text.secondary' }}>
               Castrado, Vermifugado, Brincalhao, Carinhoso, Lida bem com visitas
             </Typography>
@@ -109,11 +111,18 @@ const PetDetailsAbout = () => {
           <Typography variant='body2' sx={{ mb: 4, color: 'text.disabled', textTransform: 'uppercase' }}>
             Tutor
           </Typography>
-        </Box>
-        <Box>
-          <Typography variant='body2' sx={{ mb: 4, color: 'text.disabled', textTransform: 'uppercase' }}>
-            Caracteristicas
-          </Typography>
+
+          <Box
+            sx={{
+              display: 'flex',
+              '&:not(:last-of-type)': { mb: 4 }
+            }}
+          >
+            <Icon icon='mdi:circle-medium' />
+
+            <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Nome do tutor:</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Joao Paulo</Typography>
+          </Box>
         </Box>
       </CardContent>
     </Card>
