@@ -5,7 +5,7 @@ import { PetDetailsService } from '../PetDetailsService'
 class PetDetailsServiceImpl implements PetDetailsService {
   getPetDetailedInfo = async (petId: string): Promise<PetDetailsDTO> => {
     return new Promise((resolve, reject) => {
-      httpRequest<void, PetDetailsDTO>(HttpMethod.GET, `/pets/${petId}`)
+      httpRequest<void, PetDetailsDTO>(HttpMethod.GET, `/v1/pets/${petId}`)
         .then(res => {
           resolve(res)
         })
