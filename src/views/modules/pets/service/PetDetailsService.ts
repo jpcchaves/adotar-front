@@ -1,5 +1,5 @@
-import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
+import { PetById } from 'src/domain/DTO/pet/PetByIdDTO'
 
 export interface PetDetailsService {
-  getPetDetailedInfo(petId: string): Promise<PetDetailsDTO>
+  getPetDetailedInfo(petId: string): Promise<PetById>
 }
