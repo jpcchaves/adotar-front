@@ -4,10 +4,17 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import { useAppSelector } from 'src/hooks/useRedux'
+import { getPetAgeString } from '../../utils/age/getPetAge'
+import { getGenderString } from '../../utils/gender/getGenderString'
 
 // ** Icon Imports
 
 const PetDetailsAbout = () => {
+  const { petById } = useAppSelector(state => state.pets)
+  const gender = petById?.gender
+  const petAge = { years: petById?.yearsAge, months: petById?.monthsAge }
+
   return (
     <Card>
       <CardContent>
@@ -25,7 +32,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Espécie:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Cachorro</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{petById?.type}</Typography>
           </Box>
           <Box
             sx={{
@@ -37,7 +44,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Gênero:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Macho</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{getGenderString(gender!)}</Typography>
           </Box>
           <Box
             sx={{
@@ -49,7 +56,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Raça:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>SRD Sem Raça Definida</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{petById?.breed}</Typography>
           </Box>
 
           <Box
@@ -62,7 +69,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Cor:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Branquinha da Adasi</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{petById?.color}</Typography>
           </Box>
 
           <Box
@@ -75,7 +82,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Idade:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>24 anos e 11 meses</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{getPetAgeString(petAge.years!, petAge.months!)}</Typography>
           </Box>
 
           <Box
@@ -88,7 +95,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Porte:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Muito Pequeno</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{petById?.size}</Typography>
           </Box>
 
           <Box
@@ -103,7 +110,7 @@ const PetDetailsAbout = () => {
               <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Característica(s):</Typography>
             </Box>
             <Typography sx={{ color: 'text.secondary' }}>
-              Castrado, Vermifugado, Brincalhao, Carinhoso, Lida bem com visitas
+              {petById?.characteristics.map(c => c.characteristic).join(', ')}
             </Typography>
           </Box>
         </Box>
