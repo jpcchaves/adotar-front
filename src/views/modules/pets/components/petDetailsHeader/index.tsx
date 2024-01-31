@@ -18,9 +18,7 @@ const PetDetailsHeader = () => {
       <CardMedia
         component='img'
         alt='pet-profile-header'
-        image={
-          'https://conteudo.imguol.com.br/c/noticias/0f/2022/06/26/mr-happy-face-eleito-o-cao-mais-feio-do-mundo-1656267028638_v2_450x600.png.webp'
-        }
+        image={petById?.petPictures[0]?.imgUrl}
         sx={{
           height: { xs: 150, md: 250 }
         }}
@@ -35,12 +33,7 @@ const PetDetailsHeader = () => {
           justifyContent: { xs: 'center', md: 'flex-start' }
         }}
       >
-        <ProfilePicture
-          src={
-            'https://conteudo.imguol.com.br/c/noticias/0f/2022/06/26/mr-happy-face-eleito-o-cao-mais-feio-do-mundo-1656267028638_v2_450x600.png.webp'
-          }
-          alt='profile-picture'
-        />
+        <ProfilePicture src={petById?.petPictures[0]?.imgUrl} alt='profile-picture' />
         <Box
           sx={{
             width: '100%',
