@@ -23,4 +23,5 @@ export type PetById = {
   address: AddressDTO
   available: boolean
   favorite: boolean
+  ownerName: string
 }

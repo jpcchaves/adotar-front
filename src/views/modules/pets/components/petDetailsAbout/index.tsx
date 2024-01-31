@@ -128,7 +128,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Nome do tutor:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Joao Paulo</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{petById?.ownerName}</Typography>
           </Box>
         </Box>
       </CardContent>
