@@ -9,6 +9,7 @@ import useNavigation from 'src/hooks/navigation/useNavigation'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { getPetAgeString } from '../../utils/age/getPetAge'
 import { getGenderString } from '../../utils/gender/getGenderString'
+import { getPetSizeToString } from '../../utils/petSizeToString/getPetSizeToString'
 
 // ** Icon Imports
 
@@ -99,7 +100,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Porte:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>{petById?.size}</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{getPetSizeToString(petById?.size)}</Typography>
           </Box>
 
           <Box
