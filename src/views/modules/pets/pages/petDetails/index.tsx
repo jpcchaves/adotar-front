@@ -13,7 +13,7 @@ const PetDetails = () => {
     query: { petId }
   } = useRouter()
 
-  const { getPetDetailedInfo } = usePetDetails()
+  const { getPetDetailedInfo, generatePetCardPdf } = usePetDetails()
 
   useEffect(() => {
     getPetDetailedInfo(String(petId))
@@ -23,7 +23,7 @@ const PetDetails = () => {
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <PetDetailsHeader />
+        <PetDetailsHeader generatePetCardPdf={generatePetCardPdf} />
       </Grid>
       <Grid item xs={12}>
         <PetDetailsAbout />
