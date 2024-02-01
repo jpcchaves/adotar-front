@@ -4,7 +4,7 @@ import { CharacteristicDTO } from './PetCharacteristicDTO'
 import { PetPictureDTO } from './PetPictureDTO'
 
 export type PetById = {
-  id: number
+  id: string
   name: string
   yearsAge: number
   monthsAge: number
