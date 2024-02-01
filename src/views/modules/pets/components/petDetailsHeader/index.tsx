@@ -10,7 +10,11 @@ import Icon from 'src/@core/components/icon'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { ProfilePicture } from './style'
 
-const PetDetailsHeader = () => {
+interface IProps {
+  generatePetCardPdf: (petId: string | undefined) => void
+}
+
+const PetDetailsHeader = ({ generatePetCardPdf }: IProps) => {
   const { petById } = useAppSelector(state => state.pets)
 
   return (
@@ -67,7 +71,11 @@ const PetDetailsHeader = () => {
               </Box>
             </Box>
           </Box>
-          <Button variant='contained' startIcon={<Icon icon='mdi:export-variant' fontSize={20} />}>
+          <Button
+            variant='contained'
+            startIcon={<Icon icon='mdi:export-variant' fontSize={20} />}
+            onClick={() => generatePetCardPdf(petById?.id)}
+          >
             Cartão do PET
           </Button>
         </Box>
