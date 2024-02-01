@@ -48,6 +48,7 @@ export const petsSlice = createSlice({
       state.totalPages = totalPages
       state.totalElements = totalElements
       state.petDetails = null
+      state.petById = null
     },
     loadMyPetsPaginated: (
       state,
@@ -60,10 +61,12 @@ export const petsSlice = createSlice({
       state.totalPages = totalPages
       state.totalElements = totalElements
       state.petDetails = null
+      state.petById = null
     },
     loadPets: (state, action: PayloadPets) => {
       state.pets = action.payload
       state.petDetails = null
+      state.petById = null
     },
     loadMyPets: (state, action: PayloadPets) => {
       state.myPets = action.payload
