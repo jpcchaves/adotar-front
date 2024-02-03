@@ -1,83 +1,44 @@
-// ** React Imports
-import { useState } from 'react'
-
 // ** MUI Imports
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import Checkbox from '@mui/material/Checkbox'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
 import Divider from '@mui/material/Divider'
-import FormControl from '@mui/material/FormControl'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormHelperText from '@mui/material/FormHelperText'
 import Grid from '@mui/material/Grid'
+import Tab from '@mui/material/Tab'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
-// ** Third Party Imports
-import { Controller, useForm } from 'react-hook-form'
-
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import { Icon } from '@iconify/react'
+import { useFormik } from 'formik'
+import { useState } from 'react'
+import { SyntheticEvent } from 'react-draft-wysiwyg'
+import { TextInput } from 'src/@core/components/inputs'
 import FileUpload from '../profilePictureInput'
 
-interface Data {
-  email: string
-  state: string
-  address: string
-  country: string
-  lastName: string
-  currency: string
-  language: string
-  timezone: string
-  firstName: string
-  organization: string
-  number: number | string
-  zipCode: number | string
-}
-
-const initialData: Data = {
-  state: '',
-  number: '',
-  address: '',
-  zipCode: '',
-  lastName: 'Doe',
-  currency: 'usd',
-  firstName: 'John',
-  language: 'arabic',
-  timezone: 'gmt-12',
-  country: 'australia',
-  email: 'john.doe@example.com',
-  organization: 'ThemeSelection'
-}
-
 const ProfileDetails = () => {
-  // ** State
-  const [open, setOpen] = useState<boolean>(false)
-  const [userInput, setUserInput] = useState<string>('yes')
-  const [formData, setFormData] = useState<Data>(initialData)
-  const [secondDialogOpen, setSecondDialogOpen] = useState<boolean>(false)
+  const [activeTabIndex, setActiveTabIndex] = useState<string>('1')
 
-  // ** Hooks
-  const {
-    control,
-    formState: { errors }
-  } = useForm({ defaultValues: { checkbox: false } })
-
-  const handleClose = () => setOpen(false)
-
-  const handleSecondDialogClose = () => setSecondDialogOpen(false)
-
-  const handleConfirmation = (value: string) => {
-    handleClose()
-    setUserInput(value)
-    setSecondDialogOpen(true)
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
+    setActiveTabIndex(() => newValue)
   }
+
+  const validation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: ''
+    },
+    onSubmit: values => {
+      console.log(values)
+    }
+  })
 
   const handleFileChange = (file: File) => {
     console.log('Uploaded file:', file)
@@ -88,158 +49,75 @@ const ProfileDetails = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader title='Detalhes do Usuário' />
-          <form>
-            <CardContent sx={{ pt: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <FileUpload onFileUpload={handleFileChange} />
-              </Box>
-            </CardContent>
-            <Divider />
-            <CardContent>
-              <Grid container spacing={6}>
-                <Grid item xs={12} sm={6}>
-                  <TextField fullWidth label='First Name' placeholder='John' value={formData.firstName} />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField fullWidth label='Last Name' placeholder='Doe' value={formData.lastName} />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    type='email'
-                    label='Email'
-                    value={formData.email}
-                    placeholder='john.doe@example.com'
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label='Organization'
-                    placeholder='ThemeSelection'
-                    value={formData.organization}
-                  />
-                </Grid>
-
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', mt: 5 }}>
-                  <Button
-                    type='reset'
-                    variant='outlined'
-                    color='secondary'
-                    sx={{ mr: 3 }}
-                    onClick={() => setFormData(initialData)}
-                  >
-                    Cancelar
-                  </Button>
-
-                  <Button variant='contained'>Salvar</Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </form>
-        </Card>
-      </Grid>
-
-      {/* Delete Account Card */}
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader title='Desativar Conta' />
-          <CardContent>
-            <form onSubmit={e => e.preventDefault()}>
-              <Box sx={{ mb: 4 }}>
-                <FormControl>
-                  <Controller
-                    name='checkbox'
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <FormControlLabel
-                        label='Confirmo o cancelamento da conta'
-                        sx={errors.checkbox ? { '& .MuiTypography-root': { color: 'error.main' } } : null}
-                        control={
-                          <Checkbox
-                            {...field}
-                            size='small'
-                            name='validation-basic-checkbox'
-                            sx={errors.checkbox ? { color: 'error.main' } : null}
-                          />
-                        }
-                      />
-                    )}
-                  />
-                  {errors.checkbox && (
-                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-checkbox'>
-                      Please confirm you want to delete account
-                    </FormHelperText>
-                  )}
-                </FormControl>
-              </Box>
-              <Button
-                variant='contained'
-                color='error'
-                type='submit'
-                onClick={() => setOpen(prevState => !prevState)}
-                disabled={errors.checkbox !== undefined}
-              >
-                Desativar conta
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </Grid>
-
-      {/* Deactivate Account Dialogs */}
-      <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
-        <DialogContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
-              <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-              <Typography>
-                Você tem certeza de que deseja desativar sua conta? Esta ação é <strong>irreversível</strong>
-              </Typography>
+          <CardContent sx={{ pt: 0 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <FileUpload onFileUpload={handleFileChange} />
             </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' onClick={() => handleConfirmation('yes')}>
-            Sim
-          </Button>
-          <Button variant='outlined' color='secondary' onClick={() => handleConfirmation('cancel')}>
-            Cancelar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
-        <DialogContent>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              '& svg': {
-                mb: 14,
-                color: userInput === 'yes' ? 'success.main' : 'error.main'
-              }
-            }}
-          >
-            <Icon
-              fontSize='5.5rem'
-              icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
-            />
-            <Typography variant='h4' sx={{ mb: 8 }}>
-              {userInput === 'yes' ? 'Conta desativada!' : 'Cancelado'}
-            </Typography>
-            <Typography>
-              {userInput === 'yes' ? 'Sua conta foi desativada' : 'Desativação de Conta Cancelada!'}
-            </Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </CardContent>
+          <Divider />
+
+          <TabContext value={activeTabIndex}>
+            <TabList onChange={handleChange} variant='fullWidth' aria-label='icon tabs example'>
+              <Tab value='1' label='Dados Básicos' icon={<Icon icon='mdi:account' />} />
+              <Tab value='2' label='Atualizar Senha' icon={<Icon icon='mdi:password' />} />
+              <Tab value='3' label='Endereço' icon={<Icon icon='mdi:house' />} />
+              <Tab value='4' label='Contato' icon={<Icon icon='mdi:phone' />} />
+            </TabList>
+            <TabPanel value='1'>
+              <form>
+                <CardContent>
+                  <Grid container spacing={6}>
+                    <Grid item xs={12} sm={6}>
+                      <TextInput
+                        inputIdentifier='firstName'
+                        inputLabel='Nome'
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.firstName}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextInput
+                        inputIdentifier='lastName'
+                        inputLabel='Sobremome'
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.lastName}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField disabled fullWidth type='email' label='Email' value={validation.values.email} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField fullWidth label='Organization' placeholder='ThemeSelection' />
+                    </Grid>
+
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', mt: 5 }}>
+                      <Button type='reset' variant='outlined' color='secondary' sx={{ mr: 3 }}>
+                        Cancelar
+                      </Button>
+
+                      <Button variant='contained'>Salvar</Button>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </form>
+            </TabPanel>
+            <TabPanel value='2'>
+              <Typography>
+                Chocolate bar carrot cake candy canes sesame snaps. Cupcake pie gummi bears jujubes candy canes. Chupa
+                chups sesame snaps halvah.
+              </Typography>
+            </TabPanel>
+            <TabPanel value='3'>
+              <Typography>
+                Danish tiramisu jujubes cupcake chocolate bar cake cheesecake chupa chups. Macaroon ice cream tootsie
+                roll carrot cake gummi bears.
+              </Typography>
+            </TabPanel>
+          </TabContext>
+        </Card>
+      </Grid>
     </Grid>
   )
 }
