@@ -16,17 +16,14 @@ import Typography from '@mui/material/Typography'
 // ** Icon Imports
 import { Icon } from '@iconify/react'
 import { useFormik } from 'formik'
-import { useState } from 'react'
-import { SyntheticEvent } from 'react-draft-wysiwyg'
 import { TextInput } from 'src/@core/components/inputs'
+import { profileTabsData } from '../../data/profileTabsData'
+import useHandleTabChange from '../../hooks/useHandleTabChange'
+import { ProfileTabs } from '../../models/enum/ProfileTabs'
 import FileUpload from '../profilePictureInput'
 
 const ProfileDetails = () => {
-  const [activeTabIndex, setActiveTabIndex] = useState<string>('1')
-
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
-    setActiveTabIndex(() => newValue)
-  }
+  const { activeTabIndex, handleChange } = useHandleTabChange()
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -58,10 +55,19 @@ const ProfileDetails = () => {
 
           <TabContext value={activeTabIndex}>
             <TabList onChange={handleChange} variant='fullWidth' aria-label='icon tabs example'>
-              <Tab value='1' label='Dados Básicos' icon={<Icon icon='mdi:account' />} />
-              <Tab value='2' label='Atualizar Senha' icon={<Icon icon='mdi:password' />} />
-              <Tab value='3' label='Endereço' icon={<Icon icon='mdi:house' />} />
-              <Tab value='4' label='Contato' icon={<Icon icon='mdi:phone' />} />
+              {Object.keys(profileTabsData).map(tabValue => {
+                const value = tabValue as ProfileTabs
+                const tab = profileTabsData[value]
+
+                return (
+                  <Tab
+                    key={value}
+                    value={value}
+                    label={tab.label}
+                    icon={<Icon fontSize={'1.5rem'} icon={tab.icon} />}
+                  />
+                )
+              })}
             </TabList>
             <TabPanel value='1'>
               <form>
@@ -87,9 +93,6 @@ const ProfileDetails = () => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField disabled fullWidth type='email' label='Email' value={validation.values.email} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label='Organization' placeholder='ThemeSelection' />
                     </Grid>
 
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', mt: 5 }}>
