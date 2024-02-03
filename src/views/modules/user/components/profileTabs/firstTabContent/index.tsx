@@ -16,7 +16,12 @@ const FirstTabContent = () => {
   })
 
   return (
-    <form>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        validation.handleSubmit(e)
+      }}
+    >
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={6}>
