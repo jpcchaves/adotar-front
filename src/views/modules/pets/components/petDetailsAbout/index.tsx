@@ -1,16 +1,21 @@
 // ** MUI Components
 import { Icon } from '@iconify/react'
+import { Button } from '@mui/material'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import useNavigation from 'src/hooks/navigation/useNavigation'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { getPetAgeString } from '../../utils/age/getPetAge'
 import { getGenderString } from '../../utils/gender/getGenderString'
+import { getPetSizeToString } from '../../utils/petSizeToString/getPetSizeToString'
 
 // ** Icon Imports
 
 const PetDetailsAbout = () => {
+  const { navigate } = useNavigation()
+
   const { petById } = useAppSelector(state => state.pets)
   const gender = petById?.gender
   const petAge = { years: petById?.yearsAge, months: petById?.monthsAge }
@@ -95,7 +100,7 @@ const PetDetailsAbout = () => {
             <Icon icon='mdi:circle-medium' />
 
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Porte:</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>{petById?.size}</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>{getPetSizeToString(petById?.size)}</Typography>
           </Box>
 
           <Box
@@ -130,6 +135,10 @@ const PetDetailsAbout = () => {
             <Typography sx={{ mx: 2, fontWeight: 600, color: 'text.secondary' }}>Nome do tutor:</Typography>
             <Typography sx={{ color: 'text.secondary' }}>{petById?.ownerName}</Typography>
           </Box>
+        </Box>
+
+        <Box display={'flex'} justifyContent={'end'}>
+          <Button onClick={() => navigate('/pets')}>Voltar</Button>
         </Box>
       </CardContent>
     </Card>

@@ -351,7 +351,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
           <Icon icon='mdi:magnify' />
         </IconButton>
         {!hidden && layout === 'vertical' ? (
-          <Typography sx={{ userSelect: 'none', color: 'text.disabled' }}>Procurar (Ctrl+/)</Typography>
+          <Typography sx={{ userSelect: 'none', color: 'text.disabled' }}>Navegar (Ctrl+/)</Typography>
         ) : null}
         {openDialog && (
           <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>

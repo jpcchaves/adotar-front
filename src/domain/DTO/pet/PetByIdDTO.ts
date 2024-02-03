@@ -2,6 +2,7 @@ import { Gender } from 'src/domain/enum/pet/Gender'
 import { AddressDTO } from '../address/AddressDTO'
 import { CharacteristicDTO } from './PetCharacteristicDTO'
 import { PetPictureDTO } from './PetPictureDTO'
+import { PetSize } from 'src/views/modules/pets/models/petSize/PetSize'
 
 export type PetById = {
   id: string
@@ -9,7 +10,7 @@ export type PetById = {
   yearsAge: number
   monthsAge: number
   gender: Gender
-  size: string
+  size: PetSize
   healthCondition: string
   color: string
   description: string
