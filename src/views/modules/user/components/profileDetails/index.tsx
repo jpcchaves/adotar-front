@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -24,7 +24,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-import { ButtonStyled, ImgStyled } from './style'
+import FileUpload from '../profilePictureInput'
 
 interface Data {
   email: string
@@ -59,10 +59,8 @@ const initialData: Data = {
 const ProfileDetails = () => {
   // ** State
   const [open, setOpen] = useState<boolean>(false)
-  const [inputValue, setInputValue] = useState<string>('')
   const [userInput, setUserInput] = useState<string>('yes')
   const [formData, setFormData] = useState<Data>(initialData)
-  const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
   const [secondDialogOpen, setSecondDialogOpen] = useState<boolean>(false)
 
   // ** Hooks
@@ -81,17 +79,8 @@ const ProfileDetails = () => {
     setSecondDialogOpen(true)
   }
 
-  const handleInputImageChange = (file: ChangeEvent) => {
-    const reader = new FileReader()
-    const { files } = file.target as HTMLInputElement
-    if (files && files.length !== 0) {
-      reader.onload = () => setImgSrc(reader.result as string)
-      reader.readAsDataURL(files[0])
-
-      if (reader.result !== null) {
-        setInputValue(reader.result as string)
-      }
-    }
+  const handleFileChange = (file: File) => {
+    console.log('Uploaded file:', file)
   }
 
   return (
@@ -102,25 +91,7 @@ const ProfileDetails = () => {
           <form>
             <CardContent sx={{ pt: 0 }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <ImgStyled src={imgSrc} alt='Profile Pic' />
-                <div>
-                  <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                    Atualizar Foto
-                    {/* TODO: add overlay in the image with the edit button */}
-                    <input
-                      hidden
-                      type='file'
-                      value={inputValue}
-                      accept='image/png, image/jpeg'
-                      onChange={handleInputImageChange}
-                      id='account-settings-upload-image'
-                    />
-                  </ButtonStyled>
-
-                  <Typography sx={{ mt: 5, color: 'text.disabled' }}>
-                    Permitido PNG or JPEG. Tamanho máximo de 200KB.
-                  </Typography>
-                </div>
+                <FileUpload onFileUpload={handleFileChange} />
               </Box>
             </CardContent>
             <Divider />
