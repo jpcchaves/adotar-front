@@ -1,9 +1,9 @@
 // ** React Imports
-import { ChangeEvent, ElementType, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Button, { ButtonProps } from '@mui/material/Button'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
@@ -16,19 +16,15 @@ import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormHelperText from '@mui/material/FormHelperText'
 import Grid from '@mui/material/Grid'
-import InputAdornment from '@mui/material/InputAdornment'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
 
 // ** Third Party Imports
 import { Controller, useForm } from 'react-hook-form'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+import { ButtonStyled, ImgStyled } from './style'
 
 interface Data {
   email: string
@@ -60,30 +56,6 @@ const initialData: Data = {
   organization: 'ThemeSelection'
 }
 
-const ImgStyled = styled('img')(({ theme }) => ({
-  width: 120,
-  height: 120,
-  marginRight: theme.spacing(5),
-  borderRadius: theme.shape.borderRadius
-}))
-
-const ButtonStyled = styled(Button)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    textAlign: 'center'
-  }
-}))
-
-const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
-  marginLeft: theme.spacing(4),
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    marginLeft: 0,
-    textAlign: 'center',
-    marginTop: theme.spacing(4)
-  }
-}))
-
 const ProfileDetails = () => {
   // ** State
   const [open, setOpen] = useState<boolean>(false)
@@ -96,15 +68,12 @@ const ProfileDetails = () => {
   // ** Hooks
   const {
     control,
-    handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues: { checkbox: false } })
 
   const handleClose = () => setOpen(false)
 
   const handleSecondDialogClose = () => setSecondDialogOpen(false)
-
-  const onSubmit = () => setOpen(true)
 
   const handleConfirmation = (value: string) => {
     handleClose()
@@ -124,28 +93,20 @@ const ProfileDetails = () => {
       }
     }
   }
-  const handleInputImageReset = () => {
-    setInputValue('')
-    setImgSrc('/images/avatars/1.png')
-  }
-
-  const handleFormChange = (field: keyof Data, value: Data[keyof Data]) => {
-    setFormData({ ...formData, [field]: value })
-  }
 
   return (
     <Grid container spacing={6}>
-      {/* Account Details Card */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Account Details' />
+          <CardHeader title='Detalhes do Usuário' />
           <form>
             <CardContent sx={{ pt: 0 }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <ImgStyled src={imgSrc} alt='Profile Pic' />
                 <div>
                   <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                    Upload New Photo
+                    Atualizar Foto
+                    {/* TODO: add overlay in the image with the edit button */}
                     <input
                       hidden
                       type='file'
@@ -155,10 +116,10 @@ const ProfileDetails = () => {
                       id='account-settings-upload-image'
                     />
                   </ButtonStyled>
-                  <ResetButtonStyled color='secondary' variant='outlined' onClick={handleInputImageReset}>
-                    Reset
-                  </ResetButtonStyled>
-                  <Typography sx={{ mt: 5, color: 'text.disabled' }}>Allowed PNG or JPEG. Max size of 800K.</Typography>
+
+                  <Typography sx={{ mt: 5, color: 'text.disabled' }}>
+                    Permitido PNG or JPEG. Tamanho máximo de 200KB.
+                  </Typography>
                 </div>
               </Box>
             </CardContent>
@@ -166,22 +127,10 @@ const ProfileDetails = () => {
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label='First Name'
-                    placeholder='John'
-                    value={formData.firstName}
-                    onChange={e => handleFormChange('firstName', e.target.value)}
-                  />
+                  <TextField fullWidth label='First Name' placeholder='John' value={formData.firstName} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label='Last Name'
-                    placeholder='Doe'
-                    value={formData.lastName}
-                    onChange={e => handleFormChange('lastName', e.target.value)}
-                  />
+                  <TextField fullWidth label='Last Name' placeholder='Doe' value={formData.lastName} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -190,7 +139,6 @@ const ProfileDetails = () => {
                     label='Email'
                     value={formData.email}
                     placeholder='john.doe@example.com'
-                    onChange={e => handleFormChange('email', e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -199,131 +147,21 @@ const ProfileDetails = () => {
                     label='Organization'
                     placeholder='ThemeSelection'
                     value={formData.organization}
-                    onChange={e => handleFormChange('organization', e.target.value)}
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='Phone Number'
-                    value={formData.number}
-                    placeholder='202 555 0111'
-                    onChange={e => handleFormChange('number', e.target.value)}
-                    InputProps={{ startAdornment: <InputAdornment position='start'>US (+1)</InputAdornment> }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label='Address'
-                    placeholder='Address'
-                    value={formData.address}
-                    onChange={e => handleFormChange('address', e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label='State'
-                    placeholder='California'
-                    value={formData.state}
-                    onChange={e => handleFormChange('state', e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='Zip Code'
-                    placeholder='231465'
-                    value={formData.zipCode}
-                    onChange={e => handleFormChange('zipCode', e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>Country</InputLabel>
-                    <Select
-                      label='Country'
-                      value={formData.country}
-                      onChange={e => handleFormChange('country', e.target.value)}
-                    >
-                      <MenuItem value='australia'>Australia</MenuItem>
-                      <MenuItem value='canada'>Canada</MenuItem>
-                      <MenuItem value='france'>France</MenuItem>
-                      <MenuItem value='united-kingdom'>United Kingdom</MenuItem>
-                      <MenuItem value='united-states'>United States</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>Language</InputLabel>
-                    <Select
-                      label='Language'
-                      value={formData.language}
-                      onChange={e => handleFormChange('language', e.target.value)}
-                    >
-                      <MenuItem value='arabic'>Arabic</MenuItem>
-                      <MenuItem value='english'>English</MenuItem>
-                      <MenuItem value='french'>French</MenuItem>
-                      <MenuItem value='german'>German</MenuItem>
-                      <MenuItem value='portuguese'>Portuguese</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>Timezone</InputLabel>
-                    <Select
-                      label='Timezone'
-                      value={formData.timezone}
-                      onChange={e => handleFormChange('timezone', e.target.value)}
-                    >
-                      <MenuItem value='gmt-12'>(GMT-12:00) International Date Line West</MenuItem>
-                      <MenuItem value='gmt-11'>(GMT-11:00) Midway Island, Samoa</MenuItem>
-                      <MenuItem value='gmt-10'>(GMT-10:00) Hawaii</MenuItem>
-                      <MenuItem value='gmt-09'>(GMT-09:00) Alaska</MenuItem>
-                      <MenuItem value='gmt-08'>(GMT-08:00) Pacific Time (US & Canada)</MenuItem>
-                      <MenuItem value='gmt-08-baja'>(GMT-08:00) Tijuana, Baja California</MenuItem>
-                      <MenuItem value='gmt-07'>(GMT-07:00) Chihuahua, La Paz, Mazatlan</MenuItem>
-                      <MenuItem value='gmt-07-mt'>(GMT-07:00) Mountain Time (US & Canada)</MenuItem>
-                      <MenuItem value='gmt-06'>(GMT-06:00) Central America</MenuItem>
-                      <MenuItem value='gmt-06-ct'>(GMT-06:00) Central Time (US & Canada)</MenuItem>
-                      <MenuItem value='gmt-06-mc'>(GMT-06:00) Guadalajara, Mexico City, Monterrey</MenuItem>
-                      <MenuItem value='gmt-06-sk'>(GMT-06:00) Saskatchewan</MenuItem>
-                      <MenuItem value='gmt-05'>(GMT-05:00) Bogota, Lima, Quito, Rio Branco</MenuItem>
-                      <MenuItem value='gmt-05-et'>(GMT-05:00) Eastern Time (US & Canada)</MenuItem>
-                      <MenuItem value='gmt-05-ind'>(GMT-05:00) Indiana (East)</MenuItem>
-                      <MenuItem value='gmt-04'>(GMT-04:00) Atlantic Time (Canada)</MenuItem>
-                      <MenuItem value='gmt-04-clp'>(GMT-04:00) Caracas, La Paz</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>Currency</InputLabel>
-                    <Select
-                      label='Currency'
-                      value={formData.currency}
-                      onChange={e => handleFormChange('currency', e.target.value)}
-                    >
-                      <MenuItem value='usd'>USD</MenuItem>
-                      <MenuItem value='eur'>EUR</MenuItem>
-                      <MenuItem value='pound'>Pound</MenuItem>
-                      <MenuItem value='bitcoin'>Bitcoin</MenuItem>
-                    </Select>
-                  </FormControl>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <Button variant='contained' sx={{ mr: 3 }}>
-                    Save Changes
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', mt: 5 }}>
+                  <Button
+                    type='reset'
+                    variant='outlined'
+                    color='secondary'
+                    sx={{ mr: 3 }}
+                    onClick={() => setFormData(initialData)}
+                  >
+                    Cancelar
                   </Button>
-                  <Button type='reset' variant='outlined' color='secondary' onClick={() => setFormData(initialData)}>
-                    Reset
-                  </Button>
+
+                  <Button variant='contained'>Salvar</Button>
                 </Grid>
               </Grid>
             </CardContent>
@@ -334,9 +172,9 @@ const ProfileDetails = () => {
       {/* Delete Account Card */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Delete Account' />
+          <CardHeader title='Desativar Conta' />
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={e => e.preventDefault()}>
               <Box sx={{ mb: 4 }}>
                 <FormControl>
                   <Controller
@@ -345,7 +183,7 @@ const ProfileDetails = () => {
                     rules={{ required: true }}
                     render={({ field }) => (
                       <FormControlLabel
-                        label='I confirm my account deactivation'
+                        label='Confirmo o cancelamento da conta'
                         sx={errors.checkbox ? { '& .MuiTypography-root': { color: 'error.main' } } : null}
                         control={
                           <Checkbox
@@ -365,8 +203,14 @@ const ProfileDetails = () => {
                   )}
                 </FormControl>
               </Box>
-              <Button variant='contained' color='error' type='submit' disabled={errors.checkbox !== undefined}>
-                Deactivate Account
+              <Button
+                variant='contained'
+                color='error'
+                type='submit'
+                onClick={() => setOpen(prevState => !prevState)}
+                disabled={errors.checkbox !== undefined}
+              >
+                Desativar conta
               </Button>
             </form>
           </CardContent>
@@ -379,16 +223,18 @@ const ProfileDetails = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
               <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-              <Typography>Are you sure you would like to deactivate your account?</Typography>
+              <Typography>
+                Você tem certeza de que deseja desativar sua conta? Esta ação é <strong>irreversível</strong>
+              </Typography>
             </Box>
           </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center' }}>
           <Button variant='contained' onClick={() => handleConfirmation('yes')}>
-            Yes
+            Sim
           </Button>
           <Button variant='outlined' color='secondary' onClick={() => handleConfirmation('cancel')}>
-            Cancel
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>
@@ -410,10 +256,10 @@ const ProfileDetails = () => {
               icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
             />
             <Typography variant='h4' sx={{ mb: 8 }}>
-              {userInput === 'yes' ? 'Deleted!' : 'Cancelled'}
+              {userInput === 'yes' ? 'Conta desativada!' : 'Cancelado'}
             </Typography>
             <Typography>
-              {userInput === 'yes' ? 'Your account has been deleted.' : 'Account Deactivation Cancelled!'}
+              {userInput === 'yes' ? 'Sua conta foi desativada' : 'Desativação de Conta Cancelada!'}
             </Typography>
           </Box>
         </DialogContent>
