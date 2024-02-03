@@ -13,7 +13,8 @@ const Breadcrumb = () => {
     '/pets/novo': 'Novo',
     '/pets/meus-pets': 'Meus Pets',
     '/pets/editar': 'Editar',
-    '/pets/detalhes': 'Detalhes'
+    '/pets/detalhes': 'Detalhes',
+    '/usuario': 'Perfil'
   }
 
   return (
