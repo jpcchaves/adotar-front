@@ -5,7 +5,7 @@ import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import { useGetAgeOptions } from 'src/views/modules/pets/data/age/ageOptions'
 import { petCharacteristics } from '../../../../data/characteristics'
 import { FormStepProps } from '../../../../models/formStepsProps'
-import { getSelectedPetType } from '../../../../utils/petBreeds/getSelectedPetType'
+import { GetSelectedPetType } from '../../../../utils/petBreeds/getSelectedPetType'
 import FormStepHeader from '../../../formStepHeader'
 
 interface IProps extends FormStepProps {
@@ -13,7 +13,7 @@ interface IProps extends FormStepProps {
 }
 
 const SecondStep = ({ validation, activeStep }: IProps) => {
-  const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
+  const breedsByPetType = GetSelectedPetType(validation.values.typeId?.value)
   const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length || 0
   const DESCRIPTION_CHAR_LIMIT = 250
 
