@@ -32,8 +32,8 @@ const SecondsTabContent = ({ validation }: IProps) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <PasswordInput
-              isInvalid={!!(validation.errors.currentPassword && validation.touched.currentPassword)}
-              errorMessage={validation.errors.currentPassword}
+              isInvalid={!!(validation.errors.newPassword && validation.touched.newPassword)}
+              errorMessage={validation.errors.newPassword}
               inputIdentifier='newPassword'
               inputLabel='Nova senha'
               onChange={validation.handleChange}
@@ -43,8 +43,8 @@ const SecondsTabContent = ({ validation }: IProps) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <PasswordInput
-              isInvalid={!!(validation.errors.currentPassword && validation.touched.currentPassword)}
-              errorMessage={validation.errors.currentPassword}
+              isInvalid={!!(validation.errors.confirmNewPassword && validation.touched.confirmNewPassword)}
+              errorMessage={validation.errors.confirmNewPassword}
               inputIdentifier='confirmNewPassword'
               inputLabel='Confirme a nova senha'
               onChange={validation.handleChange}
