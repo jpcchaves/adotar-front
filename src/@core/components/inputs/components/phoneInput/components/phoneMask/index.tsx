@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+
 import { IMaskInput } from 'react-imask'
 
 interface IProps {
@@ -10,6 +11,8 @@ interface IProps {
 const PhoneMask = forwardRef<HTMLInputElement, IProps>(function PhoneMaskCustom(props, ref) {
   const { onChange, ...other } = props
 
+  const getNumericChars = (value: string) => value.replace(/\D/g, '')
+
   return (
     <IMaskInput
       {...other}
@@ -19,7 +22,7 @@ const PhoneMask = forwardRef<HTMLInputElement, IProps>(function PhoneMaskCustom(
       }}
       inputRef={ref}
       onAccept={(value: any) => {
-        onChange({ target: { name: props.name, value } })
+        onChange({ target: { name: props.name, value: getNumericChars(value) } })
       }}
       overwrite
     />

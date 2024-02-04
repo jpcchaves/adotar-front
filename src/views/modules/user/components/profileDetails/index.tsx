@@ -19,6 +19,7 @@ import { updatePasswordValidation } from '../../utils/validation/updatePasswordV
 import { updateUserBasicInfoValidation } from '../../utils/validation/updateUserBasicInfo'
 import FileUpload from '../profilePictureInput'
 import FirstTabContent from '../profileTabs/firstTabContent'
+import FourthTabContent from '../profileTabs/fourthTabContent'
 import SecondsTabContent from '../profileTabs/secondTabContent'
 import ThirdTabContent from '../profileTabs/thirdTabContent'
 
@@ -70,6 +71,16 @@ const ProfileDetails = () => {
     onSubmit: values => console.log(values)
   })
 
+  const fourthTabValidation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      phone1: '',
+      phone2: '',
+      phone3: ''
+    },
+    onSubmit: values => console.log(values)
+  })
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -106,6 +117,9 @@ const ProfileDetails = () => {
             </TabPanel>
             <TabPanel value='3'>
               <ThirdTabContent validation={thirdTabValidation} />
+            </TabPanel>
+            <TabPanel value='4'>
+              <FourthTabContent validation={fourthTabValidation} />
             </TabPanel>
           </TabContext>
         </Card>
