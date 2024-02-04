@@ -2,10 +2,10 @@ import { Grid } from '@mui/material'
 import { FormikValues } from 'formik'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { states } from '../../../../data/geolocation/states'
 import FormStepHeader from '../../../formStepHeader'
 import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 import { clearCityInput } from '../../utils/clearCityInput'
+import { useGetStatesData } from 'src/views/modules/pets/data/geolocation/states'
 
 interface IProps {
   activeStep: number
@@ -48,7 +48,7 @@ const ThirdStep = ({ activeStep, validation }: IProps) => {
           onBlur={validation.handleBlur}
           inputLabel='Estado'
           isRequired
-          menuItems={states}
+          menuItems={useGetStatesData()}
           disabled={!validation.values.zipcode}
         />
       </Grid>
