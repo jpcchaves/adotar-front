@@ -1,19 +1,14 @@
 import { Button, CardContent, Grid, TextField } from '@mui/material'
-import { useFormik } from 'formik'
+import { FormikValues } from 'formik'
 import { TextInput } from 'src/@core/components/inputs'
+import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
 
-const FirstTabContent = () => {
-  const validation = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: ''
-    },
-    onSubmit: values => {
-      console.log(values)
-    }
-  })
+interface IProps {
+  validation: FormikValues
+}
+
+const FirstTabContent = ({ validation }: IProps) => {
+  const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
 
   return (
     <form
@@ -51,7 +46,9 @@ const FirstTabContent = () => {
               Cancelar
             </Button>
 
-            <Button variant='contained'>Salvar</Button>
+            <Button variant='contained' disabled={isSubmitButtonDisabled}>
+              Salvar
+            </Button>
           </Grid>
         </Grid>
       </CardContent>

@@ -1,19 +1,14 @@
 import { Box, Button, CardContent, Grid } from '@mui/material'
 import { FormikValues } from 'formik'
 import { PasswordInput } from 'src/@core/components/inputs'
+import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
 
 interface IProps {
   validation: FormikValues
 }
 
 const SecondsTabContent = ({ validation }: IProps) => {
-  const isFormNotTouched = Object.keys(validation.touched).length === 0
-  const doesTouchExists = validation.touched.constructor === Object
-  const isSubtmitButtonDisableByTouched = isFormNotTouched && doesTouchExists
-
-  const isFormValid = validation.isValid
-
-  const isSubmitButtonDisabled = !isFormValid || isSubtmitButtonDisableByTouched
+  const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
 
   return (
     <form

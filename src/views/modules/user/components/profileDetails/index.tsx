@@ -29,6 +29,18 @@ const ProfileDetails = () => {
     console.log('Uploaded file:', file)
   }
 
+  const firstTabValidation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: ''
+    },
+    onSubmit: values => {
+      console.log(values)
+    }
+  })
+
   const secondTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -71,7 +83,7 @@ const ProfileDetails = () => {
               })}
             </TabList>
             <TabPanel value='1'>
-              <FirstTabContent />
+              <FirstTabContent validation={firstTabValidation} />
             </TabPanel>
             <TabPanel value='2'>
               <SecondsTabContent validation={secondTabValidation} />
