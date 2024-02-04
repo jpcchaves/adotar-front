@@ -1,22 +1,22 @@
 import { Button, CardContent, Grid, TextField } from '@mui/material'
-import { useFormik } from 'formik'
+import { FormikValues } from 'formik'
 import { TextInput } from 'src/@core/components/inputs'
+import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
 
-const FirstTabContent = () => {
-  const validation = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: ''
-    },
-    onSubmit: values => {
-      console.log(values)
-    }
-  })
+interface IProps {
+  validation: FormikValues
+}
+
+const FirstTabContent = ({ validation }: IProps) => {
+  const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
 
   return (
-    <form>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        validation.handleSubmit(e)
+      }}
+    >
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={6}>
@@ -26,6 +26,9 @@ const FirstTabContent = () => {
               onChange={validation.handleChange}
               onBlur={validation.handleBlur}
               value={validation.values.firstName}
+              isRequired
+              isInvalid={!!(validation.errors.firstName && validation.touched.firstName)}
+              errorMessage={validation.errors.firstName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -35,6 +38,9 @@ const FirstTabContent = () => {
               onChange={validation.handleChange}
               onBlur={validation.handleBlur}
               value={validation.values.lastName}
+              isRequired
+              isInvalid={!!(validation.errors.lastName && validation.touched.lastName)}
+              errorMessage={validation.errors.lastName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -46,7 +52,9 @@ const FirstTabContent = () => {
               Cancelar
             </Button>
 
-            <Button variant='contained'>Salvar</Button>
+            <Button variant='contained' disabled={isSubmitButtonDisabled}>
+              Salvar
+            </Button>
           </Grid>
         </Grid>
       </CardContent>

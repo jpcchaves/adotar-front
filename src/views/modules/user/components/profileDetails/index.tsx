@@ -13,11 +13,15 @@ import Typography from '@mui/material/Typography'
 
 // ** Icon Imports
 import { Icon } from '@iconify/react'
+import { useFormik } from 'formik'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
 import { ProfileTabs } from '../../models/enum/ProfileTabs'
+import { updatePasswordValidation } from '../../utils/validation/updatePasswordValidation'
+import { updateUserBasicInfoValidation } from '../../utils/validation/updateUserBasicInfo'
 import FileUpload from '../profilePictureInput'
 import FirstTabContent from '../profileTabs/firstTabContent'
+import SecondsTabContent from '../profileTabs/secondTabContent'
 
 const ProfileDetails = () => {
   const { activeTabIndex, handleChange } = useHandleTabChange()
@@ -25,6 +29,32 @@ const ProfileDetails = () => {
   const handleFileChange = (file: File) => {
     console.log('Uploaded file:', file)
   }
+
+  const firstTabValidation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: ''
+    },
+    validationSchema: updateUserBasicInfoValidation,
+    onSubmit: values => {
+      console.log(values)
+    }
+  })
+
+  const secondTabValidation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: ''
+    },
+    validationSchema: updatePasswordValidation,
+    onSubmit: values => {
+      console.log(values)
+    }
+  })
 
   return (
     <Grid container spacing={6}>
@@ -55,13 +85,10 @@ const ProfileDetails = () => {
               })}
             </TabList>
             <TabPanel value='1'>
-              <FirstTabContent />
+              <FirstTabContent validation={firstTabValidation} />
             </TabPanel>
             <TabPanel value='2'>
-              <Typography>
-                Chocolate bar carrot cake candy canes sesame snaps. Cupcake pie gummi bears jujubes candy canes. Chupa
-                chups sesame snaps halvah.
-              </Typography>
+              <SecondsTabContent validation={secondTabValidation} />
             </TabPanel>
             <TabPanel value='3'>
               <Typography>
