@@ -2,7 +2,7 @@ import { Grid } from '@mui/material'
 import { SelectInput, SelectMulti, TextInput } from 'src/@core/components/inputs'
 import AutocompleteInput from 'src/@core/components/inputs/components/autocomplete'
 import { generateMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
-import { monthsAgeOptions, yearsAgeOptions } from '../../../../data/age/ageOptions'
+import { useGetAgeOptions } from 'src/views/modules/pets/data/age/ageOptions'
 import { petCharacteristics } from '../../../../data/characteristics'
 import { FormStepProps } from '../../../../models/formStepsProps'
 import { getSelectedPetType } from '../../../../utils/petBreeds/getSelectedPetType'
@@ -16,6 +16,8 @@ const SecondStep = ({ validation, activeStep }: IProps) => {
   const breedsByPetType = getSelectedPetType(validation.values.typeId?.value)
   const DESCRIPTION_CHAR_COUNT = validation.values?.description?.length || 0
   const DESCRIPTION_CHAR_LIMIT = 250
+
+  const { monthsAgeOptions, yearsAgeOptions } = useGetAgeOptions()
 
   return (
     <Grid container spacing={5}>
