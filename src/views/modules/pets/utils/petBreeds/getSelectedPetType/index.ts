@@ -1,15 +1,17 @@
-import { birdBreeds, catBreeds, dogBreeds, outrosBreeds } from '../../../data/breeds'
+import { useGetBreeds } from '../../../data/breeds'
 
-export const getSelectedPetType = (typeId: string) => {
+export const GetSelectedPetType = (typeId: string) => {
+  const { memorizedBirdBreeds, memorizedCatBreeds, memorizedDogBreeds, memorizedOutroBirds } = useGetBreeds()
+
   switch (typeId) {
     case '1':
-      return dogBreeds
+      return memorizedDogBreeds
     case '2':
-      return catBreeds
+      return memorizedCatBreeds
     case '3':
-      return birdBreeds
+      return memorizedBirdBreeds
     case '4':
-      return outrosBreeds
+      return memorizedOutroBirds
     default:
       return []
   }

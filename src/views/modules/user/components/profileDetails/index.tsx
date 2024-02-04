@@ -1,4 +1,5 @@
 // ** MUI Imports
+import { Icon } from '@iconify/react'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
@@ -9,19 +10,17 @@ import CardHeader from '@mui/material/CardHeader'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
-
-// ** Icon Imports
-import { Icon } from '@iconify/react'
 import { useFormik } from 'formik'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
 import { ProfileTabs } from '../../models/enum/ProfileTabs'
+import { addressValidationSchema } from '../../utils/validation/addressValidationSchema'
 import { updatePasswordValidation } from '../../utils/validation/updatePasswordValidation'
 import { updateUserBasicInfoValidation } from '../../utils/validation/updateUserBasicInfo'
 import FileUpload from '../profilePictureInput'
 import FirstTabContent from '../profileTabs/firstTabContent'
 import SecondsTabContent from '../profileTabs/secondTabContent'
+import ThirdTabContent from '../profileTabs/thirdTabContent'
 
 const ProfileDetails = () => {
   const { activeTabIndex, handleChange } = useHandleTabChange()
@@ -54,6 +53,21 @@ const ProfileDetails = () => {
     onSubmit: values => {
       console.log(values)
     }
+  })
+
+  const thirdTabValidation = useFormik({
+    enableReinitialize: false,
+    initialValues: {
+      zipcode: '',
+      state: { value: '', label: '' },
+      city: { value: '', label: '' },
+      neighborhood: '',
+      street: '',
+      number: '',
+      complement: ''
+    },
+    validationSchema: addressValidationSchema,
+    onSubmit: values => console.log(values)
   })
 
   return (
@@ -91,10 +105,7 @@ const ProfileDetails = () => {
               <SecondsTabContent validation={secondTabValidation} />
             </TabPanel>
             <TabPanel value='3'>
-              <Typography>
-                Danish tiramisu jujubes cupcake chocolate bar cake cheesecake chupa chups. Macaroon ice cream tootsie
-                roll carrot cake gummi bears.
-              </Typography>
+              <ThirdTabContent validation={thirdTabValidation} />
             </TabPanel>
           </TabContext>
         </Card>

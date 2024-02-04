@@ -1,6 +1,6 @@
 import { PetDetailsDTO } from 'src/domain/DTO/pet/PetDetailsDTO'
 import { Gender } from 'src/domain/enum/pet/Gender'
-import { monthsAgeOptions, yearsAgeOptions } from '../age/ageOptions'
+import { useGetAgeOptions } from '../age/ageOptions'
 import { petHealthConditionMenuItems } from '../petHealthConditionMenuItems'
 import { petSizeMenuItems } from '../petSizeMenuItems'
 import { petTypeMenuItems } from '../petTypeMenuItems'
@@ -27,7 +27,9 @@ export const stepOneInitialValues = (petDetails: PetDetailsDTO) => {
   }
 }
 
-export const stepTwoInitialValues = (petDetails: PetDetailsDTO) => {
+export const StepTwoInitialValues = (petDetails: PetDetailsDTO) => {
+  const { monthsAgeOptions, yearsAgeOptions } = useGetAgeOptions()
+
   return {
     breedId: {
       value: petDetails ? petDetails.breed.id : '',
@@ -75,7 +77,7 @@ export const stepFourInitialValues = (petDetails: PetDetailsDTO) => {
 export const getFormInitialValues = (petDetails: PetDetailsDTO) => {
   return {
     ...stepOneInitialValues(petDetails),
-    ...stepTwoInitialValues(petDetails),
+    ...StepTwoInitialValues(petDetails),
     ...stepThreeInitialValues(petDetails),
     ...stepFourInitialValues(petDetails)
   }
@@ -84,7 +86,7 @@ export const getFormInitialValues = (petDetails: PetDetailsDTO) => {
 export const getFormInitialValuesArr = (petDetails?: PetDetailsDTO) => {
   return [
     stepOneInitialValues(petDetails!),
-    stepTwoInitialValues(petDetails!),
+    StepTwoInitialValues(petDetails!),
     stepThreeInitialValues(petDetails!),
     stepFourInitialValues(petDetails!)
   ]
