@@ -18,6 +18,7 @@ import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
 import { ProfileTabs } from '../../models/enum/ProfileTabs'
 import { updatePasswordValidation } from '../../utils/validation/updatePasswordValidation'
+import { updateUserBasicInfoValidation } from '../../utils/validation/updateUserBasicInfo'
 import FileUpload from '../profilePictureInput'
 import FirstTabContent from '../profileTabs/firstTabContent'
 import SecondsTabContent from '../profileTabs/secondTabContent'
@@ -36,6 +37,7 @@ const ProfileDetails = () => {
       lastName: '',
       email: ''
     },
+    validationSchema: updateUserBasicInfoValidation,
     onSubmit: values => {
       console.log(values)
     }

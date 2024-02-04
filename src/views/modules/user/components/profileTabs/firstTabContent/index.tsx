@@ -26,6 +26,9 @@ const FirstTabContent = ({ validation }: IProps) => {
               onChange={validation.handleChange}
               onBlur={validation.handleBlur}
               value={validation.values.firstName}
+              isRequired
+              isInvalid={!!(validation.errors.firstName && validation.touched.firstName)}
+              errorMessage={validation.errors.firstName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -35,6 +38,9 @@ const FirstTabContent = ({ validation }: IProps) => {
               onChange={validation.handleChange}
               onBlur={validation.handleBlur}
               value={validation.values.lastName}
+              isRequired
+              isInvalid={!!(validation.errors.lastName && validation.touched.lastName)}
+              errorMessage={validation.errors.lastName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
