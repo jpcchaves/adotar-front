@@ -1,7 +1,7 @@
 import { FormikErrors, FormikValues } from 'formik'
 import { ChangeEvent, useMemo } from 'react'
 import { extractZipcode } from 'src/utils/common/zipcode/extractRawZipcode'
-import { states } from 'src/views/modules/pets/data/geolocation/states'
+import { useGetStatesData } from 'src/views/modules/pets/data/geolocation/states'
 
 export interface ViaCepAddress {
   cep?: string
@@ -26,6 +26,8 @@ interface IProps {
 const useHandleZipcodeChange = ({ inputIdentifier, onChange, setFieldValue, value }: IProps) => {
   const VIA_CEP_ENDPOINT = process.env.NEXT_PUBLIC_VIA_CEP_ENDPOINT
   const ZIPCODE_MAX_LENGTH = 8
+
+  const states = useGetStatesData()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialValue = useMemo(() => value, [])
