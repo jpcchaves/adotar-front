@@ -15,8 +15,6 @@ const ThirdTabContent = ({ validation }: IProps) => {
   const { selectedCities } = useGetSelectedCities({ validation })
   const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
 
-  console.log(useGetStatesData())
-
   return (
     <form
       onSubmit={e => {
