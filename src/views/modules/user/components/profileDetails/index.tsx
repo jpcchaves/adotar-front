@@ -13,6 +13,7 @@ import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
+import useUserDetails from '../../hooks/useUserDetails'
 import { ProfileTabs } from '../../models/enum/ProfileTabs'
 import { addressValidationSchema } from '../../utils/validation/addressValidationSchema'
 import { updatePasswordValidation } from '../../utils/validation/updatePasswordValidation'
@@ -52,7 +53,7 @@ const ProfileDetails = () => {
     },
     validationSchema: updatePasswordValidation,
     onSubmit: values => {
-      console.log(values)
+      updateUserPassword(values)
     }
   })
 
@@ -80,6 +81,8 @@ const ProfileDetails = () => {
     },
     onSubmit: values => console.log(values)
   })
+
+  const { updateUserPassword } = useUserDetails({ secondTabValidation })
 
   return (
     <Grid container spacing={6}>
