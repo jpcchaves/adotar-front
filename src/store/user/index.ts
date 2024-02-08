@@ -1,26 +1,26 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { AddressResponseDTO } from 'src/domain/DTO/address/AddressResponseDTO'
+import { UserDetailsDTO } from 'src/domain/DTO/userDetails/UserDetailsDTO'
 
 export interface UserDetailsState {
-  userAddress: AddressResponseDTO | null
+  userDetails: UserDetailsDTO | null
 }
 
-type PayloadUserAddress = PayloadAction<AddressResponseDTO>
+type PayloadUserDetails = PayloadAction<UserDetailsDTO>
 
 const initialState: UserDetailsState = {
-  userAddress: null
+  userDetails: null
 }
 
 export const userDetailsSlice = createSlice({
   name: 'userDetails',
   initialState,
   reducers: {
-    loadUserAddress: (state: UserDetailsState, action: PayloadUserAddress) => {
-      state.userAddress = action.payload
+    loadUserInfo: (state: UserDetailsState, action: PayloadUserDetails) => {
+      state.userDetails = action.payload
     }
   }
 })
 
-export const { loadUserAddress } = userDetailsSlice.actions
+export const { loadUserInfo } = userDetailsSlice.actions
 
 export default userDetailsSlice.reducer

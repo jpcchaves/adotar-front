@@ -1,25 +1,19 @@
 import { Button, CardContent, Grid } from '@mui/material'
 import { FormikValues } from 'formik'
-import { useEffect } from 'react'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
-import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
+import { GenerateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import useGetSelectedCities from 'src/views/modules/pets/components/formSteps/hooks/useGetSelectedCities'
 import { clearCityInput } from 'src/views/modules/pets/components/formSteps/utils/clearCityInput'
 import { useGetStatesData } from 'src/views/modules/pets/data/geolocation/states'
 
 interface IProps {
   validation: FormikValues
-  getUserAddress: () => void
 }
 
-const ThirdTabContent = ({ validation, getUserAddress }: IProps) => {
+const ThirdTabContent = ({ validation }: IProps) => {
   const { selectedCities } = useGetSelectedCities({ validation })
   const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
-
-  useEffect(() => {
-    getUserAddress()
-  }, [])
 
   return (
     <form
@@ -72,7 +66,7 @@ const ThirdTabContent = ({ validation, getUserAddress }: IProps) => {
               onBlur={validation.handleBlur}
               inputLabel='Cidade'
               isRequired
-              menuItems={generateCitiesMenuItems(selectedCities)}
+              menuItems={GenerateCitiesMenuItems(selectedCities)}
               disabled={!validation.values.zipcode || !validation.values.state}
             />
           </Grid>
