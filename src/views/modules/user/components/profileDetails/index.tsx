@@ -62,21 +62,21 @@ const ProfileDetails = () => {
   })
 
   const thirdTabValidation = useFormik({
-    enableReinitialize: false,
+    enableReinitialize: true,
     initialValues: {
-      zipcode: userDetails ? userDetails?.address?.zipcode : '',
+      zipcode: userDetails?.address ? userDetails.address.zipcode : '',
       state: {
-        value: userDetails ? userDetails?.address?.state : '',
-        label: userDetails ? userDetails?.address?.stateName : ''
+        value: userDetails?.address ? userDetails?.address?.state : '',
+        label: userDetails?.address ? userDetails?.address?.stateName : ''
       },
       city: {
-        value: userDetails ? userDetails?.address?.city : '',
-        label: userDetails ? userDetails?.address?.cityName : ''
+        value: userDetails?.address ? userDetails?.address?.city : '',
+        label: userDetails?.address ? userDetails?.address?.cityName : ''
       },
-      neighborhood: userDetails ? userDetails?.address?.neighborhood : '',
-      street: userDetails ? userDetails?.address?.street : '',
-      number: userDetails ? userDetails?.address?.number : '',
-      complement: userDetails ? userDetails?.address?.complement : ''
+      neighborhood: userDetails?.address ? userDetails?.address?.neighborhood : '',
+      street: userDetails?.address ? userDetails?.address?.street : '',
+      number: userDetails?.address ? userDetails?.address?.number : '',
+      complement: userDetails?.address ? userDetails?.address?.complement : ''
     },
     validationSchema: addressValidationSchema,
     onSubmit: values => {
