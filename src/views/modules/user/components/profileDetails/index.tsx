@@ -12,6 +12,8 @@ import Grid from '@mui/material/Grid'
 import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
 import { useEffect } from 'react'
+import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
+import { useAppSelector } from 'src/hooks/useRedux'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
 import useUserDetails from '../../hooks/useUserDetails'
@@ -26,6 +28,7 @@ import SecondsTabContent from '../profileTabs/secondTabContent'
 import ThirdTabContent from '../profileTabs/thirdTabContent'
 
 const ProfileDetails = () => {
+  const { userDetails } = useAppSelector(state => state.userDetails)
   const { activeTabIndex, handleChange } = useHandleTabChange()
 
   const handleFileChange = (file: File) => {
@@ -35,9 +38,9 @@ const ProfileDetails = () => {
   const firstTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: ''
+      firstName: userDetails ? userDetails?.firstName : '',
+      lastName: userDetails ? userDetails?.lastName : '',
+      email: userDetails ? userDetails?.email : ''
     },
     validationSchema: updateUserBasicInfoValidation,
     onSubmit: values => {
@@ -59,37 +62,63 @@ const ProfileDetails = () => {
   })
 
   const thirdTabValidation = useFormik({
-    enableReinitialize: false,
+    enableReinitialize: true,
     initialValues: {
-      zipcode: '',
-      state: { value: '', label: '' },
-      city: { value: '', label: '' },
-      neighborhood: '',
-      street: '',
-      number: '',
-      complement: ''
+      zipcode: userDetails?.address ? userDetails.address.zipcode : '',
+      state: {
+        value: userDetails?.address ? userDetails?.address?.state : '',
+        label: userDetails?.address ? userDetails?.address?.stateName : ''
+      },
+      city: {
+        value: userDetails?.address ? userDetails?.address?.city : '',
+        label: userDetails?.address ? userDetails?.address?.cityName : ''
+      },
+      neighborhood: userDetails?.address ? userDetails?.address?.neighborhood : '',
+      street: userDetails?.address ? userDetails?.address?.street : '',
+      number: userDetails?.address ? userDetails?.address?.number : '',
+      complement: userDetails?.address ? userDetails?.address?.complement : ''
     },
     validationSchema: addressValidationSchema,
-    onSubmit: values => console.log(values)
+    onSubmit: values => {
+      const valuesToSubmit: AddressRequestDTO = {
+        zipcode: values.zipcode!,
+        street: values.street!,
+        number: values.number!,
+        complement: values.complement!,
+        neighborhood: values.neighborhood!,
+        cityIbge: values.city.value!
+      }
+
+      if (userDetails?.address) {
+        if (thirdTabFormHasChanged) {
+          updateUserAddress(valuesToSubmit)
+        }
+      } else {
+        createUserAddress(valuesToSubmit)
+      }
+    }
   })
+
+  const thirdTabFormHasChanged = thirdTabValidation.dirty
 
   const fourthTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      phone1: '',
-      phone2: '',
-      phone3: ''
+      phone1: userDetails ? userDetails?.contact?.phone1 : '',
+      phone2: userDetails ? userDetails?.contact?.phone2 : '',
+      phone3: userDetails ? userDetails?.contact?.phone3 : ''
     },
     onSubmit: values => console.log(values)
   })
 
-  const { updateUserPassword, getUserAddress } = useUserDetails({
+  const { updateUserPassword, getUserDetails, updateUserAddress, createUserAddress } = useUserDetails({
     secondTabValidation,
     thirdTabValidation
   })
 
   useEffect(() => {
-    getUserAddress()
+    getUserDetails()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -127,7 +156,7 @@ const ProfileDetails = () => {
               <SecondsTabContent validation={secondTabValidation} />
             </TabPanel>
             <TabPanel value='3'>
-              <ThirdTabContent validation={thirdTabValidation} getUserAddress={getUserAddress} />
+              <ThirdTabContent validation={thirdTabValidation} />
             </TabPanel>
             <TabPanel value='4'>
               <FourthTabContent validation={fourthTabValidation} />
