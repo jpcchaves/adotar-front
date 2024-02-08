@@ -4,5 +4,5 @@ export type AddressRequestDTO = {
   number: string
   complement: string
   neighborhood: string
-  cityIbge: number
+  cityIbge: string
 }

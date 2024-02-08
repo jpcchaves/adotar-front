@@ -127,7 +127,7 @@ const ThirdTabContent = ({ validation }: IProps) => {
               Cancelar
             </Button>
 
-            <Button variant='contained' disabled={isSubmitButtonDisabled}>
+            <Button variant='contained' type='submit' disabled={isSubmitButtonDisabled}>
               Salvar
             </Button>
           </Grid>

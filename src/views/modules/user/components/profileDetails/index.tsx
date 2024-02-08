@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid'
 import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
 import { useEffect } from 'react'
+import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
@@ -63,35 +64,54 @@ const ProfileDetails = () => {
   const thirdTabValidation = useFormik({
     enableReinitialize: false,
     initialValues: {
-      zipcode: userDetails ? userDetails?.address.zipcode : '',
+      zipcode: userDetails ? userDetails?.address?.zipcode : '',
       state: {
-        value: userDetails ? userDetails?.address.state : '',
-        label: userDetails ? userDetails?.address.stateName : ''
+        value: userDetails ? userDetails?.address?.state : '',
+        label: userDetails ? userDetails?.address?.stateName : ''
       },
       city: {
-        value: userDetails ? userDetails?.address.city : '',
-        label: userDetails ? userDetails?.address.cityName : ''
+        value: userDetails ? userDetails?.address?.city : '',
+        label: userDetails ? userDetails?.address?.cityName : ''
       },
-      neighborhood: userDetails ? userDetails?.address.neighborhood : '',
-      street: userDetails ? userDetails?.address.street : '',
-      number: userDetails ? userDetails?.address.number : '',
-      complement: userDetails ? userDetails?.address.complement : ''
+      neighborhood: userDetails ? userDetails?.address?.neighborhood : '',
+      street: userDetails ? userDetails?.address?.street : '',
+      number: userDetails ? userDetails?.address?.number : '',
+      complement: userDetails ? userDetails?.address?.complement : ''
     },
     validationSchema: addressValidationSchema,
-    onSubmit: values => console.log(values)
+    onSubmit: values => {
+      const valuesToSubmit: AddressRequestDTO = {
+        zipcode: values.zipcode!,
+        street: values.street!,
+        number: values.number!,
+        complement: values.complement!,
+        neighborhood: values.neighborhood!,
+        cityIbge: values.city.value!
+      }
+
+      if (userDetails?.address) {
+        if (thirdTabFormHasChanged) {
+          updateUserAddress(valuesToSubmit)
+        }
+      } else {
+        createUserAddress(valuesToSubmit)
+      }
+    }
   })
+
+  const thirdTabFormHasChanged = thirdTabValidation.dirty
 
   const fourthTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      phone1: userDetails ? userDetails?.contact.phone1 : '',
-      phone2: userDetails ? userDetails?.contact.phone2 : '',
-      phone3: userDetails ? userDetails?.contact.phone3 : ''
+      phone1: userDetails ? userDetails?.contact?.phone1 : '',
+      phone2: userDetails ? userDetails?.contact?.phone2 : '',
+      phone3: userDetails ? userDetails?.contact?.phone3 : ''
     },
     onSubmit: values => console.log(values)
   })
 
-  const { updateUserPassword, getUserDetails } = useUserDetails({
+  const { updateUserPassword, getUserDetails, updateUserAddress, createUserAddress } = useUserDetails({
     secondTabValidation,
     thirdTabValidation
   })

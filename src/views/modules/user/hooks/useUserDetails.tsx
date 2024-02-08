@@ -57,8 +57,8 @@ const useUserDetails = ({ secondTabValidation }: IProps) => {
 
     await userServiceImpl
       .updateUserAddress(requestDTO)
-      .then(res => {
-        toast.success(res.message)
+      .then(() => {
+        toast.success('Endereço atualizado com sucesso!')
       })
       .catch(err => {
         toast.error(err)

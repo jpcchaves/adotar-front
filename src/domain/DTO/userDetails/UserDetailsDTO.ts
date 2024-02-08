@@ -5,8 +5,8 @@ export type UserDetailsDTO = {
   username: string
   name: string
   email: string
-  contact: Contact
-  address: Address
+  contact: Contact | null
+  address: Address | null
   lastSeen: string
   updatedAt: string
   createdAt: string
