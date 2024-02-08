@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
+import { useEffect } from 'react'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
 import useUserDetails from '../../hooks/useUserDetails'
@@ -82,7 +83,14 @@ const ProfileDetails = () => {
     onSubmit: values => console.log(values)
   })
 
-  const { updateUserPassword } = useUserDetails({ secondTabValidation })
+  const { updateUserPassword, getUserAddress } = useUserDetails({
+    secondTabValidation,
+    thirdTabValidation
+  })
+
+  useEffect(() => {
+    getUserAddress()
+  }, [])
 
   return (
     <Grid container spacing={6}>
@@ -119,7 +127,7 @@ const ProfileDetails = () => {
               <SecondsTabContent validation={secondTabValidation} />
             </TabPanel>
             <TabPanel value='3'>
-              <ThirdTabContent validation={thirdTabValidation} />
+              <ThirdTabContent validation={thirdTabValidation} getUserAddress={getUserAddress} />
             </TabPanel>
             <TabPanel value='4'>
               <FourthTabContent validation={fourthTabValidation} />

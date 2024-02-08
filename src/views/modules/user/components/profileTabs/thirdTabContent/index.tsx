@@ -1,5 +1,6 @@
 import { Button, CardContent, Grid } from '@mui/material'
 import { FormikValues } from 'formik'
+import { useEffect } from 'react'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
 import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
@@ -9,11 +10,16 @@ import { useGetStatesData } from 'src/views/modules/pets/data/geolocation/states
 
 interface IProps {
   validation: FormikValues
+  getUserAddress: () => void
 }
 
-const ThirdTabContent = ({ validation }: IProps) => {
+const ThirdTabContent = ({ validation, getUserAddress }: IProps) => {
   const { selectedCities } = useGetSelectedCities({ validation })
   const { isSubmitButtonDisabled } = useDisableSubmitButton({ validation })
+
+  useEffect(() => {
+    getUserAddress()
+  }, [])
 
   return (
     <form
