@@ -93,4 +93,4 @@ class UserServiceImpl implements UserService {
   }
 }
 
-export const userService = new UserServiceImpl()
+export const userServiceImpl = new UserServiceImpl()
