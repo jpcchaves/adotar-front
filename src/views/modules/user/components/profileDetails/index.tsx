@@ -108,10 +108,27 @@ const ProfileDetails = () => {
       phone2: userDetails ? userDetails?.contact?.phone2 : '',
       phone3: userDetails ? userDetails?.contact?.phone3 : ''
     },
-    onSubmit: values => console.log(values)
+    onSubmit: values => {
+      if (userDetails?.contact) {
+        if (fourthTabFormHasChanged) {
+          updateUserContact(values)
+        }
+      } else {
+        createUserContact(values)
+      }
+    }
   })
 
-  const { updateUserPassword, getUserDetails, updateUserAddress, createUserAddress } = useUserDetails({
+  const fourthTabFormHasChanged = fourthTabValidation.dirty
+
+  const {
+    updateUserPassword,
+    getUserDetails,
+    updateUserAddress,
+    createUserAddress,
+    createUserContact,
+    updateUserContact
+  } = useUserDetails({
     secondTabValidation,
     thirdTabValidation
   })
