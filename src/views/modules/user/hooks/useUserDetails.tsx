@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
 import { UpdatePasswordDTO } from 'src/domain/DTO/auth/UpdatePasswordDTO'
+import { ContactRequestDTO } from 'src/domain/DTO/contact/ContactRequestDTO'
 import useLoading from 'src/hooks/loading/useLoading'
 import { useAppDispatch } from 'src/hooks/useRedux'
 import { loadUserInfo } from 'src/store/user'
@@ -69,6 +70,40 @@ const useUserDetails = ({ secondTabValidation }: IProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const createUserContact = useCallback(async (requestDTO: ContactRequestDTO) => {
+    setLoading(true)
+
+    await userServiceImpl
+      .createUserContact(requestDTO)
+      .then(() => {
+        toast.success('Contato criado com sucesso!')
+      })
+      .catch(err => {
+        toast.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const updateUserContact = useCallback(async (requestDTO: ContactRequestDTO) => {
+    setLoading(true)
+
+    await userServiceImpl
+      .updateUserContact(requestDTO)
+      .then(() => {
+        toast.success('Contato atualizado com sucesso!')
+      })
+      .catch(err => {
+        toast.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const getUserDetails = useCallback(async () => {
     setLoading(true)
 
@@ -83,7 +118,15 @@ const useUserDetails = ({ secondTabValidation }: IProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { updateUserPassword, createUserAddress, updateUserAddress, getUserDetails, isLoading }
+  return {
+    updateUserPassword,
+    createUserAddress,
+    updateUserAddress,
+    createUserContact,
+    updateUserContact,
+    getUserDetails,
+    isLoading
+  }
 }
 
 export default useUserDetails
