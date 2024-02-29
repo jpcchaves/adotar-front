@@ -13,6 +13,7 @@ import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
 import { useEffect } from 'react'
 import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
+import { UpdateUserNameDTO } from 'src/domain/DTO/userDetails/UpdateUserNameDTO'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
@@ -44,7 +45,12 @@ const ProfileDetails = () => {
     },
     validationSchema: updateUserBasicInfoValidation,
     onSubmit: values => {
-      console.log(values)
+      const valuesToSubmit: UpdateUserNameDTO = {
+        firstName: values.firstName,
+        lastName: values.lastName
+      }
+
+      updateUserName(valuesToSubmit)
     }
   })
 
@@ -127,7 +133,8 @@ const ProfileDetails = () => {
     updateUserAddress,
     createUserAddress,
     createUserContact,
-    updateUserContact
+    updateUserContact,
+    updateUserName
   } = useUserDetails({
     secondTabValidation,
     thirdTabValidation
