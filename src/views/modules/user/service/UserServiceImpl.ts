@@ -1,6 +1,7 @@
 import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
 import { UpdatePasswordDTO } from 'src/domain/DTO/auth/UpdatePasswordDTO'
 import { ContactRequestDTO } from 'src/domain/DTO/contact/ContactRequestDTO'
+import { UpdateUserNameDTO } from 'src/domain/DTO/userDetails/UpdateUserNameDTO'
 import { UserDetailsDTO } from 'src/domain/DTO/userDetails/UserDetailsDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { HttpMethod, httpRequest } from 'src/utils/http'
@@ -58,6 +59,18 @@ class UserServiceImpl implements UserService {
   updateUserContact = (requestDTO: ContactRequestDTO): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
       httpRequest<ContactRequestDTO, ApiMessageResponse>(HttpMethod.PUT, '/v1/contacts', requestDTO)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  updateUserName = (requestDTO: UpdateUserNameDTO): Promise<ApiMessageResponse> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<UpdateUserNameDTO, ApiMessageResponse>(HttpMethod.PATCH, '/v1/users/update-name', requestDTO)
         .then(res => {
           resolve(res)
         })
