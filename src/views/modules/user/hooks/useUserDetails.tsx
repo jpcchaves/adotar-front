@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
 import { UpdatePasswordDTO } from 'src/domain/DTO/auth/UpdatePasswordDTO'
 import { ContactRequestDTO } from 'src/domain/DTO/contact/ContactRequestDTO'
+import { UpdateUserNameDTO } from 'src/domain/DTO/userDetails/UpdateUserNameDTO'
 import useLoading from 'src/hooks/loading/useLoading'
 import { useAppDispatch } from 'src/hooks/useRedux'
 import { loadUserInfo } from 'src/store/user'
@@ -104,6 +105,23 @@ const useUserDetails = ({ secondTabValidation }: IProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const updateUserName = useCallback(async (requestDTO: UpdateUserNameDTO) => {
+    setLoading(true)
+
+    await userServiceImpl
+      .updateUserName(requestDTO)
+      .then(res => {
+        toast.success(res.message)
+      })
+      .catch(err => {
+        toast.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const getUserDetails = useCallback(async () => {
     setLoading(true)
 
@@ -124,6 +142,7 @@ const useUserDetails = ({ secondTabValidation }: IProps) => {
     updateUserAddress,
     createUserContact,
     updateUserContact,
+    updateUserName,
     getUserDetails,
     isLoading
   }
