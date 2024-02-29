@@ -11,8 +11,13 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Tab from '@mui/material/Tab'
 import { useFormik } from 'formik'
+import { useEffect } from 'react'
+import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
+import { UpdateUserNameDTO } from 'src/domain/DTO/userDetails/UpdateUserNameDTO'
+import { useAppSelector } from 'src/hooks/useRedux'
 import { profileTabsData } from '../../data/profileTabsData'
 import useHandleTabChange from '../../hooks/useHandleTabChange'
+import useUserDetails from '../../hooks/useUserDetails'
 import { ProfileTabs } from '../../models/enum/ProfileTabs'
 import { addressValidationSchema } from '../../utils/validation/addressValidationSchema'
 import { updatePasswordValidation } from '../../utils/validation/updatePasswordValidation'
@@ -24,6 +29,7 @@ import SecondsTabContent from '../profileTabs/secondTabContent'
 import ThirdTabContent from '../profileTabs/thirdTabContent'
 
 const ProfileDetails = () => {
+  const { userDetails } = useAppSelector(state => state.userDetails)
   const { activeTabIndex, handleChange } = useHandleTabChange()
 
   const handleFileChange = (file: File) => {
@@ -33,13 +39,18 @@ const ProfileDetails = () => {
   const firstTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: ''
+      firstName: userDetails ? userDetails?.firstName : '',
+      lastName: userDetails ? userDetails?.lastName : '',
+      email: userDetails ? userDetails?.email : ''
     },
     validationSchema: updateUserBasicInfoValidation,
     onSubmit: values => {
-      console.log(values)
+      const valuesToSubmit: UpdateUserNameDTO = {
+        firstName: values.firstName,
+        lastName: values.lastName
+      }
+
+      updateUserName(valuesToSubmit)
     }
   })
 
@@ -52,34 +63,87 @@ const ProfileDetails = () => {
     },
     validationSchema: updatePasswordValidation,
     onSubmit: values => {
-      console.log(values)
+      updateUserPassword(values)
     }
   })
 
   const thirdTabValidation = useFormik({
-    enableReinitialize: false,
+    enableReinitialize: true,
     initialValues: {
-      zipcode: '',
-      state: { value: '', label: '' },
-      city: { value: '', label: '' },
-      neighborhood: '',
-      street: '',
-      number: '',
-      complement: ''
+      zipcode: userDetails?.address ? userDetails.address.zipcode : '',
+      state: {
+        value: userDetails?.address ? userDetails?.address?.state : '',
+        label: userDetails?.address ? userDetails?.address?.stateName : ''
+      },
+      city: {
+        value: userDetails?.address ? userDetails?.address?.city : '',
+        label: userDetails?.address ? userDetails?.address?.cityName : ''
+      },
+      neighborhood: userDetails?.address ? userDetails?.address?.neighborhood : '',
+      street: userDetails?.address ? userDetails?.address?.street : '',
+      number: userDetails?.address ? userDetails?.address?.number : '',
+      complement: userDetails?.address ? userDetails?.address?.complement : ''
     },
     validationSchema: addressValidationSchema,
-    onSubmit: values => console.log(values)
+    onSubmit: values => {
+      const valuesToSubmit: AddressRequestDTO = {
+        zipcode: values.zipcode!,
+        street: values.street!,
+        number: values.number!,
+        complement: values.complement!,
+        neighborhood: values.neighborhood!,
+        cityIbge: values.city.value!
+      }
+
+      if (userDetails?.address) {
+        if (thirdTabFormHasChanged) {
+          updateUserAddress(valuesToSubmit)
+        }
+      } else {
+        createUserAddress(valuesToSubmit)
+      }
+    }
   })
+
+  const thirdTabFormHasChanged = thirdTabValidation.dirty
 
   const fourthTabValidation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      phone1: '',
-      phone2: '',
-      phone3: ''
+      phone1: userDetails ? userDetails?.contact?.phone1 : '',
+      phone2: userDetails ? userDetails?.contact?.phone2 : '',
+      phone3: userDetails ? userDetails?.contact?.phone3 : ''
     },
-    onSubmit: values => console.log(values)
+    onSubmit: values => {
+      if (userDetails?.contact) {
+        if (fourthTabFormHasChanged) {
+          updateUserContact(values)
+        }
+      } else {
+        createUserContact(values)
+      }
+    }
   })
+
+  const fourthTabFormHasChanged = fourthTabValidation.dirty
+
+  const {
+    updateUserPassword,
+    getUserDetails,
+    updateUserAddress,
+    createUserAddress,
+    createUserContact,
+    updateUserContact,
+    updateUserName
+  } = useUserDetails({
+    secondTabValidation,
+    thirdTabValidation
+  })
+
+  useEffect(() => {
+    getUserDetails()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Grid container spacing={6}>

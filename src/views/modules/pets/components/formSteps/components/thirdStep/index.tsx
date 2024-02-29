@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import { FormikValues } from 'formik'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
-import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
+import { GenerateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import FormStepHeader from '../../../formStepHeader'
 import useGetSelectedCities from '../../hooks/useGetSelectedCities'
 import { clearCityInput } from '../../utils/clearCityInput'
@@ -63,7 +63,7 @@ const ThirdStep = ({ activeStep, validation }: IProps) => {
           onBlur={validation.handleBlur}
           inputLabel='Cidade'
           isRequired
-          menuItems={generateCitiesMenuItems(selectedCities)}
+          menuItems={GenerateCitiesMenuItems(selectedCities)}
           disabled={!validation.values.zipcode || !validation.values.state}
         />
       </Grid>

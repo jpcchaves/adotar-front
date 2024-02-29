@@ -2,7 +2,7 @@ import { Button, CardContent, Grid } from '@mui/material'
 import { FormikValues } from 'formik'
 import { SelectInput, TextInput, ZipcodeInput } from 'src/@core/components/inputs'
 import useDisableSubmitButton from 'src/hooks/useDisableSubmitButton/useDisableSubmitButton'
-import { generateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
+import { GenerateCitiesMenuItems } from 'src/utils/common/menuItems/generateMenuItems'
 import useGetSelectedCities from 'src/views/modules/pets/components/formSteps/hooks/useGetSelectedCities'
 import { clearCityInput } from 'src/views/modules/pets/components/formSteps/utils/clearCityInput'
 import { useGetStatesData } from 'src/views/modules/pets/data/geolocation/states'
@@ -66,7 +66,7 @@ const ThirdTabContent = ({ validation }: IProps) => {
               onBlur={validation.handleBlur}
               inputLabel='Cidade'
               isRequired
-              menuItems={generateCitiesMenuItems(selectedCities)}
+              menuItems={GenerateCitiesMenuItems(selectedCities)}
               disabled={!validation.values.zipcode || !validation.values.state}
             />
           </Grid>
@@ -127,7 +127,7 @@ const ThirdTabContent = ({ validation }: IProps) => {
               Cancelar
             </Button>
 
-            <Button variant='contained' disabled={isSubmitButtonDisabled}>
+            <Button variant='contained' type='submit' disabled={isSubmitButtonDisabled}>
               Salvar
             </Button>
           </Grid>

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { MenuItem } from 'src/@core/components/inputs/components/selectInput'
 
 export const generateMenuItems = (data: any): MenuItem[] => {
@@ -9,11 +10,11 @@ export const generateMenuItems = (data: any): MenuItem[] => {
   })
 }
 
-export const generateCitiesMenuItems = (data: any): MenuItem[] => {
-  return data.map((d: any) => {
-    return {
+export const GenerateCitiesMenuItems = (data: any): MenuItem[] => {
+  return useMemo(() => {
+    return data.map((d: any) => ({
       value: d.ibge,
       label: d.name
-    }
-  })
+    }))
+  }, [data])
 }

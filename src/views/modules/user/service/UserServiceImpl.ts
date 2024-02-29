@@ -1,8 +1,8 @@
 import { AddressRequestDTO } from 'src/domain/DTO/address/AddressRequestDTO'
-import { AddressResponseDTO } from 'src/domain/DTO/address/AddressResponseDTO'
 import { UpdatePasswordDTO } from 'src/domain/DTO/auth/UpdatePasswordDTO'
 import { ContactRequestDTO } from 'src/domain/DTO/contact/ContactRequestDTO'
-import { ContactResponseDTO } from 'src/domain/DTO/contact/ContactResponseDTO'
+import { UpdateUserNameDTO } from 'src/domain/DTO/userDetails/UpdateUserNameDTO'
+import { UserDetailsDTO } from 'src/domain/DTO/userDetails/UserDetailsDTO'
 import { ApiMessageResponse } from 'src/domain/models/ApiMessageResponse'
 import { HttpMethod, httpRequest } from 'src/utils/http'
 import { UserService } from './UserService'
@@ -44,18 +44,6 @@ class UserServiceImpl implements UserService {
     })
   }
 
-  getUserAddress = (): Promise<AddressResponseDTO> => {
-    return new Promise((resolve, reject) => {
-      httpRequest<void, AddressResponseDTO>(HttpMethod.GET, '/v1/addresses')
-        .then(res => {
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  }
-
   createUserContact = (requestDTO: ContactRequestDTO): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
       httpRequest<ContactRequestDTO, ApiMessageResponse>(HttpMethod.POST, '/v1/contacts', requestDTO)
@@ -80,9 +68,21 @@ class UserServiceImpl implements UserService {
     })
   }
 
-  getUserContact = (): Promise<ContactResponseDTO> => {
+  updateUserName = (requestDTO: UpdateUserNameDTO): Promise<ApiMessageResponse> => {
     return new Promise((resolve, reject) => {
-      httpRequest<void, ContactResponseDTO>(HttpMethod.GET, '/v1/contacts')
+      httpRequest<UpdateUserNameDTO, ApiMessageResponse>(HttpMethod.PATCH, '/v1/users/update-name', requestDTO)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  getUserDetails = (): Promise<UserDetailsDTO> => {
+    return new Promise((resolve, reject) => {
+      httpRequest<void, UserDetailsDTO>(HttpMethod.GET, '/v1/users')
         .then(res => {
           resolve(res)
         })
@@ -93,4 +93,4 @@ class UserServiceImpl implements UserService {
   }
 }
 
-export const userService = new UserServiceImpl()
+export const userServiceImpl = new UserServiceImpl()
